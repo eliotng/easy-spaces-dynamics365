@@ -59,12 +59,22 @@ easy-spaces-dynamics365/
 3. Windows PowerShell 5.1+
 
 ### Deployment
+
+**Recommended: Web-Based Manual Deployment**
 1. Clone this repository
-2. Run the deployment script:
-   ```powershell
-   .\scripts\Deploy-EasySpaces.ps1 -EnvironmentUrl "https://yourorg.crm.dynamics.com" -UseInteractiveAuth
-   ```
-3. Follow the detailed instructions in [DEPLOYMENT_GUIDE.md](DEPLOYMENT_GUIDE.md)
+2. Follow the step-by-step guide in [DEPLOYMENT_GUIDE.md](DEPLOYMENT_GUIDE.md)
+3. Use the Power Apps web interface for creating entities and importing apps
+
+**Alternative: Automated Script**
+```bash
+# Bash script (works in Linux/WSL)
+./scripts/deploy-easy-spaces.sh
+
+# PowerShell script (may have compatibility issues)
+.\scripts\Deploy-EasySpaces-Simple.ps1 -EnvironmentUrl "https://yourorg.crm.dynamics.com" -UseInteractiveAuth
+```
+
+**Note**: Due to API serialization issues with PowerShell modules, manual deployment through the web interface is more reliable.
 
 ## Technology Stack
 
