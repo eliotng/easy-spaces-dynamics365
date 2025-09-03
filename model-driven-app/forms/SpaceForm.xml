@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FormXml>
+  <forms type="main">
+    <systemform>
+      <formid>{00000000-0000-0000-0000-000000000001}</formid>
+      <IntroducedVersion>1.0.0.0</IntroducedVersion>
+      <FormPresentation>1</FormPresentation>
+      <FormActivationState>1</FormActivationState>
+      <form>
+        <tabs>
+          <tab name="general" id="{00000000-0000-0000-0000-000000000011}" IsUserDefined="0" locklevel="0" showlabel="true" expanded="true">
+            <labels>
+              <label description="General" languagecode="1033"/>
+            </labels>
+            <columns>
+              <column width="50%">
+                <sections>
+                  <section name="general_section_1" showlabel="false" showbar="false" id="{00000000-0000-0000-0000-000000000012}">
+                    <rows>
+                      <row>
+                        <cell id="{00000000-0000-0000-0000-000000000013}">
+                          <labels>
+                            <label description="Space Name" languagecode="1033"/>
+                          </labels>
+                          <control id="es_name" classid="{4273EDBD-AC1D-40D3-9FB2-095C621B552D}" datafieldname="es_name" disabled="false"/>
+                        </cell>
+                      </row>
+                      <row>
+                        <cell id="{00000000-0000-0000-0000-000000000014}">
+                          <labels>
+                            <label description="Type" languagecode="1033"/>
+                          </labels>
+                          <control id="es_type" classid="{B0C6723A-8503-4FD7-BB28-C8A06AC933C2}" datafieldname="es_type" disabled="false"/>
+                        </cell>
+                      </row>
+                      <row>
+                        <cell id="{00000000-0000-0000-0000-000000000015}">
+                          <labels>
+                            <label description="Category" languagecode="1033"/>
+                          </labels>
+                          <control id="es_category" classid="{B0C6723A-8503-4FD7-BB28-C8A06AC933C2}" datafieldname="es_category" disabled="false"/>
+                        </cell>
+                      </row>
+                      <row>
+                        <cell id="{00000000-0000-0000-0000-000000000016}">
+                          <labels>
+                            <label description="Market" languagecode="1033"/>
+                          </labels>
+                          <control id="es_marketid" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="es_marketid" disabled="false"/>
+                        </cell>
+                      </row>
+                    </rows>
+                  </section>
+                </sections>
+              </column>
+              <column width="50%">
+                <sections>
+                  <section name="general_section_2" showlabel="false" showbar="false" id="{00000000-0000-0000-0000-000000000017}">
+                    <rows>
+                      <row>
+                        <cell id="{00000000-0000-0000-0000-000000000018}">
+                          <labels>
+                            <label description="Minimum Capacity" languagecode="1033"/>
+                          </labels>
+                          <control id="es_minimumcapacity" classid="{C6D124CA-7EDA-4A60-AEA9-7FB8D318B68F}" datafieldname="es_minimumcapacity" disabled="false"/>
+                        </cell>
+                      </row>
+                      <row>
+                        <cell id="{00000000-0000-0000-0000-000000000019}">
+                          <labels>
+                            <label description="Maximum Capacity" languagecode="1033"/>
+                          </labels>
+                          <control id="es_maximumcapacity" classid="{C6D124CA-7EDA-4A60-AEA9-7FB8D318B68F}" datafieldname="es_maximumcapacity" disabled="false"/>
+                        </cell>
+                      </row>
+                      <row>
+                        <cell id="{00000000-0000-0000-0000-000000000020}">
+                          <labels>
+                            <label description="Daily Booking Rate" languagecode="1033"/>
+                          </labels>
+                          <control id="es_dailybookingrate" classid="{533B9E00-756B-4312-95A0-DC888637AC78}" datafieldname="es_dailybookingrate" disabled="false"/>
+                        </cell>
+                      </row>
+                      <row>
+                        <cell id="{00000000-0000-0000-0000-000000000021}">
+                          <labels>
+                            <label description="Picture URL" languagecode="1033"/>
+                          </labels>
+                          <control id="es_pictureurl" classid="{4273EDBD-AC1D-40D3-9FB2-095C621B552D}" datafieldname="es_pictureurl" disabled="false"/>
+                        </cell>
+                      </row>
+                    </rows>
+                  </section>
+                </sections>
+              </column>
+            </columns>
+          </tab>
+          
+          <tab name="analytics" id="{00000000-0000-0000-0000-000000000022}" IsUserDefined="0" locklevel="0" showlabel="true" expanded="true">
+            <labels>
+              <label description="Analytics & Predictions" languagecode="1033"/>
+            </labels>
+            <columns>
+              <column width="100%">
+                <sections>
+                  <section name="analytics_section" showlabel="true" showbar="true" id="{00000000-0000-0000-0000-000000000023}">
+                    <labels>
+                      <label description="AI Predictions" languagecode="1033"/>
+                    </labels>
+                    <rows>
+                      <row>
+                        <cell id="{00000000-0000-0000-0000-000000000024}" colspan="2">
+                          <labels>
+                            <label description="Predicted Demand" languagecode="1033"/>
+                          </labels>
+                          <control id="es_predicteddemand" classid="{B0C6723A-8503-4FD7-BB28-C8A06AC933C2}" datafieldname="es_predicteddemand" disabled="true"/>
+                        </cell>
+                      </row>
+                      <row>
+                        <cell id="{00000000-0000-0000-0000-000000000025}" colspan="2">
+                          <labels>
+                            <label description="Predicted Booking Rate (%)" languagecode="1033"/>
+                          </labels>
+                          <control id="es_predictedbookingrate" classid="{C6D124CA-7EDA-4A60-AEA9-7FB8D318B68F}" datafieldname="es_predictedbookingrate" disabled="true"/>
+                        </cell>
+                      </row>
+                    </rows>
+                  </section>
+                </sections>
+              </column>
+            </columns>
+          </tab>
+          
+          <tab name="reservations" id="{00000000-0000-0000-0000-000000000026}" IsUserDefined="0" locklevel="0" showlabel="true" expanded="true">
+            <labels>
+              <label description="Reservations" languagecode="1033"/>
+            </labels>
+            <columns>
+              <column width="100%">
+                <sections>
+                  <section name="reservations_section" showlabel="false" showbar="false" id="{00000000-0000-0000-0000-000000000027}">
+                    <rows>
+                      <row>
+                        <cell id="{00000000-0000-0000-0000-000000000028}" colspan="2">
+                          <labels>
+                            <label description="Reservations" languagecode="1033"/>
+                          </labels>
+                          <control id="reservations_subgrid" classid="{E7A81278-8635-4D9E-8D4D-59480B391C5B}">
+                            <parameters>
+                              <TargetEntityType>es_reservation</TargetEntityType>
+                              <ViewId>{00000000-0000-0000-00AA-000010001002}</ViewId>
+                              <RelationshipName>es_space_reservations</RelationshipName>
+                              <EnableViewPicker>true</EnableViewPicker>
+                              <EnableQuickFind>true</EnableQuickFind>
+                              <AutoExpand>Fixed</AutoExpand>
+                              <RecordsPerPage>10</RecordsPerPage>
+                            </parameters>
+                          </control>
+                        </cell>
+                      </row>
+                    </rows>
+                  </section>
+                </sections>
+              </column>
+            </columns>
+          </tab>
+        </tabs>
+      </form>
+    </systemform>
+  </forms>
+</FormXml>

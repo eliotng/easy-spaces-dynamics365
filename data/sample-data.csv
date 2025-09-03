@@ -1,0 +1,33 @@
+Entity,Name,City,State,Country,Type,Category,MinCapacity,MaxCapacity,DailyRate,MarketName,PictureURL
+Market,San Francisco,San Francisco,CA,USA,,,,,,,
+Market,New York,New York,NY,USA,,,,,,,
+Market,Chicago,Chicago,IL,USA,,,,,,,
+Market,Los Angeles,Los Angeles,CA,USA,,,,,,,
+Market,Seattle,Seattle,WA,USA,,,,,,,
+Market,Boston,Boston,MA,USA,,,,,,,
+Market,Austin,Austin,TX,USA,,,,,,,
+Market,Denver,Denver,CO,USA,,,,,,,
+Space,Starlight Gallery,,,,Gallery,Indoor,10,100,1500,San Francisco,https://images.unsplash.com/photo-1565538420870-da08ff96a207
+Space,Urban Rooftop,,,,Rooftop,Outdoor,20,150,2000,San Francisco,https://images.unsplash.com/photo-1514214460829-5f081763862a
+Space,Tech Hub,,,,Office,Indoor,5,50,800,San Francisco,https://images.unsplash.com/photo-1497366216548-37526070297c
+Space,Sunset Terrace,,,,Rooftop,Outdoor,15,80,1200,Los Angeles,https://images.unsplash.com/photo-1470075801209-17f9ec0cada6
+Space,Creative Studio,,,,Office,Indoor,10,40,600,Los Angeles,https://images.unsplash.com/photo-1527192491265-7e15c55b1ed2
+Space,Garden Oasis,,,,Café,Hybrid,8,60,900,Los Angeles,https://images.unsplash.com/photo-1554118811-1e0d58224f24
+Space,Manhattan Loft,,,,Warehouse,Indoor,30,200,2500,New York,https://images.unsplash.com/photo-1416453072034-c8dbfec6
+Space,Brooklyn Warehouse,,,,Warehouse,Indoor,50,300,3000,New York,https://images.unsplash.com/photo-1558618666-fcd25c85cd64
+Space,Central Park View,,,,Office,Indoor,10,75,1800,New York,https://images.unsplash.com/photo-1497366811353-6870744d04b2
+Space,Millennium Gallery,,,,Gallery,Indoor,15,120,1600,Chicago,https://images.unsplash.com/photo-1572947650440-e8a9ef053b28
+Space,Lakefront Pavilion,,,,Café,Hybrid,12,90,1100,Chicago,https://images.unsplash.com/photo-1445991842772-097aea5b46fa
+Space,Theater District,,,,Theater,Indoor,50,250,3500,Chicago,https://images.unsplash.com/photo-1503095396549-807759245b35
+Space,Pike Place Studio,,,,Office,Indoor,8,35,700,Seattle,https://images.unsplash.com/photo-1524634126442-357e0eac3c14
+Space,Waterfront Deck,,,,Rooftop,Outdoor,25,100,1400,Seattle,https://images.unsplash.com/photo-1464207687429-7505649dae38
+Space,Coffee Culture,,,,Café,Indoor,5,30,500,Seattle,https://images.unsplash.com/photo-1445116572660-236099ec97a0
+Space,Historic Hall,,,,Theater,Indoor,75,400,4000,Boston,https://images.unsplash.com/photo-1514933651103-005eec06c04b
+Space,Harbor View,,,,Office,Indoor,12,60,1000,Boston,https://images.unsplash.com/photo-1497366754035-f200968a6e72
+Space,Commons Area,,,,Café,Hybrid,10,70,850,Boston,https://images.unsplash.com/photo-1554118811-1e0d58224f24
+Space,Music Venue,,,,Theater,Indoor,100,500,5000,Austin,https://images.unsplash.com/photo-1501281668745-f7f57925b0e8
+Space,Food Truck Park,,,,Café,Outdoor,20,150,1300,Austin,https://images.unsplash.com/photo-1565299507177-b0ac66763828
+Space,Tech Campus,,,,Office,Indoor,15,80,1100,Austin,https://images.unsplash.com/photo-1497366216548-37526070297c
+Space,Mountain View Lodge,,,,Office,Hybrid,10,45,750,Denver,https://images.unsplash.com/photo-1462826303086-329426d1ade8
+Space,Downtown Loft,,,,Warehouse,Indoor,25,175,2200,Denver,https://images.unsplash.com/photo-1558618666-fcd25c85cd64
+Space,Brewery Space,,,,Café,Indoor,15,100,1500,Denver,https://images.unsplash.com/photo-1525610553991-2bede1a236e0

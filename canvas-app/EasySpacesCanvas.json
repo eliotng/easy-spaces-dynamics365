@@ -1,0 +1,500 @@
+{
+  "appInfo": {
+    "name": "Easy Spaces Canvas App",
+    "id": "es_easyspaces_canvasapp",
+    "version": "1.0.0",
+    "description": "Canvas app for Easy Spaces event management",
+    "theme": {
+      "primaryColor": "#1B5E20",
+      "secondaryColor": "#4CAF50",
+      "accentColor": "#FFC107",
+      "backgroundColor": "#FAFAFA",
+      "fontFamily": "Segoe UI"
+    }
+  },
+  "screens": [
+    {
+      "name": "HomeScreen",
+      "controls": [
+        {
+          "type": "Header",
+          "properties": {
+            "height": 80,
+            "backgroundColor": "#1B5E20",
+            "controls": [
+              {
+                "type": "Label",
+                "name": "lblAppTitle",
+                "properties": {
+                  "text": "Easy Spaces",
+                  "fontSize": 24,
+                  "fontWeight": "Bold",
+                  "color": "White",
+                  "x": 20,
+                  "y": 20
+                }
+              },
+              {
+                "type": "Button",
+                "name": "btnNewReservation",
+                "properties": {
+                  "text": "New Reservation",
+                  "onSelect": "Navigate(ReservationScreen)",
+                  "backgroundColor": "#4CAF50",
+                  "color": "White",
+                  "x": "Parent.Width - 180",
+                  "y": 20,
+                  "width": 160,
+                  "height": 40
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "Gallery",
+          "name": "galSpaces",
+          "properties": {
+            "items": "SortByColumns(Filter(Spaces, true), \"es_name\", Ascending)",
+            "templateHeight": 300,
+            "templateWidth": 350,
+            "layout": "Horizontal",
+            "y": 100,
+            "height": "Parent.Height - 100",
+            "width": "Parent.Width",
+            "templateFill": {
+              "controls": [
+                {
+                  "type": "Card",
+                  "properties": {
+                    "margin": 10,
+                    "padding": 15,
+                    "borderRadius": 8,
+                    "shadow": "0 2px 4px rgba(0,0,0,0.1)",
+                    "controls": [
+                      {
+                        "type": "Image",
+                        "name": "imgSpace",
+                        "properties": {
+                          "image": "ThisItem.es_pictureurl",
+                          "height": 150,
+                          "width": "Parent.Width - 30",
+                          "imageFit": "Cover"
+                        }
+                      },
+                      {
+                        "type": "Label",
+                        "name": "lblSpaceName",
+                        "properties": {
+                          "text": "ThisItem.es_name",
+                          "fontSize": 18,
+                          "fontWeight": "SemiBold",
+                          "y": 160
+                        }
+                      },
+                      {
+                        "type": "Label",
+                        "name": "lblSpaceType",
+                        "properties": {
+                          "text": "ThisItem.es_type",
+                          "fontSize": 14,
+                          "color": "#666",
+                          "y": 190
+                        }
+                      },
+                      {
+                        "type": "Label",
+                        "name": "lblCapacity",
+                        "properties": {
+                          "text": "Concatenate(\"Capacity: \", Text(ThisItem.es_minimumcapacity), \" - \", Text(ThisItem.es_maximumcapacity))",
+                          "fontSize": 12,
+                          "y": 215
+                        }
+                      },
+                      {
+                        "type": "Label",
+                        "name": "lblPrice",
+                        "properties": {
+                          "text": "Concatenate(\"$\", Text(ThisItem.es_dailybookingrate, \"[$-en-US]#,##0.00\"), \"/day\")",
+                          "fontSize": 16,
+                          "fontWeight": "Bold",
+                          "color": "#4CAF50",
+                          "y": 240
+                        }
+                      },
+                      {
+                        "type": "Button",
+                        "name": "btnViewSpace",
+                        "properties": {
+                          "text": "View Details",
+                          "onSelect": "Set(SelectedSpace, ThisItem); Navigate(SpaceDetailScreen)",
+                          "width": "Parent.Width - 30",
+                          "y": 270,
+                          "backgroundColor": "#1B5E20",
+                          "color": "White"
+                        }
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          }
+        }
+      ],
+      "onVisible": "ClearCollect(Spaces, 'Easy Spaces'.Spaces)"
+    },
+    {
+      "name": "SpaceDetailScreen",
+      "controls": [
+        {
+          "type": "Header",
+          "properties": {
+            "height": 80,
+            "backgroundColor": "#1B5E20",
+            "controls": [
+              {
+                "type": "Icon",
+                "name": "iconBack",
+                "properties": {
+                  "icon": "Back",
+                  "color": "White",
+                  "onSelect": "Back()",
+                  "x": 20,
+                  "y": 25,
+                  "size": 30
+                }
+              },
+              {
+                "type": "Label",
+                "name": "lblSpaceTitle",
+                "properties": {
+                  "text": "SelectedSpace.es_name",
+                  "fontSize": 20,
+                  "fontWeight": "Bold",
+                  "color": "White",
+                  "x": 70,
+                  "y": 25
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "Container",
+          "properties": {
+            "y": 80,
+            "height": "Parent.Height - 80",
+            "width": "Parent.Width",
+            "padding": 20,
+            "controls": [
+              {
+                "type": "Image",
+                "name": "imgSpaceDetail",
+                "properties": {
+                  "image": "SelectedSpace.es_pictureurl",
+                  "height": 300,
+                  "width": "Parent.Width - 40",
+                  "imageFit": "Cover",
+                  "borderRadius": 8
+                }
+              },
+              {
+                "type": "Label",
+                "name": "lblType",
+                "properties": {
+                  "text": "Concatenate(\"Type: \", SelectedSpace.es_type)",
+                  "y": 320,
+                  "fontSize": 16
+                }
+              },
+              {
+                "type": "Label",
+                "name": "lblCategory",
+                "properties": {
+                  "text": "Concatenate(\"Category: \", SelectedSpace.es_category)",
+                  "y": 350,
+                  "fontSize": 16
+                }
+              },
+              {
+                "type": "Label",
+                "name": "lblMarket",
+                "properties": {
+                  "text": "Concatenate(\"Market: \", SelectedSpace.es_marketid.es_name)",
+                  "y": 380,
+                  "fontSize": 16
+                }
+              },
+              {
+                "type": "Label",
+                "name": "lblCapacityDetail",
+                "properties": {
+                  "text": "Concatenate(\"Capacity: \", Text(SelectedSpace.es_minimumcapacity), \" - \", Text(SelectedSpace.es_maximumcapacity), \" guests\")",
+                  "y": 410,
+                  "fontSize": 16
+                }
+              },
+              {
+                "type": "Label",
+                "name": "lblDailyRate",
+                "properties": {
+                  "text": "Concatenate(\"Daily Rate: $\", Text(SelectedSpace.es_dailybookingrate, \"[$-en-US]#,##0.00\"))",
+                  "y": 440,
+                  "fontSize": 18,
+                  "fontWeight": "Bold",
+                  "color": "#4CAF50"
+                }
+              },
+              {
+                "type": "Button",
+                "name": "btnReserveSpace",
+                "properties": {
+                  "text": "Reserve This Space",
+                  "onSelect": "Set(ReservationSpace, SelectedSpace); Navigate(ReservationScreen)",
+                  "y": 480,
+                  "width": 200,
+                  "height": 50,
+                  "backgroundColor": "#4CAF50",
+                  "color": "White",
+                  "fontSize": 16
+                }
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "ReservationScreen",
+      "controls": [
+        {
+          "type": "Header",
+          "properties": {
+            "height": 80,
+            "backgroundColor": "#1B5E20",
+            "controls": [
+              {
+                "type": "Icon",
+                "name": "iconBack",
+                "properties": {
+                  "icon": "Back",
+                  "color": "White",
+                  "onSelect": "Back()",
+                  "x": 20,
+                  "y": 25,
+                  "size": 30
+                }
+              },
+              {
+                "type": "Label",
+                "name": "lblReservationTitle",
+                "properties": {
+                  "text": "Create Reservation",
+                  "fontSize": 20,
+                  "fontWeight": "Bold",
+                  "color": "White",
+                  "x": 70,
+                  "y": 25
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "Form",
+          "name": "frmReservation",
+          "properties": {
+            "dataSource": "'Easy Spaces'.Reservations",
+            "defaultMode": "FormMode.New",
+            "y": 80,
+            "height": "Parent.Height - 80",
+            "width": "Parent.Width",
+            "padding": 20,
+            "fields": [
+              {
+                "dataField": "es_name",
+                "displayName": "Reservation Name",
+                "required": true
+              },
+              {
+                "dataField": "es_spaceid",
+                "displayName": "Space",
+                "default": "ReservationSpace",
+                "required": true
+              },
+              {
+                "dataField": "es_startdate",
+                "displayName": "Start Date",
+                "required": true
+              },
+              {
+                "dataField": "es_enddate",
+                "displayName": "End Date",
+                "required": true
+              },
+              {
+                "dataField": "es_starttime",
+                "displayName": "Start Time"
+              },
+              {
+                "dataField": "es_endtime",
+                "displayName": "End Time"
+              },
+              {
+                "dataField": "es_totalnumberofguests",
+                "displayName": "Number of Guests",
+                "required": true
+              },
+              {
+                "dataField": "es_contactid",
+                "displayName": "Contact"
+              },
+              {
+                "dataField": "es_status",
+                "displayName": "Status",
+                "default": "Draft"
+              }
+            ],
+            "onSuccess": "Notify(\"Reservation created successfully!\", NotificationType.Success); Navigate(HomeScreen)",
+            "onFailure": "Notify(\"Error creating reservation: \" & frmReservation.Error, NotificationType.Error)"
+          }
+        },
+        {
+          "type": "Button",
+          "name": "btnSubmitReservation",
+          "properties": {
+            "text": "Submit Reservation",
+            "onSelect": "SubmitForm(frmReservation)",
+            "y": "Parent.Height - 80",
+            "x": "Parent.Width/2 - 100",
+            "width": 200,
+            "height": 50,
+            "backgroundColor": "#4CAF50",
+            "color": "White",
+            "fontSize": 16
+          }
+        }
+      ]
+    },
+    {
+      "name": "CustomerListScreen",
+      "controls": [
+        {
+          "type": "Header",
+          "properties": {
+            "height": 80,
+            "backgroundColor": "#1B5E20",
+            "controls": [
+              {
+                "type": "Label",
+                "name": "lblCustomerTitle",
+                "properties": {
+                  "text": "Customers",
+                  "fontSize": 24,
+                  "fontWeight": "Bold",
+                  "color": "White",
+                  "x": 20,
+                  "y": 20
+                }
+              },
+              {
+                "type": "Dropdown",
+                "name": "ddCustomerType",
+                "properties": {
+                  "items": "[\"Contacts\", \"Leads\"]",
+                  "default": "Contacts",
+                  "onSelect": "If(ddCustomerType.Selected.Value = \"Contacts\", ClearCollect(CustomerData, Contacts), ClearCollect(CustomerData, Leads))",
+                  "x": "Parent.Width - 200",
+                  "y": 20,
+                  "width": 180,
+                  "height": 40
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "Gallery",
+          "name": "galCustomers",
+          "properties": {
+            "items": "CustomerData",
+            "templateHeight": 100,
+            "layout": "Vertical",
+            "y": 100,
+            "height": "Parent.Height - 100",
+            "width": "Parent.Width",
+            "templateFill": {
+              "controls": [
+                {
+                  "type": "Container",
+                  "properties": {
+                    "padding": 15,
+                    "borderBottom": "1px solid #E0E0E0",
+                    "controls": [
+                      {
+                        "type": "Label",
+                        "name": "lblCustomerName",
+                        "properties": {
+                          "text": "If(ddCustomerType.Selected.Value = \"Contacts\", ThisItem.fullname, ThisItem.fullname)",
+                          "fontSize": 16,
+                          "fontWeight": "SemiBold"
+                        }
+                      },
+                      {
+                        "type": "Label",
+                        "name": "lblCustomerEmail",
+                        "properties": {
+                          "text": "ThisItem.emailaddress1",
+                          "fontSize": 14,
+                          "color": "#666",
+                          "y": 25
+                        }
+                      },
+                      {
+                        "type": "Label",
+                        "name": "lblCustomerCompany",
+                        "properties": {
+                          "text": "If(ddCustomerType.Selected.Value = \"Contacts\", ThisItem.parentcustomerid.name, ThisItem.companyname)",
+                          "fontSize": 14,
+                          "color": "#666",
+                          "y": 50
+                        }
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          }
+        }
+      ],
+      "onVisible": "ClearCollect(CustomerData, Contacts)"
+    }
+  ],
+  "formulas": {
+    "app": {
+      "onStart": [
+        "Set(CurrentUser, User())",
+        "Set(Today, Today())",
+        "ClearCollect(Markets, 'Easy Spaces'.Markets)",
+        "ClearCollect(Spaces, 'Easy Spaces'.Spaces)",
+        "ClearCollect(Reservations, Filter('Easy Spaces'.Reservations, Owner = CurrentUser))"
+      ]
+    }
+  },
+  "connections": [
+    {
+      "name": "Easy Spaces",
+      "type": "Dataverse",
+      "entities": [
+        "es_market",
+        "es_space",
+        "es_reservation",
+        "contact",
+        "lead",
+        "account"
+      ]
+    }
+  ]
+}

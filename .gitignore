@@ -1,0 +1,61 @@
+# Build outputs
+*.dll
+*.exe
+*.pdb
+bin/
+obj/
+
+# Package files
+*.nupkg
+*.snupkg
+packages/
+
+# User-specific files
+*.user
+*.userosscache
+*.sln.docstates
+.vs/
+.vscode/
+
+# Windows
+Thumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Temporary files
+*.tmp
+*.temp
+*.log
+*.cache
+~$*
+
+# Power Platform
+*.zip
+exported/
+backup/
+*.bak
+
+# Credentials and secrets
+*.key
+*.pfx
+*.cer
+secrets.json
+appsettings.local.json
+
+# Node modules (if using PCF controls)
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# Solution packager output
+ExtractedSolution/
+ManagedSolution/
+
+# Local environment files
+.env
+.env.local

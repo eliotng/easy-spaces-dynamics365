@@ -1,0 +1,160 @@
+{
+  "name": "Easy Spaces - Predictive Demand Analysis",
+  "description": "Analyzes reservation patterns and updates predictive demand metrics",
+  "trigger": {
+    "type": "Recurrence",
+    "inputs": {
+      "frequency": "Day",
+      "interval": 1,
+      "startTime": "2024-01-01T02:00:00Z",
+      "timeZone": "UTC"
+    }
+  },
+  "actions": [
+    {
+      "name": "Get_All_Spaces",
+      "type": "List_records",
+      "inputs": {
+        "dataset": "current_environment",
+        "table": "es_spaces",
+        "select": "es_spaceid,es_name,es_marketid,es_dailybookingrate"
+      }
+    },
+    {
+      "name": "Apply_to_each_space",
+      "type": "Apply_to_each",
+      "inputs": {
+        "items": "@outputs('Get_All_Spaces')?['body/value']"
+      },
+      "actions": [
+        {
+          "name": "Get_Recent_Reservations",
+          "type": "List_records",
+          "inputs": {
+            "dataset": "current_environment",
+            "table": "es_reservations",
+            "filter": "es_spaceid eq '@{items('Apply_to_each_space')?['es_spaceid']}' and es_status eq 100000002 and es_startdate ge @{addDays(utcNow(), -30)}",
+            "comment": "Get confirmed reservations from last 30 days"
+          }
+        },
+        {
+          "name": "Calculate_Booking_Rate",
+          "type": "Compose",
+          "inputs": {
+            "bookingRate": "@div(mul(length(outputs('Get_Recent_Reservations')?['body/value']), 100), 30)",
+            "comment": "Calculate percentage of days booked"
+          }
+        },
+        {
+          "name": "Determine_Demand_Level",
+          "type": "Switch",
+          "inputs": {
+            "on": "@outputs('Calculate_Booking_Rate')?['bookingRate']"
+          },
+          "cases": {
+            "High": {
+              "case": "@greater(outputs('Calculate_Booking_Rate')?['bookingRate'], 70)",
+              "actions": [
+                {
+                  "name": "Set_High_Demand",
+                  "type": "Compose",
+                  "inputs": {
+                    "demandLevel": 100000002,
+                    "comment": "High demand"
+                  }
+                }
+              ]
+            },
+            "Medium": {
+              "case": "@and(greater(outputs('Calculate_Booking_Rate')?['bookingRate'], 30), lessOrEquals(outputs('Calculate_Booking_Rate')?['bookingRate'], 70))",
+              "actions": [
+                {
+                  "name": "Set_Medium_Demand",
+                  "type": "Compose",
+                  "inputs": {
+                    "demandLevel": 100000001,
+                    "comment": "Medium demand"
+                  }
+                }
+              ]
+            }
+          },
+          "default": {
+            "actions": [
+              {
+                "name": "Set_Low_Demand",
+                "type": "Compose",
+                "inputs": {
+                  "demandLevel": 100000000,
+                  "comment": "Low demand"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "name": "Update_Space_Predictions",
+          "type": "Update_a_record",
+          "inputs": {
+            "dataset": "current_environment",
+            "table": "es_spaces",
+            "id": "@items('Apply_to_each_space')?['es_spaceid']",
+            "item": {
+              "es_predictedbookingrate": "@outputs('Calculate_Booking_Rate')?['bookingRate']",
+              "es_predicteddemand": "@coalesce(outputs('Set_High_Demand')?['demandLevel'], outputs('Set_Medium_Demand')?['demandLevel'], outputs('Set_Low_Demand')?['demandLevel'])"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Get_All_Markets",
+      "type": "List_records",
+      "inputs": {
+        "dataset": "current_environment",
+        "table": "es_markets",
+        "select": "es_marketid,es_name"
+      }
+    },
+    {
+      "name": "Apply_to_each_market",
+      "type": "Apply_to_each",
+      "inputs": {
+        "items": "@outputs('Get_All_Markets')?['body/value']"
+      },
+      "actions": [
+        {
+          "name": "Get_Market_Spaces",
+          "type": "List_records",
+          "inputs": {
+            "dataset": "current_environment",
+            "table": "es_spaces",
+            "filter": "_es_marketid_value eq '@{items('Apply_to_each_market')?['es_marketid']}'",
+            "select": "es_dailybookingrate,es_predictedbookingrate"
+          }
+        },
+        {
+          "name": "Calculate_Market_Metrics",
+          "type": "Compose",
+          "inputs": {
+            "totalDailyRate": "@sum(outputs('Get_Market_Spaces')?['body/value'], 'es_dailybookingrate')",
+            "avgBookingRate": "@if(greater(length(outputs('Get_Market_Spaces')?['body/value']), 0), div(sum(outputs('Get_Market_Spaces')?['body/value'], 'es_predictedbookingrate'), length(outputs('Get_Market_Spaces')?['body/value'])), 0)"
+          }
+        },
+        {
+          "name": "Update_Market_Predictions",
+          "type": "Update_a_record",
+          "inputs": {
+            "dataset": "current_environment",
+            "table": "es_markets",
+            "id": "@items('Apply_to_each_market')?['es_marketid']",
+            "item": {
+              "es_totaldailybookingrate": "@outputs('Calculate_Market_Metrics')?['totalDailyRate']",
+              "es_predictedbookingrate": "@outputs('Calculate_Market_Metrics')?['avgBookingRate']"
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

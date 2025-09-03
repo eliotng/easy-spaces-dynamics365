@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Entity xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Name LocalizedName="Reservation" OriginalName="Reservation">es_reservation</Name>
+  <EntityInfo>
+    <entity Name="es_reservation">
+      <LocalizedNames>
+        <LocalizedName description="Reservation" languagecode="1033"/>
+      </LocalizedNames>
+      <LocalizedCollectionNames>
+        <LocalizedCollectionName description="Reservations" languagecode="1033"/>
+      </LocalizedCollectionNames>
+      <Descriptions>
+        <Description description="Represents a space reservation for an event" languagecode="1033"/>
+      </Descriptions>
+      <PrimaryIdAttribute>es_reservationid</PrimaryIdAttribute>
+      <PrimaryNameAttribute>es_name</PrimaryNameAttribute>
+      <OwnershipType>UserOwned</OwnershipType>
+      <IsActivity>false</IsActivity>
+      <IsAvailableOffline>true</IsAvailableOffline>
+      <IsBusinessProcessEnabled>true</IsBusinessProcessEnabled>
+      <IsMailMergeEnabled>false</IsMailMergeEnabled>
+      <IsValidForQueue>true</IsValidForQueue>
+      <IsConnectionsEnabled>true</IsConnectionsEnabled>
+      <HasNotes>true</HasNotes>
+      <HasActivities>true</HasActivities>
+      <IsQuickCreateEnabled>true</IsQuickCreateEnabled>
+      <IsDuplicateDetectionEnabled>true</IsDuplicateDetectionEnabled>
+      <IsAuditEnabled>true</IsAuditEnabled>
+      <IsRenameable>true</IsRenameable>
+      <IsMappable>true</IsMappable>
+      <ChangeTrackingEnabled>true</ChangeTrackingEnabled>
+    </entity>
+    <attributes>
+      <attribute PhysicalName="es_reservationid" Type="primarykey">
+        <Type>primarykey</Type>
+        <Name>es_reservationid</Name>
+        <LogicalName>es_reservationid</LogicalName>
+        <RequiredLevel>SystemRequired</RequiredLevel>
+        <DisplayMask>ValidForAdvancedFind|RequiredForForm</DisplayMask>
+        <IsPrimaryId>true</IsPrimaryId>
+        <IsLogical>false</IsLogical>
+        <IsSecured>false</IsSecured>
+        <IsCustom>false</IsCustom>
+        <SourceType>0</SourceType>
+      </attribute>
+      <attribute PhysicalName="es_name" Type="nvarchar">
+        <Type>nvarchar</Type>
+        <Name>es_name</Name>
+        <LogicalName>es_name</LogicalName>
+        <RequiredLevel>ApplicationRequired</RequiredLevel>
+        <DisplayMask>ValidForAdvancedFind|RequiredForForm|ValidForGrid</DisplayMask>
+        <IsPrimaryName>true</IsPrimaryName>
+        <Length>100</Length>
+        <IsLogical>false</IsLogical>
+        <IsSecured>false</IsSecured>
+        <IsCustom>true</IsCustom>
+        <SourceType>0</SourceType>
+        <LocalizedNames>
+          <LocalizedName description="Reservation Name" languagecode="1033"/>
+        </LocalizedNames>
+        <Descriptions>
+          <Description description="The name/title of the reservation" languagecode="1033"/>
+        </Descriptions>
+      </attribute>
+      <attribute PhysicalName="es_status" Type="picklist">
+        <Type>picklist</Type>
+        <Name>es_status</Name>
+        <LogicalName>es_status</LogicalName>
+        <RequiredLevel>ApplicationRequired</RequiredLevel>
+        <DisplayMask>ValidForAdvancedFind|RequiredForForm|ValidForGrid</DisplayMask>
+        <IsLogical>false</IsLogical>
+        <IsSecured>false</IsSecured>
+        <IsCustom>true</IsCustom>
+        <SourceType>0</SourceType>
+        <DefaultValue>100000000</DefaultValue>
+        <LocalizedNames>
+          <LocalizedName description="Status" languagecode="1033"/>
+        </LocalizedNames>
+        <Descriptions>
+          <Description description="Status of the reservation" languagecode="1033"/>
+        </Descriptions>
+        <OptionSet>
+          <Options>
+            <Option Value="100000000" Label="Draft"/>
+            <Option Value="100000001" Label="Submitted"/>
+            <Option Value="100000002" Label="Confirmed"/>
+            <Option Value="100000003" Label="Cancelled"/>
+            <Option Value="100000004" Label="Completed"/>
+          </Options>
+        </OptionSet>
+      </attribute>
+      <attribute PhysicalName="es_startdate" Type="datetime">
+        <Type>datetime</Type>
+        <Name>es_startdate</Name>
+        <LogicalName>es_startdate</LogicalName>
+        <RequiredLevel>ApplicationRequired</RequiredLevel>
+        <DisplayMask>ValidForAdvancedFind|RequiredForForm|ValidForGrid</DisplayMask>
+        <Format>DateOnly</Format>
+        <IsLogical>false</IsLogical>
+        <IsSecured>false</IsSecured>
+        <IsCustom>true</IsCustom>
+        <SourceType>0</SourceType>
+        <LocalizedNames>
+          <LocalizedName description="Start Date" languagecode="1033"/>
+        </LocalizedNames>
+        <Descriptions>
+          <Description description="Start date of the reservation" languagecode="1033"/>
+        </Descriptions>
+      </attribute>
+      <attribute PhysicalName="es_enddate" Type="datetime">
+        <Type>datetime</Type>
+        <Name>es_enddate</Name>
+        <LogicalName>es_enddate</LogicalName>
+        <RequiredLevel>ApplicationRequired</RequiredLevel>
+        <DisplayMask>ValidForAdvancedFind|RequiredForForm|ValidForGrid</DisplayMask>
+        <Format>DateOnly</Format>
+        <IsLogical>false</IsLogical>
+        <IsSecured>false</IsSecured>
+        <IsCustom>true</IsCustom>
+        <SourceType>0</SourceType>
+        <LocalizedNames>
+          <LocalizedName description="End Date" languagecode="1033"/>
+        </LocalizedNames>
+        <Descriptions>
+          <Description description="End date of the reservation" languagecode="1033"/>
+        </Descriptions>
+      </attribute>
+      <attribute PhysicalName="es_starttime" Type="nvarchar">
+        <Type>nvarchar</Type>
+        <Name>es_starttime</Name>
+        <LogicalName>es_starttime</LogicalName>
+        <RequiredLevel>None</RequiredLevel>
+        <DisplayMask>ValidForAdvancedFind|ValidForForm|ValidForGrid</DisplayMask>
+        <Length>10</Length>
+        <IsLogical>false</IsLogical>
+        <IsSecured>false</IsSecured>
+        <IsCustom>true</IsCustom>
+        <SourceType>0</SourceType>
+        <LocalizedNames>
+          <LocalizedName description="Start Time" languagecode="1033"/>
+        </LocalizedNames>
+        <Descriptions>
+          <Description description="Start time of the reservation" languagecode="1033"/>
+        </Descriptions>
+      </attribute>
+      <attribute PhysicalName="es_endtime" Type="nvarchar">
+        <Type>nvarchar</Type>
+        <Name>es_endtime</Name>
+        <LogicalName>es_endtime</LogicalName>
+        <RequiredLevel>None</RequiredLevel>
+        <DisplayMask>ValidForAdvancedFind|ValidForForm|ValidForGrid</DisplayMask>
+        <Length>10</Length>
+        <IsLogical>false</IsLogical>
+        <IsSecured>false</IsSecured>
+        <IsCustom>true</IsCustom>
+        <SourceType>0</SourceType>
+        <LocalizedNames>
+          <LocalizedName description="End Time" languagecode="1033"/>
+        </LocalizedNames>
+        <Descriptions>
+          <Description description="End time of the reservation" languagecode="1033"/>
+        </Descriptions>
+      </attribute>
+      <attribute PhysicalName="es_totalnumberofguests" Type="int">
+        <Type>int</Type>
+        <Name>es_totalnumberofguests</Name>
+        <LogicalName>es_totalnumberofguests</LogicalName>
+        <RequiredLevel>ApplicationRequired</RequiredLevel>
+        <DisplayMask>ValidForAdvancedFind|RequiredForForm|ValidForGrid</DisplayMask>
+        <MinValue>1</MinValue>
+        <MaxValue>10000</MaxValue>
+        <IsLogical>false</IsLogical>
+        <IsSecured>false</IsSecured>
+        <IsCustom>true</IsCustom>
+        <SourceType>0</SourceType>
+        <LocalizedNames>
+          <LocalizedName description="Total Number of Guests" languagecode="1033"/>
+        </LocalizedNames>
+        <Descriptions>
+          <Description description="Total number of guests for the reservation" languagecode="1033"/>
+        </Descriptions>
+      </attribute>
+      <attribute PhysicalName="es_spaceid" Type="lookup">
+        <Type>lookup</Type>
+        <Name>es_spaceid</Name>
+        <LogicalName>es_spaceid</LogicalName>
+        <RequiredLevel>ApplicationRequired</RequiredLevel>
+        <DisplayMask>ValidForAdvancedFind|RequiredForForm|ValidForGrid</DisplayMask>
+        <IsLogical>false</IsLogical>
+        <IsSecured>false</IsSecured>
+        <IsCustom>true</IsCustom>
+        <SourceType>0</SourceType>
+        <Targets>es_space</Targets>
+        <LocalizedNames>
+          <LocalizedName description="Space" languagecode="1033"/>
+        </LocalizedNames>
+        <Descriptions>
+          <Description description="The space being reserved" languagecode="1033"/>
+        </Descriptions>
+      </attribute>
+      <attribute PhysicalName="es_marketid" Type="lookup">
+        <Type>lookup</Type>
+        <Name>es_marketid</Name>
+        <LogicalName>es_marketid</LogicalName>
+        <RequiredLevel>None</RequiredLevel>
+        <DisplayMask>ValidForAdvancedFind|ValidForForm|ValidForGrid</DisplayMask>
+        <IsLogical>false</IsLogical>
+        <IsSecured>false</IsSecured>
+        <IsCustom>true</IsCustom>
+        <SourceType>0</SourceType>
+        <Targets>es_market</Targets>
+        <LocalizedNames>
+          <LocalizedName description="Market" languagecode="1033"/>
+        </LocalizedNames>
+        <Descriptions>
+          <Description description="The market for this reservation" languagecode="1033"/>
+        </Descriptions>
+      </attribute>
+      <attribute PhysicalName="es_contactid" Type="lookup">
+        <Type>lookup</Type>
+        <Name>es_contactid</Name>
+        <LogicalName>es_contactid</LogicalName>
+        <RequiredLevel>None</RequiredLevel>
+        <DisplayMask>ValidForAdvancedFind|RequiredForForm|ValidForGrid</DisplayMask>
+        <IsLogical>false</IsLogical>
+        <IsSecured>false</IsSecured>
+        <IsCustom>true</IsCustom>
+        <SourceType>0</SourceType>
+        <Targets>contact</Targets>
+        <LocalizedNames>
+          <LocalizedName description="Contact" languagecode="1033"/>
+        </LocalizedNames>
+        <Descriptions>
+          <Description description="The contact making the reservation" languagecode="1033"/>
+        </Descriptions>
+      </attribute>
+      <attribute PhysicalName="es_leadid" Type="lookup">
+        <Type>lookup</Type>
+        <Name>es_leadid</Name>
+        <LogicalName>es_leadid</LogicalName>
+        <RequiredLevel>None</RequiredLevel>
+        <DisplayMask>ValidForAdvancedFind|ValidForForm|ValidForGrid</DisplayMask>
+        <IsLogical>false</IsLogical>
+        <IsSecured>false</IsSecured>
+        <IsCustom>true</IsCustom>
+        <SourceType>0</SourceType>
+        <Targets>lead</Targets>
+        <LocalizedNames>
+          <LocalizedName description="Lead" languagecode="1033"/>
+        </LocalizedNames>
+        <Descriptions>
+          <Description description="The lead making the reservation" languagecode="1033"/>
+        </Descriptions>
+      </attribute>
+      <attribute PhysicalName="es_accountid" Type="lookup">
+        <Type>lookup</Type>
+        <Name>es_accountid</Name>
+        <LogicalName>es_accountid</LogicalName>
+        <RequiredLevel>None</RequiredLevel>
+        <DisplayMask>ValidForAdvancedFind|ValidForForm|ValidForGrid</DisplayMask>
+        <IsLogical>false</IsLogical>
+        <IsSecured>false</IsSecured>
+        <IsCustom>true</IsCustom>
+        <SourceType>0</SourceType>
+        <Targets>account</Targets>
+        <LocalizedNames>
+          <LocalizedName description="Account" languagecode="1033"/>
+        </LocalizedNames>
+        <Descriptions>
+          <Description description="The account associated with the reservation" languagecode="1033"/>
+        </Descriptions>
+      </attribute>
+    </attributes>
+  </EntityInfo>
+</Entity>
