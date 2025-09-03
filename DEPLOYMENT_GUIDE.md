@@ -38,7 +38,13 @@ This guide will help you deploy the Easy Spaces application to your Microsoft Dy
    - In your environment settings, ensure these are enabled:
      - Power Apps component framework for canvas apps
      - Dataverse search
-     - AI Builder (for predictive features)
+     - AI Builder (optional - see note below)
+   
+   **Note about AI Builder:**
+   - AI Builder may not be available in all trial environments
+   - It requires additional capacity/credits (not always included in trials)
+   - The app will work without AI Builder - predictive features will use Power Automate calculations instead
+   - To check availability: Go to Power Apps → AI Builder → If you see "Get started", it's not activated
 
 ### Step 2: Run Automated Deployment Script
 
@@ -139,6 +145,15 @@ If the script couldn't create entities automatically:
 
 ### Step 6: Import Power Automate Flows
 
+**Important Note about Predictive Features:**
+The predictive demand and booking rate features are implemented using Power Automate calculations based on historical data patterns. While the original Salesforce app uses Einstein Analytics, our Dynamics 365 version achieves similar functionality through:
+- Power Automate flows that analyze reservation patterns
+- Calculated fields that determine demand levels
+- Trend analysis based on 30-day rolling windows
+- No AI Builder required - works with standard Power Automate license
+
+### Step 6a: Configure Power Automate Flows
+
 1. **Navigate to Power Automate**
    ```
    https://make.powerautomate.com/
@@ -216,6 +231,7 @@ If the script couldn't create entities automatically:
    - Submit a reservation (should trigger approval)
    - Wait for predictive demand flow to run (or run manually)
    - Verify demand predictions update
+   - Note: Predictive features work with calculated metrics even without AI Builder
 
 ### Step 10: Final Configuration
 
@@ -267,7 +283,7 @@ If the script couldn't create entities automatically:
 | Apex Controllers | Power Automate flows |
 | Custom Objects | Dataverse custom entities |
 | Process Builder | Power Automate cloud flows |
-| Einstein Analytics | AI Builder predictions |
+| Einstein Analytics | Power Automate calculations (AI Builder optional) |
 | Salesforce Flow | Power Automate + Business Process Flows |
 | Lightning Page Templates | Model-driven forms + Canvas screens |
 
