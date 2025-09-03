@@ -37,10 +37,6 @@
       <RootComponent type="1" schemaName="es_market"/>
       <RootComponent type="1" schemaName="es_space"/>
       <RootComponent type="1" schemaName="es_reservation"/>
-      <RootComponent type="9" schemaName="es_easyspaces_sitemap"/>
-      <RootComponent type="60" schemaName="es_easyspaces_dashboard"/>
-      <RootComponent type="80" schemaName="es_easyspaces_modelapp"/>
-      <RootComponent type="300" schemaName="es_easyspaces_canvasapp"/>
     </RootComponents>
   </SolutionManifest>
 </ImportExportXml>

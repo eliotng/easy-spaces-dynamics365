@@ -72,7 +72,7 @@
         <IsSecured>false</IsSecured>
         <IsCustom>true</IsCustom>
         <SourceType>0</SourceType>
-        <DefaultValue>100000000</DefaultValue>
+        <DefaultValue>10013</DefaultValue>
         <LocalizedNames>
           <LocalizedName description="Status" languagecode="1033"/>
         </LocalizedNames>
@@ -81,11 +81,11 @@
         </Descriptions>
         <OptionSet>
           <Options>
-            <Option Value="100000000" Label="Draft"/>
-            <Option Value="100000001" Label="Submitted"/>
-            <Option Value="100000002" Label="Confirmed"/>
-            <Option Value="100000003" Label="Cancelled"/>
-            <Option Value="100000004" Label="Completed"/>
+            <Option Value="10013" Label="Draft"/>
+            <Option Value="10014" Label="Submitted"/>
+            <Option Value="10015" Label="Confirmed"/>
+            <Option Value="10016" Label="Cancelled"/>
+            <Option Value="10017" Label="Completed"/>
           </Options>
         </OptionSet>
       </attribute>
@@ -271,5 +271,23 @@
         </Descriptions>
       </attribute>
     </attributes>
+    <EntityRelationships>
+      <EntityRelationship Name="es_space_es_reservation" Type="OneToManyRelationship">
+        <ReferencedEntity>es_space</ReferencedEntity>
+        <ReferencingEntity>es_reservation</ReferencingEntity>
+        <ReferencedAttribute>es_spaceid</ReferencedAttribute>
+        <ReferencingAttribute>es_spaceid</ReferencingAttribute>
+        <ReferencedEntityNavigationPropertyName>es_space_es_reservation</ReferencedEntityNavigationPropertyName>
+        <ReferencingEntityNavigationPropertyName>es_spaceid</ReferencingEntityNavigationPropertyName>
+      </EntityRelationship>
+      <EntityRelationship Name="es_market_es_reservation" Type="OneToManyRelationship">
+        <ReferencedEntity>es_market</ReferencedEntity>
+        <ReferencingEntity>es_reservation</ReferencingEntity>
+        <ReferencedAttribute>es_marketid</ReferencedAttribute>
+        <ReferencingAttribute>es_marketid</ReferencingAttribute>
+        <ReferencedEntityNavigationPropertyName>es_market_es_reservation</ReferencedEntityNavigationPropertyName>
+        <ReferencingEntityNavigationPropertyName>es_marketid</ReferencingEntityNavigationPropertyName>
+      </EntityRelationship>
+    </EntityRelationships>
   </EntityInfo>
 </Entity>

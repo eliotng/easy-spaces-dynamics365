@@ -25,7 +25,8 @@ function Check-Prerequisites {
     $requiredModules = @(
         "Microsoft.PowerApps.Administration.PowerShell",
         "Microsoft.PowerApps.PowerShell",
-        "Microsoft.Xrm.Data.PowerShell"
+        "Microsoft.Xrm.Data.PowerShell",
+        "Microsoft.Xrm.OnlineManagementAPI"
     )
     
     foreach ($module in $requiredModules) {

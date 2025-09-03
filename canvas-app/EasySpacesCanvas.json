@@ -55,7 +55,7 @@
           "type": "Gallery",
           "name": "galSpaces",
           "properties": {
-            "items": "SortByColumns(Filter(Spaces, true), \"es_name\", Ascending)",
+            "items": "SortByColumns(Filter(es_spaces, true), \"es_name\", Ascending)",
             "templateHeight": 300,
             "templateWidth": 350,
             "layout": "Horizontal",
@@ -142,7 +142,7 @@
           }
         }
       ],
-      "onVisible": "ClearCollect(Spaces, 'Easy Spaces'.Spaces)"
+      "onVisible": "ClearCollect(es_spaces, es_spaces)"
     },
     {
       "name": "SpaceDetailScreen",
@@ -305,7 +305,7 @@
           "type": "Form",
           "name": "frmReservation",
           "properties": {
-            "dataSource": "'Easy Spaces'.Reservations",
+            "dataSource": "es_reservations",
             "defaultMode": "FormMode.New",
             "y": 80,
             "height": "Parent.Height - 80",
@@ -488,12 +488,12 @@
       "name": "Easy Spaces",
       "type": "Dataverse",
       "entities": [
-        "es_market",
-        "es_space",
-        "es_reservation",
-        "contact",
-        "lead",
-        "account"
+        "es_markets",
+        "es_spaces",
+        "es_reservations",
+        "contacts",
+        "leads",
+        "accounts"
       ]
     }
   ]

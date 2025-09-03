@@ -148,8 +148,7 @@
                           <control id="reservations_subgrid" classid="{E7A81278-8635-4D9E-8D4D-59480B391C5B}">
                             <parameters>
                               <TargetEntityType>es_reservation</TargetEntityType>
-                              <ViewId>{00000000-0000-0000-00AA-000010001002}</ViewId>
-                              <RelationshipName>es_space_reservations</RelationshipName>
+                              <RelationshipName>es_space_es_reservation</RelationshipName>
                               <EnableViewPicker>true</EnableViewPicker>
                               <EnableQuickFind>true</EnableQuickFind>
                               <AutoExpand>Fixed</AutoExpand>

@@ -80,13 +80,13 @@
         </Descriptions>
         <OptionSet>
           <Options>
-            <Option Value="100000000" Label="Warehouse"/>
-            <Option Value="100000001" Label="Office"/>
-            <Option Value="100000002" Label="Café"/>
-            <Option Value="100000003" Label="Game Room"/>
-            <Option Value="100000004" Label="Gallery"/>
-            <Option Value="100000005" Label="Rooftop"/>
-            <Option Value="100000006" Label="Theater"/>
+            <Option Value="10000" Label="Warehouse"/>
+            <Option Value="10001" Label="Office"/>
+            <Option Value="10002" Label="Café"/>
+            <Option Value="10003" Label="Game Room"/>
+            <Option Value="10004" Label="Gallery"/>
+            <Option Value="10005" Label="Rooftop"/>
+            <Option Value="10006" Label="Theater"/>
           </Options>
         </OptionSet>
       </attribute>
@@ -108,9 +108,9 @@
         </Descriptions>
         <OptionSet>
           <Options>
-            <Option Value="100000000" Label="Indoor"/>
-            <Option Value="100000001" Label="Outdoor"/>
-            <Option Value="100000002" Label="Hybrid"/>
+            <Option Value="10007" Label="Indoor"/>
+            <Option Value="10008" Label="Outdoor"/>
+            <Option Value="10009" Label="Hybrid"/>
           </Options>
         </OptionSet>
       </attribute>
@@ -226,9 +226,9 @@
         </Descriptions>
         <OptionSet>
           <Options>
-            <Option Value="100000000" Label="Low"/>
-            <Option Value="100000001" Label="Medium"/>
-            <Option Value="100000002" Label="High"/>
+            <Option Value="10010" Label="Low"/>
+            <Option Value="10011" Label="Medium"/>
+            <Option Value="10012" Label="High"/>
           </Options>
         </OptionSet>
       </attribute>
@@ -253,5 +253,15 @@
         </Descriptions>
       </attribute>
     </attributes>
+    <EntityRelationships>
+      <EntityRelationship Name="es_market_es_space" Type="OneToManyRelationship">
+        <ReferencedEntity>es_market</ReferencedEntity>
+        <ReferencingEntity>es_space</ReferencingEntity>
+        <ReferencedAttribute>es_marketid</ReferencedAttribute>
+        <ReferencingAttribute>es_marketid</ReferencingAttribute>
+        <ReferencedEntityNavigationPropertyName>es_market_es_space</ReferencedEntityNavigationPropertyName>
+        <ReferencingEntityNavigationPropertyName>es_marketid</ReferencingEntityNavigationPropertyName>
+      </EntityRelationship>
+    </EntityRelationships>
   </EntityInfo>
 </Entity>

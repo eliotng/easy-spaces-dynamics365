@@ -1,4 +1,4 @@
-Entity,Name,City,State,Country,Type,Category,MinCapacity,MaxCapacity,DailyRate,MarketName,PictureURL
+Entity,es_name,es_city,es_state,es_country,es_type,es_category,es_minimumcapacity,es_maximumcapacity,es_dailybookingrate,es_marketid,es_pictureurl
 Market,San Francisco,San Francisco,CA,USA,,,,,,,
 Market,New York,New York,NY,USA,,,,,,,
 Market,Chicago,Chicago,IL,USA,,,,,,,

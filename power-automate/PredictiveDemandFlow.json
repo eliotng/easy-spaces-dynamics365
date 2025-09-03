@@ -16,7 +16,7 @@
       "type": "List_records",
       "inputs": {
         "dataset": "current_environment",
-        "table": "es_spaces",
+        "table": "es_space",
         "select": "es_spaceid,es_name,es_marketid,es_dailybookingrate"
       }
     },
@@ -32,8 +32,8 @@
           "type": "List_records",
           "inputs": {
             "dataset": "current_environment",
-            "table": "es_reservations",
-            "filter": "es_spaceid eq '@{items('Apply_to_each_space')?['es_spaceid']}' and es_status eq 100000002 and es_startdate ge @{addDays(utcNow(), -30)}",
+            "table": "es_reservation",
+            "filter": "es_spaceid eq '@{items('Apply_to_each_space')?['es_spaceid']}' and es_status eq 10015 and es_startdate ge @{addDays(utcNow(), -30)}",
             "comment": "Get confirmed reservations from last 30 days"
           }
         },
@@ -59,7 +59,7 @@
                   "name": "Set_High_Demand",
                   "type": "Compose",
                   "inputs": {
-                    "demandLevel": 100000002,
+                    "demandLevel": 10012,
                     "comment": "High demand"
                   }
                 }
@@ -72,7 +72,7 @@
                   "name": "Set_Medium_Demand",
                   "type": "Compose",
                   "inputs": {
-                    "demandLevel": 100000001,
+                    "demandLevel": 10011,
                     "comment": "Medium demand"
                   }
                 }
@@ -85,7 +85,7 @@
                 "name": "Set_Low_Demand",
                 "type": "Compose",
                 "inputs": {
-                  "demandLevel": 100000000,
+                  "demandLevel": 10010,
                   "comment": "Low demand"
                 }
               }
@@ -97,7 +97,7 @@
           "type": "Update_a_record",
           "inputs": {
             "dataset": "current_environment",
-            "table": "es_spaces",
+            "table": "es_space",
             "id": "@items('Apply_to_each_space')?['es_spaceid']",
             "item": {
               "es_predictedbookingrate": "@outputs('Calculate_Booking_Rate')?['bookingRate']",
@@ -112,7 +112,7 @@
       "type": "List_records",
       "inputs": {
         "dataset": "current_environment",
-        "table": "es_markets",
+        "table": "es_market",
         "select": "es_marketid,es_name"
       }
     },
@@ -128,7 +128,7 @@
           "type": "List_records",
           "inputs": {
             "dataset": "current_environment",
-            "table": "es_spaces",
+            "table": "es_space",
             "filter": "_es_marketid_value eq '@{items('Apply_to_each_market')?['es_marketid']}'",
             "select": "es_dailybookingrate,es_predictedbookingrate"
           }
@@ -146,7 +146,7 @@
           "type": "Update_a_record",
           "inputs": {
             "dataset": "current_environment",
-            "table": "es_markets",
+            "table": "es_market",
             "id": "@items('Apply_to_each_market')?['es_marketid']",
             "item": {
               "es_totaldailybookingrate": "@outputs('Calculate_Market_Metrics')?['totalDailyRate']",

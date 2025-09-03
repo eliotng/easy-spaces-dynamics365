@@ -5,7 +5,7 @@
     "type": "When a record is created, updated or deleted",
     "inputs": {
       "dataset": "current_environment",
-      "table": "es_reservations",
+      "table": "es_reservation",
       "scope": "Organization",
       "triggerType": "CreateOrUpdate"
     }
@@ -15,7 +15,7 @@
       "name": "Check_Reservation_Status",
       "type": "Condition",
       "inputs": {
-        "expression": "@equals(triggerOutputs()?['body/es_status'], 100000001)",
+        "expression": "@equals(triggerOutputs()?['body/es_status'], 10014)",
         "comment": "Check if status is 'Submitted'"
       },
       "runAfter": {},
@@ -26,7 +26,7 @@
             "type": "Get_a_record",
             "inputs": {
               "dataset": "current_environment",
-              "table": "es_spaces",
+              "table": "es_space",
               "id": "@triggerOutputs()?['body/_es_spaceid_value']"
             }
           },
@@ -35,8 +35,8 @@
             "type": "List_records",
             "inputs": {
               "dataset": "current_environment",
-              "table": "es_reservations",
-              "filter": "es_spaceid eq '@{triggerOutputs()?['body/_es_spaceid_value']}' and es_status eq 100000002 and ((es_startdate le @{triggerOutputs()?['body/es_enddate']} and es_enddate ge @{triggerOutputs()?['body/es_startdate']}))",
+              "table": "es_reservation",
+              "filter": "es_spaceid eq '@{triggerOutputs()?['body/_es_spaceid_value']}' and es_status eq 10015 and ((es_startdate le @{triggerOutputs()?['body/es_enddate']} and es_enddate ge @{triggerOutputs()?['body/es_startdate']}))",
               "comment": "Check for conflicting confirmed reservations"
             }
           },
@@ -63,10 +63,10 @@
                         "type": "Update_a_record",
                         "inputs": {
                           "dataset": "current_environment",
-                          "table": "es_reservations",
+                          "table": "es_reservation",
                           "id": "@triggerOutputs()?['body/es_reservationid']",
                           "item": {
-                            "es_status": 100000002,
+                            "es_status": 10015,
                             "comment": "Set status to Confirmed"
                           }
                         }
@@ -87,10 +87,10 @@
                         "type": "Update_a_record",
                         "inputs": {
                           "dataset": "current_environment",
-                          "table": "es_reservations",
+                          "table": "es_reservation",
                           "id": "@triggerOutputs()?['body/es_reservationid']",
                           "item": {
-                            "es_status": 100000003,
+                            "es_status": 10016,
                             "comment": "Set status to Cancelled"
                           }
                         }
@@ -114,10 +114,10 @@
                   "type": "Update_a_record",
                   "inputs": {
                     "dataset": "current_environment",
-                    "table": "es_reservations",
+                    "table": "es_reservation",
                     "id": "@triggerOutputs()?['body/es_reservationid']",
                     "item": {
-                      "es_status": 100000003,
+                      "es_status": 10016,
                       "comment": "Set status to Cancelled"
                     }
                   }
