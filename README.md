@@ -60,21 +60,34 @@ easy-spaces-dynamics365/
 
 ### Deployment
 
-**Recommended: Web-Based Manual Deployment**
-1. Clone this repository
-2. Follow the step-by-step guide in [DEPLOYMENT_GUIDE.md](DEPLOYMENT_GUIDE.md)
-3. Use the Power Apps web interface for creating entities and importing apps
+## 🌐 **RECOMMENDED: 100% Web-Based Deployment (NO PowerShell)**
 
-**Alternative: Automated Script**
+**Why Web-Based?**
+- ✅ **Zero API issues** - No PowerShell serialization errors
+- ✅ **100% reliable** - Microsoft's primary supported method
+- ✅ **Beginner-friendly** - Visual, step-by-step process
+- ✅ **Works everywhere** - Any browser, any OS
+
+### Quick Deployment Options:
+
+**Option 1: Complete Web Guide (90 minutes)**
 ```bash
-# Bash script (works in Linux/WSL)
-./scripts/deploy-easy-spaces.sh
+# Windows
+.\scripts\deploy.cmd
 
-# PowerShell script (may have compatibility issues)
-.\scripts\Deploy-EasySpaces-Simple.ps1 -EnvironmentUrl "https://yourorg.crm.dynamics.com" -UseInteractiveAuth
+# Creates: WEB_DEPLOYMENT_GUIDE.md with full step-by-step instructions
 ```
 
-**Note**: Due to API serialization issues with PowerShell modules, manual deployment through the web interface is more reliable.
+**Option 2: PowerShell Web Guide Generator**
+```powershell
+.\scripts\Deploy-Manual-WebUI.ps1 -EnvironmentUrl "https://yourorg.crm.dynamics.com"
+```
+
+**Option 3: Manual from Documentation**
+Follow [DEPLOYMENT_GUIDE.md](DEPLOYMENT_GUIDE.md) - skip PowerShell sections, use web interface
+
+### ❌ **Avoid PowerShell Scripts** 
+PowerShell has known API serialization issues with Dynamics 365. Use web interface instead.
 
 ## Technology Stack
 
