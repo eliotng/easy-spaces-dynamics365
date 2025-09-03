@@ -1,14 +1,44 @@
 # Easy Spaces for Dynamics 365 - Deployment Guide
 
+## Quick Start for New Users
+
+**If you don't have a Microsoft account yet:**
+
+1. **Get Your Free Trial** (5 minutes)
+   - Visit: https://powerapps.microsoft.com/free/
+   - Click "Start free"
+   - Follow the signup wizard
+   - You'll get a new work account like: yourname@yourorg.onmicrosoft.com
+
+2. **Access Power Apps**
+   - Once signed up, go to: https://make.powerapps.com/
+   - You're now ready to deploy Easy Spaces!
+
 ## Overview
 This guide will help you deploy the Easy Spaces application to your Microsoft Dynamics 365 trial account. The application is a complete conversion of the Salesforce Lightning Web Components (LWC) Easy Spaces app, recreated using Microsoft's Power Platform technologies.
 
 ## Prerequisites
 
 ### 1. Microsoft Dynamics 365 Trial Account
-- Sign up for a free trial at: https://dynamics.microsoft.com/en-us/dynamics-365-free-trial/
-- Choose "Sales" or "Customer Service" trial (both include the required features)
-- You'll receive admin access to a Dynamics 365 environment
+
+**Option A: Dynamics 365 Trial (Recommended - Includes Everything)**
+- Go to: https://dynamics.microsoft.com/en-us/dynamics-365-free-trial/
+- Choose "Sales" or "Customer Service" trial (both include Power Apps)
+- Sign up with work/school email or create new Microsoft account
+- You'll receive admin access to a full Dynamics 365 environment
+- Trial length: 30 days (can be extended)
+
+**Option B: Power Apps Trial (If you only want Power Apps)**
+- Go to: https://powerapps.microsoft.com/free/
+- Click "Start free"
+- Sign in or create Microsoft account
+- Provides Power Apps and Dataverse access
+- Trial length: 30 days
+
+**Important Notes:**
+- You'll need a work or school email address (not Gmail/Yahoo)
+- If using personal email, the system will help create a work account
+- The trial includes: Power Apps, Power Automate, and Dataverse
 
 ### 2. Power Platform Admin Access
 - Your trial account includes Power Platform access
