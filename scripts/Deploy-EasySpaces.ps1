@@ -80,21 +80,38 @@ function Create-Publisher {
         uniquename = "easyspaces"
         friendlyname = "Easy Spaces"
         customizationprefix = "es"
-        customizationoptionvalueprefix = "10000"
+        customizationoptionvalueprefix = 10000
         description = "Easy Spaces Publisher"
     }
     
     # Check if publisher exists
-    $existingPublisher = Get-CrmRecords -conn $conn -EntityLogicalName publisher -FilterAttribute uniquename -FilterOperator eq -FilterValue $publisher.uniquename
-    
-    if ($existingPublisher.Count -eq 0) {
-        # Create new publisher
-        $publisherId = New-CrmRecord -conn $conn -EntityLogicalName publisher -Fields $publisher
-        Write-Host "Publisher created successfully" -ForegroundColor Green
+    try {
+        $existingPublisher = Get-CrmRecords -conn $conn -EntityLogicalName publisher -FilterAttribute uniquename -FilterOperator eq -FilterValue $publisher.uniquename
+        
+        if ($existingPublisher.Count -eq 0) {
+            # Create new publisher
+            Write-Host "  Creating publisher with prefix: $($publisher.customizationprefix) and option value prefix: $($publisher.customizationoptionvalueprefix)" -ForegroundColor White
+            $publisherId = New-CrmRecord -conn $conn -EntityLogicalName publisher -Fields $publisher
+            Write-Host "Publisher created successfully" -ForegroundColor Green
+        }
+        else {
+            $publisherId = $existingPublisher.CrmRecords[0].publisherid
+            Write-Host "Publisher already exists" -ForegroundColor Yellow
+        }
     }
-    else {
-        $publisherId = $existingPublisher.CrmRecords[0].publisherid
-        Write-Host "Publisher already exists" -ForegroundColor Yellow
+    catch {
+        Write-Host "Error creating publisher: $_" -ForegroundColor Red
+        
+        # Try using default publisher instead
+        Write-Host "Attempting to use default publisher..." -ForegroundColor Yellow
+        $defaultPublisher = Get-CrmRecords -conn $conn -EntityLogicalName publisher -FilterAttribute uniquename -FilterOperator eq -FilterValue "default"
+        if ($defaultPublisher.Count -gt 0) {
+            $publisherId = $defaultPublisher.CrmRecords[0].publisherid
+            Write-Host "Using default publisher" -ForegroundColor Green
+        }
+        else {
+            throw "Could not create or find a suitable publisher"
+        }
     }
     
     return $publisherId
@@ -301,6 +318,12 @@ catch {
 }
 finally {
     if ($conn) {
-        Disconnect-CrmOnline -conn $conn
+        # Disconnect if cmdlet is available
+        if (Get-Command Disconnect-CrmOnline -ErrorAction SilentlyContinue) {
+            Disconnect-CrmOnline -conn $conn
+        }
+        else {
+            Write-Host "Session cleanup completed" -ForegroundColor Green
+        }
     }
 }
