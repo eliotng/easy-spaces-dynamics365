@@ -26,6 +26,6 @@ jobs:
         app-id: ${{ secrets.POWERPLATFORM_APP_ID }}
         client-secret: ${{ secrets.POWERPLATFORM_CLIENT_SECRET }}
         tenant-id: ${{ secrets.POWERPLATFORM_TENANT_ID }}
-        solution-file: 'out/EasySpacesModelDriven.zip'
+        solution-file: 'out/EasySpacesSolution.zip'
         force-overwrite: true
         publish-changes: true
