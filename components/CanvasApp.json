@@ -1,0 +1,282 @@
+{
+  "name": "Easy Spaces Booking App",
+  "description": "Customer-facing mobile app for booking event spaces",
+  "screens": [
+    {
+      "name": "HomeScreen",
+      "description": "Browse available markets",
+      "controls": [
+        {
+          "type": "Gallery",
+          "name": "MarketGallery",
+          "dataSource": "Markets (es_markets)",
+          "items": "SortByColumns(es_markets, \"es_name\", Ascending)",
+          "template": {
+            "height": 120,
+            "controls": [
+              {
+                "type": "Label",
+                "name": "MarketNameLabel",
+                "text": "ThisItem.es_name",
+                "x": 20,
+                "y": 20,
+                "fontSize": 18,
+                "fontWeight": "Bold"
+              },
+              {
+                "type": "Label",
+                "name": "CityLabel",
+                "text": "ThisItem.es_city",
+                "x": 20,
+                "y": 50,
+                "fontSize": 14,
+                "color": "#666666"
+              },
+              {
+                "type": "Icon",
+                "name": "ChevronRight",
+                "icon": "ChevronRight",
+                "x": 340,
+                "y": 45,
+                "onSelect": "Navigate(SpacesScreen, ScreenTransition.Cover, {SelectedMarket: ThisItem})"
+              }
+            ]
+          }
+        },
+        {
+          "type": "Label",
+          "name": "TitleLabel",
+          "text": "Easy Spaces",
+          "x": 20,
+          "y": 20,
+          "fontSize": 24,
+          "fontWeight": "Bold",
+          "color": "#0078D4"
+        }
+      ]
+    },
+    {
+      "name": "SpacesScreen",
+      "description": "View spaces in selected market",
+      "controls": [
+        {
+          "type": "Label",
+          "name": "MarketTitle",
+          "text": "SelectedMarket.es_name & \" Spaces\"",
+          "x": 20,
+          "y": 20,
+          "fontSize": 20,
+          "fontWeight": "Bold"
+        },
+        {
+          "type": "Gallery",
+          "name": "SpaceGallery",
+          "dataSource": "Spaces (es_spaces)",
+          "items": "Filter(es_spaces, es_marketid.es_marketid = SelectedMarket.es_marketid)",
+          "template": {
+            "height": 140,
+            "controls": [
+              {
+                "type": "Label",
+                "name": "SpaceNameLabel",
+                "text": "ThisItem.es_name",
+                "x": 20,
+                "y": 20,
+                "fontSize": 16,
+                "fontWeight": "SemiBold"
+              },
+              {
+                "type": "Label",
+                "name": "CapacityLabel",
+                "text": "\"Capacity: \" & ThisItem.es_capacity & \" people\"",
+                "x": 20,
+                "y": 50,
+                "fontSize": 14,
+                "color": "#666666"
+              },
+              {
+                "type": "Button",
+                "name": "BookButton",
+                "text": "Book Space",
+                "x": 20,
+                "y": 80,
+                "width": 120,
+                "fill": "#0078D4",
+                "color": "#FFFFFF",
+                "onSelect": "Navigate(BookingScreen, ScreenTransition.Cover, {SelectedSpace: ThisItem})"
+              }
+            ]
+          }
+        },
+        {
+          "type": "Icon",
+          "name": "BackButton",
+          "icon": "Back",
+          "x": 20,
+          "y": 60,
+          "onSelect": "Back()"
+        }
+      ]
+    },
+    {
+      "name": "BookingScreen",
+      "description": "Create a reservation",
+      "controls": [
+        {
+          "type": "Label",
+          "name": "BookingTitle",
+          "text": "\"Book \" & SelectedSpace.es_name",
+          "x": 20,
+          "y": 20,
+          "fontSize": 20,
+          "fontWeight": "Bold"
+        },
+        {
+          "type": "DatePicker",
+          "name": "StartDatePicker",
+          "x": 20,
+          "y": 100,
+          "width": 340,
+          "defaultDate": "Today()",
+          "dateFormat": "ShortDate"
+        },
+        {
+          "type": "Label",
+          "name": "StartDateLabel",
+          "text": "Start Date",
+          "x": 20,
+          "y": 70,
+          "fontSize": 14
+        },
+        {
+          "type": "DatePicker",
+          "name": "EndDatePicker",
+          "x": 20,
+          "y": 180,
+          "width": 340,
+          "defaultDate": "DateAdd(Today(), 1, Days)",
+          "dateFormat": "ShortDate"
+        },
+        {
+          "type": "Label",
+          "name": "EndDateLabel",
+          "text": "End Date",
+          "x": 20,
+          "y": 150,
+          "fontSize": 14
+        },
+        {
+          "type": "TextInput",
+          "name": "ReservationNameInput",
+          "x": 20,
+          "y": 260,
+          "width": 340,
+          "hint": "Enter reservation name",
+          "default": "\"Reservation - \" & Text(Today(), \"MM/DD/YYYY\")"
+        },
+        {
+          "type": "Label",
+          "name": "ReservationNameLabel",
+          "text": "Reservation Name",
+          "x": 20,
+          "y": 230,
+          "fontSize": 14
+        },
+        {
+          "type": "Button",
+          "name": "CreateReservationButton",
+          "text": "Create Reservation",
+          "x": 20,
+          "y": 330,
+          "width": 340,
+          "height": 50,
+          "fill": "#107C10",
+          "color": "#FFFFFF",
+          "fontSize": 16,
+          "onSelect": "Patch(es_reservations, Defaults(es_reservations), { es_name: ReservationNameInput.Text, es_spaceid: SelectedSpace, es_startdate: StartDatePicker.SelectedDate, es_enddate: EndDatePicker.SelectedDate }); Navigate(ConfirmationScreen, ScreenTransition.Cover)"
+        },
+        {
+          "type": "Button",
+          "name": "CancelButton",
+          "text": "Cancel",
+          "x": 20,
+          "y": 390,
+          "width": 340,
+          "height": 40,
+          "fill": "#F3F2F1",
+          "color": "#323130",
+          "fontSize": 14,
+          "onSelect": "Back()"
+        }
+      ]
+    },
+    {
+      "name": "ConfirmationScreen",
+      "description": "Booking confirmation",
+      "controls": [
+        {
+          "type": "Icon",
+          "name": "SuccessIcon",
+          "icon": "CheckBadge",
+          "x": 160,
+          "y": 100,
+          "width": 80,
+          "height": 80,
+          "color": "#107C10"
+        },
+        {
+          "type": "Label",
+          "name": "ConfirmationTitle",
+          "text": "Reservation Confirmed!",
+          "x": 20,
+          "y": 200,
+          "width": 340,
+          "fontSize": 24,
+          "fontWeight": "Bold",
+          "align": "Center",
+          "color": "#107C10"
+        },
+        {
+          "type": "Label",
+          "name": "ConfirmationMessage",
+          "text": "Your space has been successfully reserved.",
+          "x": 20,
+          "y": 240,
+          "width": 340,
+          "fontSize": 16,
+          "align": "Center",
+          "color": "#605E5C"
+        },
+        {
+          "type": "Button",
+          "name": "HomeButton",
+          "text": "Return to Home",
+          "x": 20,
+          "y": 320,
+          "width": 340,
+          "height": 50,
+          "fill": "#0078D4",
+          "color": "#FFFFFF",
+          "fontSize": 16,
+          "onSelect": "Navigate(HomeScreen, ScreenTransition.UnCover)"
+        }
+      ]
+    }
+  ],
+  "connections": [
+    {
+      "name": "Dataverse",
+      "tables": [
+        "es_markets",
+        "es_spaces",
+        "es_reservations"
+      ]
+    }
+  ],
+  "properties": {
+    "appType": "Phone",
+    "orientation": "Portrait",
+    "iconColor": "#FFFFFF",
+    "iconBackground": "#0078D4"
+  }
+}

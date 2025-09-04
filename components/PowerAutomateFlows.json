@@ -1,0 +1,226 @@
+{
+  "flows": [
+    {
+      "name": "Send Reservation Confirmation",
+      "description": "Sends email confirmation when a reservation is created",
+      "trigger": {
+        "type": "Dataverse",
+        "operation": "When a row is added",
+        "table": "es_reservations"
+      },
+      "actions": [
+        {
+          "name": "Get_Space_Details",
+          "type": "Dataverse",
+          "operation": "Get a row by ID",
+          "table": "es_spaces",
+          "rowId": "@triggerOutputs()?['body/es_spaceid']"
+        },
+        {
+          "name": "Get_Market_Details",
+          "type": "Dataverse",
+          "operation": "Get a row by ID",
+          "table": "es_markets",
+          "rowId": "@outputs('Get_Space_Details')?['body/es_marketid']"
+        },
+        {
+          "name": "Send_Email",
+          "type": "Office365Outlook",
+          "operation": "Send an email (V2)",
+          "inputs": {
+            "to": "@triggerOutputs()?['body/ownerid']",
+            "subject": "Reservation Confirmation - @{triggerOutputs()?['body/es_name']}",
+            "body": "<html><body><h2>Reservation Confirmed!</h2><p>Your reservation has been confirmed with the following details:</p><ul><li><b>Space:</b> @{outputs('Get_Space_Details')?['body/es_name']}</li><li><b>Market:</b> @{outputs('Get_Market_Details')?['body/es_name']}</li><li><b>Start Date:</b> @{formatDateTime(triggerOutputs()?['body/es_startdate'], 'MM/dd/yyyy')}</li><li><b>End Date:</b> @{formatDateTime(triggerOutputs()?['body/es_enddate'], 'MM/dd/yyyy')}</li><li><b>Capacity:</b> @{outputs('Get_Space_Details')?['body/es_capacity']} people</li></ul><p>Thank you for using Easy Spaces!</p></body></html>",
+            "importance": "Normal"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Check Space Availability",
+      "description": "HTTP triggered flow to check if a space is available",
+      "trigger": {
+        "type": "Request",
+        "operation": "When a HTTP request is received",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "spaceId": {
+              "type": "string"
+            },
+            "startDate": {
+              "type": "string"
+            },
+            "endDate": {
+              "type": "string"
+            }
+          },
+          "required": ["spaceId", "startDate", "endDate"]
+        }
+      },
+      "actions": [
+        {
+          "name": "List_Overlapping_Reservations",
+          "type": "Dataverse",
+          "operation": "List rows",
+          "table": "es_reservations",
+          "filter": "es_spaceid eq '@{triggerBody()?['spaceId']}' and ((es_startdate le @{triggerBody()?['endDate']} and es_enddate ge @{triggerBody()?['startDate']}))",
+          "top": 1
+        },
+        {
+          "name": "Check_Availability",
+          "type": "Condition",
+          "expression": "@equals(length(outputs('List_Overlapping_Reservations')?['body/value']), 0)",
+          "actions": {
+            "ifTrue": [
+              {
+                "name": "Return_Available",
+                "type": "Response",
+                "statusCode": 200,
+                "headers": {
+                  "Content-Type": "application/json"
+                },
+                "body": {
+                  "available": true,
+                  "message": "Space is available for the requested dates"
+                }
+              }
+            ],
+            "ifFalse": [
+              {
+                "name": "Return_Unavailable",
+                "type": "Response",
+                "statusCode": 200,
+                "headers": {
+                  "Content-Type": "application/json"
+                },
+                "body": {
+                  "available": false,
+                  "message": "Space is already booked for the requested dates"
+                }
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Daily Reservation Report",
+      "description": "Sends daily report of all reservations",
+      "trigger": {
+        "type": "Recurrence",
+        "frequency": "Day",
+        "interval": 1,
+        "startTime": "09:00",
+        "timeZone": "Pacific Standard Time"
+      },
+      "actions": [
+        {
+          "name": "Get_Todays_Date",
+          "type": "Compose",
+          "inputs": "@formatDateTime(utcNow(), 'yyyy-MM-dd')"
+        },
+        {
+          "name": "List_Todays_Reservations",
+          "type": "Dataverse",
+          "operation": "List rows",
+          "table": "es_reservations",
+          "filter": "es_startdate le @{outputs('Get_Todays_Date')} and es_enddate ge @{outputs('Get_Todays_Date')}",
+          "expand": "es_spaceid($select=es_name,es_capacity;$expand=es_marketid($select=es_name,es_city))"
+        },
+        {
+          "name": "Create_HTML_Table",
+          "type": "Data",
+          "operation": "Create HTML table",
+          "from": "@outputs('List_Todays_Reservations')?['body/value']",
+          "columns": [
+            {
+              "header": "Reservation",
+              "value": "@item()?['es_name']"
+            },
+            {
+              "header": "Space",
+              "value": "@item()?['es_spaceid/es_name']"
+            },
+            {
+              "header": "Market",
+              "value": "@item()?['es_spaceid/es_marketid/es_name']"
+            },
+            {
+              "header": "Start Date",
+              "value": "@formatDateTime(item()?['es_startdate'], 'MM/dd/yyyy')"
+            },
+            {
+              "header": "End Date",
+              "value": "@formatDateTime(item()?['es_enddate'], 'MM/dd/yyyy')"
+            }
+          ]
+        },
+        {
+          "name": "Send_Report_Email",
+          "type": "Office365Outlook",
+          "operation": "Send an email (V2)",
+          "inputs": {
+            "to": "admin@company.com",
+            "subject": "Daily Reservation Report - @{formatDateTime(utcNow(), 'MM/dd/yyyy')}",
+            "body": "<html><body><h2>Daily Reservation Report</h2><p>Date: @{formatDateTime(utcNow(), 'MMMM dd, yyyy')}</p><p>Total Active Reservations: @{length(outputs('List_Todays_Reservations')?['body/value'])}</p>@{outputs('Create_HTML_Table')}</body></html>",
+            "importance": "Normal"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Capacity Alert",
+      "description": "Alerts when spaces are near capacity",
+      "trigger": {
+        "type": "Recurrence",
+        "frequency": "Hour",
+        "interval": 4
+      },
+      "actions": [
+        {
+          "name": "List_All_Spaces",
+          "type": "Dataverse",
+          "operation": "List rows",
+          "table": "es_spaces",
+          "expand": "es_marketid($select=es_name)"
+        },
+        {
+          "name": "For_Each_Space",
+          "type": "ForEach",
+          "foreach": "@outputs('List_All_Spaces')?['body/value']",
+          "actions": [
+            {
+              "name": "Count_Active_Reservations",
+              "type": "Dataverse",
+              "operation": "List rows",
+              "table": "es_reservations",
+              "filter": "es_spaceid eq '@{items('For_Each_Space')?['es_spaceid']}' and es_startdate le @{utcNow()} and es_enddate ge @{utcNow()}",
+              "count": true
+            },
+            {
+              "name": "Check_Capacity_Threshold",
+              "type": "Condition",
+              "expression": "@greater(div(mul(outputs('Count_Active_Reservations')?['@odata.count'], 100), items('For_Each_Space')?['es_capacity']), 80)",
+              "actions": {
+                "ifTrue": [
+                  {
+                    "name": "Send_Capacity_Alert",
+                    "type": "Office365Outlook",
+                    "operation": "Send an email (V2)",
+                    "inputs": {
+                      "to": "admin@company.com",
+                      "subject": "Capacity Alert: @{items('For_Each_Space')?['es_name']}",
+                      "body": "Space @{items('For_Each_Space')?['es_name']} in @{items('For_Each_Space')?['es_marketid/es_name']} is at @{div(mul(outputs('Count_Active_Reservations')?['@odata.count'], 100), items('For_Each_Space')?['es_capacity'])}% capacity.",
+                      "importance": "High"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
