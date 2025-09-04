@@ -18,20 +18,13 @@ jobs:
     steps:
     - name: Checkout repository
       uses: actions/checkout@v4
-      
-    - name: Install Power Platform Tools
-      uses: microsoft/powerplatform-actions/actions-install@v1
-      
-    - name: Authenticate to Power Platform
-      uses: microsoft/powerplatform-actions/authenticate@v1
-      with:
-        environment-url: 'https://org7cfbe420.crm.dynamics.com'
-        user-name: ${{ secrets.POWERPLATFORM_USERNAME }}
-        password-secret: ${{ secrets.POWERPLATFORM_PASSWORD }}
         
     - name: Import Solution from Repository
       uses: microsoft/powerplatform-actions/import-solution@v1
       with:
+        environment-url: 'https://org7cfbe420.crm.dynamics.com'
+        user-name: ${{ secrets.POWERPLATFORM_USERNAME }}
+        password-secret: ${{ secrets.POWERPLATFORM_PASSWORD }}
         solution-file: 'out/EasySpaces_Working_Update.zip'
         force-overwrite: true
         publish-changes: true
@@ -39,6 +32,9 @@ jobs:
     - name: Export Solution (for sync back to repo)
       uses: microsoft/powerplatform-actions/export-solution@v1
       with:
+        environment-url: 'https://org7cfbe420.crm.dynamics.com'
+        user-name: ${{ secrets.POWERPLATFORM_USERNAME }}
+        password-secret: ${{ secrets.POWERPLATFORM_PASSWORD }}
         solution-name: 'EasySpacesSolution'
         solution-output-file: 'exported/EasySpacesSolution.zip'
         managed: false
