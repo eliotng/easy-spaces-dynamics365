@@ -1,1 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?><Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types"><Default Extension="xml" ContentType="text/xml" /><Override PartName="/Entities/Market.xml" ContentType="application/octet-stream" /><Override PartName="/Entities/Reservation.xml" ContentType="application/octet-stream" /><Override PartName="/Entities/Space.xml" ContentType="application/octet-stream" /></Types>
+<?xml version="1.0" encoding="utf-8"?>
+<Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types">
+  <Default Extension="xml" ContentType="application/xml"/>
+</Types>

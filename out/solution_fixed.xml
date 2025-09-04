@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ImportExportXml version="9.2.24081.10375" SolutionPackageVersion="9.2" languagecode="1033">
   <SolutionManifest>
-    <UniqueName>EasySpaces</UniqueName>
+    <UniqueName>EasySpacesSolution</UniqueName>
     <LocalizedNames>
       <LocalizedName description="Easy Spaces" languagecode="1033"/>
     </LocalizedNames>
@@ -11,7 +11,7 @@
     <Version>1.0.0.1</Version>
     <Managed>0</Managed>
     <Publisher>
-      <UniqueName>EasySpacesPublisher</UniqueName>
+      <UniqueName>EasySpacesSolutionPublisher</UniqueName>
       <LocalizedNames>
         <LocalizedName description="Easy Spaces Publisher" languagecode="1033"/>
       </LocalizedNames>
