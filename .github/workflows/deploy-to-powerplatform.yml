@@ -19,8 +19,14 @@ jobs:
     - name: Install Power Platform Tools
       uses: microsoft/powerplatform-actions/actions-install@v1.9.1
         
+    - name: Wait for any existing imports
+      run: |
+        echo "Waiting 2 minutes for any existing imports to complete..."
+        sleep 120
+        
     - name: Import Solution from Repository
       uses: microsoft/powerplatform-actions/import-solution@v1.9.1
+      continue-on-error: true
       with:
         environment-url: 'https://org7cfbe420.crm.dynamics.com'
         app-id: ${{ secrets.POWERPLATFORM_APP_ID }}
@@ -29,3 +35,22 @@ jobs:
         solution-file: 'out/EasySpacesSolution.zip'
         force-overwrite: true
         publish-changes: true
+        activate-plugins: true
+        max-async-wait-time: 180
+        
+    - name: Retry import if failed
+      if: failure()
+      run: |
+        echo "First import attempt failed. Waiting and retrying..."
+        sleep 60
+        pac auth create --kind SPN \
+          --applicationId ${{ secrets.POWERPLATFORM_APP_ID }} \
+          --clientSecret ${{ secrets.POWERPLATFORM_CLIENT_SECRET }} \
+          --tenant ${{ secrets.POWERPLATFORM_TENANT_ID }} \
+          --environment https://org7cfbe420.crm.dynamics.com
+        pac solution import \
+          --path out/EasySpacesSolution.zip \
+          --force-overwrite \
+          --publish-changes \
+          --activate-plugins \
+          --max-async-wait-time 180
