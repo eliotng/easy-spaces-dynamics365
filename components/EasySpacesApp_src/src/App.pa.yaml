@@ -1,0 +1,19 @@
+App As appinfo:
+    BackEnabled: =false
+    LogoPositionScreen: =Screen1.HomeScreen
+    OnStart: |
+        =// Initialize app variables
+        Set(SelectedMarket, Blank());
+        Set(SelectedSpace, Blank());
+        Set(CurrentUser, User())
+    StartScreen: =Screen1.HomeScreen
+
+    Theme As themestyle:
+        CurrentTheme: =PowerAppsTheme
+        
+    Host As hostcontrol.DefaultHostControlVariant:
+        OnCancel: =false
+        OnEdit: =false
+        OnNew: =false
+        OnSave: =false
+        OnView: =false

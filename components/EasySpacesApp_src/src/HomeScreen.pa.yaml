@@ -1,0 +1,63 @@
+HomeScreen As screen:
+    Fill: =RGBA(255, 255, 255, 1)
+    
+    TitleLabel As label:
+        Text: ="Easy Spaces"
+        X: =20
+        Y: =20
+        Width: =Parent.Width - 40
+        Height: =60
+        Size: =24
+        FontWeight: =FontWeight.Bold
+        Color: =RGBA(0, 120, 212, 1)
+        Align: =Align.Center
+        
+    SubtitleLabel As label:
+        Text: ="Select a Market"
+        X: =20
+        Y: =90
+        Width: =Parent.Width - 40
+        Height: =40
+        Size: =16
+        Color: =RGBA(96, 94, 92, 1)
+        
+    MarketGallery As gallery.BrowseGallery_Vertical_ThreeTextOneImageVariant_ver5.0:
+        Items: =SortByColumns(es_markets, "es_name", SortOrder.Ascending)
+        X: =0
+        Y: =140
+        Width: =Parent.Width
+        Height: =Parent.Height - 140
+        TemplateSize: =120
+        TemplatePadding: =10
+        
+        Title As label:
+            Text: =ThisItem.es_name
+            X: =20
+            Y: =15
+            Width: =Parent.TemplateWidth - 100
+            Height: =35
+            Size: =18
+            FontWeight: =FontWeight.Semibold
+            OnSelect: |
+                =Set(SelectedMarket, ThisItem);
+                Navigate(SpacesScreen, ScreenTransition.Cover)
+                
+        Subtitle As label:
+            Text: =ThisItem.es_city
+            X: =20
+            Y: =50
+            Width: =Parent.TemplateWidth - 100
+            Height: =30
+            Size: =14
+            Color: =RGBA(96, 94, 92, 1)
+            
+        NextArrow As icon.ChevronRight:
+            X: =Parent.TemplateWidth - 60
+            Y: =40
+            Width: =40
+            Height: =40
+            Icon: =Icon.ChevronRight
+            Color: =RGBA(0, 120, 212, 1)
+            OnSelect: |
+                =Set(SelectedMarket, ThisItem);
+                Navigate(SpacesScreen, ScreenTransition.Cover)
