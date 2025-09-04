@@ -56,38 +56,42 @@ easy-spaces-dynamics365/
 ### Prerequisites
 1. Microsoft Dynamics 365 trial account (free)
 2. Power Platform access (included with trial)
-3. Windows PowerShell 5.1+
+3. GitHub account with repository access
 
-### Deployment
+### 🚀 **Automated Deployment Status**
 
-## 🌐 **RECOMMENDED: 100% Web-Based Deployment (NO PowerShell)**
+✅ **Successfully Deployed Components:**
+- **Custom Entities**: Market, Space, Reservation with relationships
+- **Sample Data**: 3 Markets, 4 Spaces pre-loaded
+- **GitHub Actions CI/CD**: Automatic deployment on push
+- **Service Principal**: OAuth authentication configured
 
-**Why Web-Based?**
-- ✅ **Zero API issues** - No PowerShell serialization errors
-- ✅ **100% reliable** - Microsoft's primary supported method
-- ✅ **Beginner-friendly** - Visual, step-by-step process
-- ✅ **Works everywhere** - Any browser, any OS
+📝 **Components Ready for Manual Creation:**
+- **Canvas App**: Definition available, create in Power Apps Studio
+- **Power Automate Flows**: 3 flow templates ready
 
-### Quick Deployment Options:
+### Deployment Options:
 
-**Option 1: Complete Web Guide (90 minutes)**
+**Option 1: Automated GitHub Actions** ✅ **(Recommended)**
+```yaml
+# Automatically deploys on push to main branch
+# Check status at: https://github.com/eliotng/easy-spaces-dynamics365/actions
+```
+
+**Option 2: Manual Import**
 ```bash
-# Windows
-.\scripts\deploy.cmd
-
-# Creates: WEB_DEPLOYMENT_GUIDE.md with full step-by-step instructions
+# Import the exported solution
+pac solution import --path out/EasySpacesSolution.zip
 ```
 
-**Option 2: PowerShell Web Guide Generator**
-```powershell
-.\scripts\Deploy-Manual-WebUI.ps1 -EnvironmentUrl "https://yourorg.crm.dynamics.com"
-```
+**Option 3: Web Interface**
+1. Go to https://make.powerapps.com/
+2. Navigate to Solutions
+3. Import `out/EasySpacesSolution.zip`
 
-**Option 3: Manual from Documentation**
-Follow [DEPLOYMENT_GUIDE.md](DEPLOYMENT_GUIDE.md) - skip PowerShell sections, use web interface
-
-### ❌ **Avoid PowerShell Scripts** 
-PowerShell has known API serialization issues with Dynamics 365. Use web interface instead.
+### Current Environment
+- **URL**: https://org7cfbe420.crm.dynamics.com
+- **Solution**: EasySpacesSolutionProper
 
 ## Technology Stack
 
