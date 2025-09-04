@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Entity xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Name LocalizedName="Market" OriginalName="Market">es_market</Name>
+  <EntityInfo>
+    <entity Name="es_market">
+      <LocalizedNames>
+        <LocalizedName description="Market" languagecode="1033"/>
+      </LocalizedNames>
+      <LocalizedCollectionNames>
+        <LocalizedCollectionName description="Markets" languagecode="1033"/>
+      </LocalizedCollectionNames>
+      <Descriptions>
+        <Description description="Represents a geographical market for Easy Spaces" languagecode="1033"/>
+      </Descriptions>
+      <PrimaryIdAttribute>es_marketid</PrimaryIdAttribute>
+      <PrimaryNameAttribute>es_name</PrimaryNameAttribute>
+      <OwnershipType>UserOwned</OwnershipType>
+      <IsActivity>false</IsActivity>
+      <IsAvailableOffline>true</IsAvailableOffline>
+      <IsBusinessProcessEnabled>true</IsBusinessProcessEnabled>
+      <IsMailMergeEnabled>false</IsMailMergeEnabled>
+      <IsValidForQueue>false</IsValidForQueue>
+      <IsConnectionsEnabled>true</IsConnectionsEnabled>
+      <HasNotes>true</HasNotes>
+      <HasActivities>true</HasActivities>
+      <IsQuickCreateEnabled>true</IsQuickCreateEnabled>
+      <IsDuplicateDetectionEnabled>true</IsDuplicateDetectionEnabled>
+      <IsAuditEnabled>true</IsAuditEnabled>
+      <IsRenameable>true</IsRenameable>
+      <IsMappable>true</IsMappable>
+      <ChangeTrackingEnabled>true</ChangeTrackingEnabled>
+    </entity>
+    <attributes>
+      <attribute PhysicalName="es_marketid" Type="primarykey">
+        <Type>primarykey</Type>
+        <Name>es_marketid</Name>
+        <LogicalName>es_marketid</LogicalName>
+        <RequiredLevel>SystemRequired</RequiredLevel>
+        <DisplayMask>ValidForAdvancedFind|RequiredForForm</DisplayMask>
+        <IsPrimaryId>true</IsPrimaryId>
+        <IsLogical>false</IsLogical>
+        <IsSecured>false</IsSecured>
+        <IsCustom>false</IsCustom>
+        <SourceType>0</SourceType>
+      </attribute>
+      <attribute PhysicalName="es_name" Type="nvarchar">
+        <Type>nvarchar</Type>
+        <Name>es_name</Name>
+        <LogicalName>es_name</LogicalName>
+        <RequiredLevel>ApplicationRequired</RequiredLevel>
+        <DisplayMask>ValidForAdvancedFind|RequiredForForm|ValidForGrid</DisplayMask>
+        <IsPrimaryName>true</IsPrimaryName>
+        <Length>100</Length>
+        <IsLogical>false</IsLogical>
+        <IsSecured>false</IsSecured>
+        <IsCustom>true</IsCustom>
+        <SourceType>0</SourceType>
+        <LocalizedNames>
+          <LocalizedName description="Market Name" languagecode="1033"/>
+        </LocalizedNames>
+        <Descriptions>
+          <Description description="The name of the market" languagecode="1033"/>
+        </Descriptions>
+      </attribute>
+      <attribute PhysicalName="es_city" Type="nvarchar">
+        <Type>nvarchar</Type>
+        <Name>es_city</Name>
+        <LogicalName>es_city</LogicalName>
+        <RequiredLevel>ApplicationRequired</RequiredLevel>
+        <DisplayMask>ValidForAdvancedFind|RequiredForForm|ValidForGrid</DisplayMask>
+        <Length>100</Length>
+        <IsLogical>false</IsLogical>
+        <IsSecured>false</IsSecured>
+        <IsCustom>true</IsCustom>
+        <SourceType>0</SourceType>
+        <LocalizedNames>
+          <LocalizedName description="City" languagecode="1033"/>
+        </LocalizedNames>
+        <Descriptions>
+          <Description description="City where the market is located" languagecode="1033"/>
+        </Descriptions>
+      </attribute>
+      <attribute PhysicalName="es_state" Type="nvarchar">
+        <Type>nvarchar</Type>
+        <Name>es_state</Name>
+        <LogicalName>es_state</LogicalName>
+        <RequiredLevel>None</RequiredLevel>
+        <DisplayMask>ValidForAdvancedFind|ValidForForm|ValidForGrid</DisplayMask>
+        <Length>50</Length>
+        <IsLogical>false</IsLogical>
+        <IsSecured>false</IsSecured>
+        <IsCustom>true</IsCustom>
+        <SourceType>0</SourceType>
+        <LocalizedNames>
+          <LocalizedName description="State/Province" languagecode="1033"/>
+        </LocalizedNames>
+        <Descriptions>
+          <Description description="State or Province" languagecode="1033"/>
+        </Descriptions>
+      </attribute>
+      <attribute PhysicalName="es_country" Type="nvarchar">
+        <Type>nvarchar</Type>
+        <Name>es_country</Name>
+        <LogicalName>es_country</LogicalName>
+        <RequiredLevel>None</RequiredLevel>
+        <DisplayMask>ValidForAdvancedFind|ValidForForm|ValidForGrid</DisplayMask>
+        <Length>100</Length>
+        <IsLogical>false</IsLogical>
+        <IsSecured>false</IsSecured>
+        <IsCustom>true</IsCustom>
+        <SourceType>0</SourceType>
+        <LocalizedNames>
+          <LocalizedName description="Country" languagecode="1033"/>
+        </LocalizedNames>
+        <Descriptions>
+          <Description description="Country where the market is located" languagecode="1033"/>
+        </Descriptions>
+      </attribute>
+      <attribute PhysicalName="es_totaldailybookingrate" Type="money">
+        <Type>money</Type>
+        <Name>es_totaldailybookingrate</Name>
+        <LogicalName>es_totaldailybookingrate</LogicalName>
+        <RequiredLevel>None</RequiredLevel>
+        <DisplayMask>ValidForAdvancedFind|ValidForForm|ValidForGrid</DisplayMask>
+        <MinValue>0</MinValue>
+        <MaxValue>1000000000</MaxValue>
+        <Precision>2</Precision>
+        <IsLogical>false</IsLogical>
+        <IsSecured>false</IsSecured>
+        <IsCustom>true</IsCustom>
+        <SourceType>0</SourceType>
+        <LocalizedNames>
+          <LocalizedName description="Total Daily Booking Rate" languagecode="1033"/>
+        </LocalizedNames>
+        <Descriptions>
+          <Description description="Total daily booking rate for the market" languagecode="1033"/>
+        </Descriptions>
+      </attribute>
+      <attribute PhysicalName="es_predictedbookingrate" Type="decimal">
+        <Type>decimal</Type>
+        <Name>es_predictedbookingrate</Name>
+        <LogicalName>es_predictedbookingrate</LogicalName>
+        <RequiredLevel>None</RequiredLevel>
+        <DisplayMask>ValidForAdvancedFind|ValidForForm|ValidForGrid</DisplayMask>
+        <MinValue>0</MinValue>
+        <MaxValue>100</MaxValue>
+        <Precision>2</Precision>
+        <IsLogical>false</IsLogical>
+        <IsSecured>false</IsSecured>
+        <IsCustom>true</IsCustom>
+        <SourceType>0</SourceType>
+        <LocalizedNames>
+          <LocalizedName description="Predicted Booking Rate (%)" languagecode="1033"/>
+        </LocalizedNames>
+        <Descriptions>
+          <Description description="AI predicted booking rate percentage" languagecode="1033"/>
+        </Descriptions>
+      </attribute>
+    </attributes>
+  </EntityInfo>
+</Entity>

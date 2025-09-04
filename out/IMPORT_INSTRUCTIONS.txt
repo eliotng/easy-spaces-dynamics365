@@ -1,0 +1,36 @@
+﻿# Easy Spaces Solution Package
+
+This package contains the converted Easy Spaces entities for Dynamics 365.
+
+## Import Instructions:
+
+### Method 1: Power Platform Admin Center
+1. Go to: https://admin.powerplatform.microsoft.com/
+2. Select your environment
+3. Click "Solutions" 
+4. Click "Import solution"
+5. Upload: EasySpaces_v1_0_0_0.zip
+6. Follow import wizard
+
+### Method 2: Power Apps Portal
+1. Go to: https://make.powerapps.com/
+2. Click "Solutions" 
+3. Click "Import solution"
+4. Upload this zip file
+5. Configure publisher if prompted
+
+## After Import:
+1. Verify entities are created: Markets, Spaces, Reservations
+2. Import Canvas app: ../canvas-app/EasySpacesCanvas.json
+3. Import flows: ../power-automate/*.json
+4. Import sample data: ../data/sample-data.csv
+
+## Package Contents:
+- solution.xml (Solution manifest)
+- Entities/Market.xml (Market entity definition)
+- Entities/Space.xml (Space entity definition) 
+- Entities/Reservation.xml (Reservation entity definition)
+- [Content_Types].xml (Package metadata)
+
+Generated: 09/03/2025 22:33:33
+Version: 1.0.0.0

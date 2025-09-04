@@ -1,7 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ImportExportXml xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<ImportExportXml version="9.2.24081.10375" SolutionPackageVersion="9.2" languagecode="1033" generatedBy="CrmLive" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <SolutionManifest>
+    <UniqueName>EasySpaces</UniqueName>
+    <LocalizedNames>
+      <LocalizedName description="Easy Spaces" languagecode="1033"/>
+    </LocalizedNames>
+    <Descriptions>
+      <Description description="Event management solution converted from Salesforce LWC" languagecode="1033"/>
+    </Descriptions>
+    <Version>1.0.0.1</Version>
+    <Managed>0</Managed>
+    <Publisher>
+      <UniqueName>EasySpacesPublisher</UniqueName>
+      <LocalizedNames>
+        <LocalizedName description="Easy Spaces Publisher" languagecode="1033"/>
+      </LocalizedNames>
+      <Descriptions>
+        <Description description="Publisher for Easy Spaces solution" languagecode="1033"/>
+      </Descriptions>
+      <CustomizationPrefix>es</CustomizationPrefix>
+      <CustomizationOptionValuePrefix>10000</CustomizationOptionValuePrefix>
+    </Publisher>
+    <RootComponents>
+      <RootComponent type="1" schemaName="es_market" behavior="0"/>
+      <RootComponent type="1" schemaName="es_space" behavior="0"/>
+      <RootComponent type="1" schemaName="es_reservation" behavior="0"/>
+    </RootComponents>
+    <MissingDependencies />
+  </SolutionManifest>
   <Entities>
-    <!-- Market Entity -->
     <Entity>
       <Name LocalizedName="Market" OriginalName="es_market">es_market</Name>
       <EntityInfo>
@@ -23,15 +50,15 @@
           <IsBusinessProcessEnabled>false</IsBusinessProcessEnabled>
           <IsMailMergeEnabled>false</IsMailMergeEnabled>
           <IsValidForQueue>false</IsValidForQueue>
-          <IsConnectionsEnabled>true</IsConnectionsEnabled>
-          <HasNotes>true</HasNotes>
-          <HasActivities>true</HasActivities>
-          <IsQuickCreateEnabled>true</IsQuickCreateEnabled>
-          <IsDuplicateDetectionEnabled>true</IsDuplicateDetectionEnabled>
-          <IsAuditEnabled>true</IsAuditEnabled>
+          <IsConnectionsEnabled>false</IsConnectionsEnabled>
+          <HasNotes>false</HasNotes>
+          <HasActivities>false</HasActivities>
+          <IsQuickCreateEnabled>false</IsQuickCreateEnabled>
+          <IsDuplicateDetectionEnabled>false</IsDuplicateDetectionEnabled>
+          <IsAuditEnabled>false</IsAuditEnabled>
           <IsRenameable>true</IsRenameable>
           <IsMappable>true</IsMappable>
-          <ChangeTrackingEnabled>true</ChangeTrackingEnabled>
+          <ChangeTrackingEnabled>false</ChangeTrackingEnabled>
         </entity>
         <attributes>
           <attribute PhysicalName="es_marketid" Type="uniqueidentifier">
@@ -65,47 +92,9 @@
               <Description description="The name of the market" languagecode="1033"/>
             </Descriptions>
           </attribute>
-          <attribute PhysicalName="es_city" Type="nvarchar">
-            <Type>nvarchar</Type>
-            <Name>es_city</Name>
-            <LogicalName>es_city</LogicalName>
-            <RequiredLevel>ApplicationRequired</RequiredLevel>
-            <DisplayMask>ValidForAdvancedFind|ValidForForm|ValidForGrid</DisplayMask>
-            <Length>50</Length>
-            <IsLogical>false</IsLogical>
-            <IsSecured>false</IsSecured>
-            <IsCustom>true</IsCustom>
-            <SourceType>0</SourceType>
-            <LocalizedNames>
-              <LocalizedName description="City" languagecode="1033"/>
-            </LocalizedNames>
-            <Descriptions>
-              <Description description="City where the market is located" languagecode="1033"/>
-            </Descriptions>
-          </attribute>
-          <attribute PhysicalName="es_state" Type="nvarchar">
-            <Type>nvarchar</Type>
-            <Name>es_state</Name>
-            <LogicalName>es_state</LogicalName>
-            <RequiredLevel>None</RequiredLevel>
-            <DisplayMask>ValidForAdvancedFind|ValidForForm|ValidForGrid</DisplayMask>
-            <Length>50</Length>
-            <IsLogical>false</IsLogical>
-            <IsSecured>false</IsSecured>
-            <IsCustom>true</IsCustom>
-            <SourceType>0</SourceType>
-            <LocalizedNames>
-              <LocalizedName description="State/Province" languagecode="1033"/>
-            </LocalizedNames>
-            <Descriptions>
-              <Description description="State or province of the market" languagecode="1033"/>
-            </Descriptions>
-          </attribute>
         </attributes>
       </EntityInfo>
     </Entity>
-
-    <!-- Space Entity -->
     <Entity>
       <Name LocalizedName="Space" OriginalName="es_space">es_space</Name>
       <EntityInfo>
@@ -117,25 +106,25 @@
             <LocalizedCollectionName description="Spaces" languagecode="1033"/>
           </LocalizedCollectionNames>
           <Descriptions>
-            <Description description="Represents a rentable space for events" languagecode="1033"/>
+            <Description description="Represents an event space that can be reserved" languagecode="1033"/>
           </Descriptions>
           <PrimaryIdAttribute>es_spaceid</PrimaryIdAttribute>
           <PrimaryNameAttribute>es_name</PrimaryNameAttribute>
           <OwnershipType>UserOwned</OwnershipType>
           <IsActivity>false</IsActivity>
           <IsAvailableOffline>true</IsAvailableOffline>
-          <IsBusinessProcessEnabled>true</IsBusinessProcessEnabled>
+          <IsBusinessProcessEnabled>false</IsBusinessProcessEnabled>
           <IsMailMergeEnabled>false</IsMailMergeEnabled>
-          <IsValidForQueue>true</IsValidForQueue>
-          <IsConnectionsEnabled>true</IsConnectionsEnabled>
-          <HasNotes>true</HasNotes>
-          <HasActivities>true</HasActivities>
-          <IsQuickCreateEnabled>true</IsQuickCreateEnabled>
-          <IsDuplicateDetectionEnabled>true</IsDuplicateDetectionEnabled>
-          <IsAuditEnabled>true</IsAuditEnabled>
+          <IsValidForQueue>false</IsValidForQueue>
+          <IsConnectionsEnabled>false</IsConnectionsEnabled>
+          <HasNotes>false</HasNotes>
+          <HasActivities>false</HasActivities>
+          <IsQuickCreateEnabled>false</IsQuickCreateEnabled>
+          <IsDuplicateDetectionEnabled>false</IsDuplicateDetectionEnabled>
+          <IsAuditEnabled>false</IsAuditEnabled>
           <IsRenameable>true</IsRenameable>
           <IsMappable>true</IsMappable>
-          <ChangeTrackingEnabled>true</ChangeTrackingEnabled>
+          <ChangeTrackingEnabled>false</ChangeTrackingEnabled>
         </entity>
         <attributes>
           <attribute PhysicalName="es_spaceid" Type="uniqueidentifier">
@@ -169,42 +158,6 @@
               <Description description="The name of the space" languagecode="1033"/>
             </Descriptions>
           </attribute>
-          <attribute PhysicalName="es_maximumcapacity" Type="int">
-            <Type>int</Type>
-            <Name>es_maximumcapacity</Name>
-            <LogicalName>es_maximumcapacity</LogicalName>
-            <RequiredLevel>ApplicationRequired</RequiredLevel>
-            <DisplayMask>ValidForAdvancedFind|ValidForForm|ValidForGrid</DisplayMask>
-            <MinValue>1</MinValue>
-            <MaxValue>10000</MaxValue>
-            <IsLogical>false</IsLogical>
-            <IsSecured>false</IsSecured>
-            <IsCustom>true</IsCustom>
-            <SourceType>0</SourceType>
-            <LocalizedNames>
-              <LocalizedName description="Maximum Capacity" languagecode="1033"/>
-            </LocalizedNames>
-            <Descriptions>
-              <Description description="Maximum number of people the space can accommodate" languagecode="1033"/>
-            </Descriptions>
-          </attribute>
-          <attribute PhysicalName="es_dailyrate" Type="money">
-            <Type>money</Type>
-            <Name>es_dailyrate</Name>
-            <LogicalName>es_dailyrate</LogicalName>
-            <RequiredLevel>None</RequiredLevel>
-            <DisplayMask>ValidForAdvancedFind|ValidForForm|ValidForGrid</DisplayMask>
-            <IsLogical>false</IsLogical>
-            <IsSecured>false</IsSecured>
-            <IsCustom>true</IsCustom>
-            <SourceType>0</SourceType>
-            <LocalizedNames>
-              <LocalizedName description="Daily Rate" languagecode="1033"/>
-            </LocalizedNames>
-            <Descriptions>
-              <Description description="Daily rental rate for the space" languagecode="1033"/>
-            </Descriptions>
-          </attribute>
           <attribute PhysicalName="es_marketid" Type="lookup">
             <Type>lookup</Type>
             <Name>es_marketid</Name>
@@ -226,8 +179,6 @@
         </attributes>
       </EntityInfo>
     </Entity>
-
-    <!-- Reservation Entity -->
     <Entity>
       <Name LocalizedName="Reservation" OriginalName="es_reservation">es_reservation</Name>
       <EntityInfo>
@@ -246,18 +197,18 @@
           <OwnershipType>UserOwned</OwnershipType>
           <IsActivity>false</IsActivity>
           <IsAvailableOffline>true</IsAvailableOffline>
-          <IsBusinessProcessEnabled>true</IsBusinessProcessEnabled>
+          <IsBusinessProcessEnabled>false</IsBusinessProcessEnabled>
           <IsMailMergeEnabled>false</IsMailMergeEnabled>
-          <IsValidForQueue>true</IsValidForQueue>
-          <IsConnectionsEnabled>true</IsConnectionsEnabled>
-          <HasNotes>true</HasNotes>
-          <HasActivities>true</HasActivities>
-          <IsQuickCreateEnabled>true</IsQuickCreateEnabled>
-          <IsDuplicateDetectionEnabled>true</IsDuplicateDetectionEnabled>
-          <IsAuditEnabled>true</IsAuditEnabled>
+          <IsValidForQueue>false</IsValidForQueue>
+          <IsConnectionsEnabled>false</IsConnectionsEnabled>
+          <HasNotes>false</HasNotes>
+          <HasActivities>false</HasActivities>
+          <IsQuickCreateEnabled>false</IsQuickCreateEnabled>
+          <IsDuplicateDetectionEnabled>false</IsDuplicateDetectionEnabled>
+          <IsAuditEnabled>false</IsAuditEnabled>
           <IsRenameable>true</IsRenameable>
           <IsMappable>true</IsMappable>
-          <ChangeTrackingEnabled>true</ChangeTrackingEnabled>
+          <ChangeTrackingEnabled>false</ChangeTrackingEnabled>
         </entity>
         <attributes>
           <attribute PhysicalName="es_reservationid" Type="uniqueidentifier">
@@ -291,42 +242,6 @@
               <Description description="The name/title of the reservation" languagecode="1033"/>
             </Descriptions>
           </attribute>
-          <attribute PhysicalName="es_startdate" Type="datetime">
-            <Type>datetime</Type>
-            <Name>es_startdate</Name>
-            <LogicalName>es_startdate</LogicalName>
-            <RequiredLevel>ApplicationRequired</RequiredLevel>
-            <DisplayMask>ValidForAdvancedFind|ValidForForm|ValidForGrid</DisplayMask>
-            <Format>DateOnly</Format>
-            <IsLogical>false</IsLogical>
-            <IsSecured>false</IsSecured>
-            <IsCustom>true</IsCustom>
-            <SourceType>0</SourceType>
-            <LocalizedNames>
-              <LocalizedName description="Start Date" languagecode="1033"/>
-            </LocalizedNames>
-            <Descriptions>
-              <Description description="Start date of the reservation" languagecode="1033"/>
-            </Descriptions>
-          </attribute>
-          <attribute PhysicalName="es_enddate" Type="datetime">
-            <Type>datetime</Type>
-            <Name>es_enddate</Name>
-            <LogicalName>es_enddate</LogicalName>
-            <RequiredLevel>ApplicationRequired</RequiredLevel>
-            <DisplayMask>ValidForAdvancedFind|ValidForForm|ValidForGrid</DisplayMask>
-            <Format>DateOnly</Format>
-            <IsLogical>false</IsLogical>
-            <IsSecured>false</IsSecured>
-            <IsCustom>true</IsCustom>
-            <SourceType>0</SourceType>
-            <LocalizedNames>
-              <LocalizedName description="End Date" languagecode="1033"/>
-            </LocalizedNames>
-            <Descriptions>
-              <Description description="End date of the reservation" languagecode="1033"/>
-            </Descriptions>
-          </attribute>
           <attribute PhysicalName="es_spaceid" Type="lookup">
             <Type>lookup</Type>
             <Name>es_spaceid</Name>
@@ -345,57 +260,55 @@
               <Description description="The space being reserved" languagecode="1033"/>
             </Descriptions>
           </attribute>
-          <attribute PhysicalName="es_totalnumberofguests" Type="int">
-            <Type>int</Type>
-            <Name>es_totalnumberofguests</Name>
-            <LogicalName>es_totalnumberofguests</LogicalName>
-            <RequiredLevel>ApplicationRequired</RequiredLevel>
-            <DisplayMask>ValidForAdvancedFind|ValidForForm|ValidForGrid</DisplayMask>
-            <MinValue>1</MinValue>
-            <MaxValue>10000</MaxValue>
-            <IsLogical>false</IsLogical>
-            <IsSecured>false</IsSecured>
-            <IsCustom>true</IsCustom>
-            <SourceType>0</SourceType>
-            <LocalizedNames>
-              <LocalizedName description="Total Number of Guests" languagecode="1033"/>
-            </LocalizedNames>
-            <Descriptions>
-              <Description description="Total number of guests for the reservation" languagecode="1033"/>
-            </Descriptions>
-          </attribute>
         </attributes>
       </EntityInfo>
     </Entity>
   </Entities>
-
-  <!-- Security Roles -->
-  <Roles>
-    <Role name="es_Easy Spaces User" id="12345678-1234-1234-1234-123456789012">
-      <RolePrivileges>
-        <RolePrivilege name="prvReades_reservation" level="Basic" />
-        <RolePrivilege name="prvWritees_reservation" level="Basic" />
-        <RolePrivilege name="prvCreatees_reservation" level="Basic" />
-        <RolePrivilege name="prvReades_space" level="Global" />
-        <RolePrivilege name="prvReades_market" level="Global" />
-      </RolePrivileges>
-    </Role>
-    <Role name="es_Easy Spaces Manager" id="87654321-4321-4321-4321-210987654321">
-      <RolePrivileges>
-        <RolePrivilege name="prvReades_reservation" level="Global" />
-        <RolePrivilege name="prvWritees_reservation" level="Global" />
-        <RolePrivilege name="prvCreatees_reservation" level="Global" />
-        <RolePrivilege name="prvDeletees_reservation" level="Global" />
-        <RolePrivilege name="prvReades_space" level="Global" />
-        <RolePrivilege name="prvWritees_space" level="Global" />
-        <RolePrivilege name="prvCreatees_space" level="Global" />
-        <RolePrivilege name="prvDeletees_space" level="Global" />
-        <RolePrivilege name="prvReades_market" level="Global" />
-        <RolePrivilege name="prvWritees_market" level="Global" />
-        <RolePrivilege name="prvCreatees_market" level="Global" />
-        <RolePrivilege name="prvDeletees_market" level="Global" />
-      </RolePrivileges>
-    </Role>
-  </Roles>
-
+  <Roles />
+  <Workflows />
+  <FieldSecurityProfiles />
+  <Templates />
+  <EntityMaps />
+  <EntityRelationships>
+    <EntityRelationship Name="es_market_es_space">
+      <EntityRelationshipType>OneToManyRelationship</EntityRelationshipType>
+      <IsCustomizable>1</IsCustomizable>
+      <IntroducedVersion>1.0.0.0</IntroducedVersion>
+      <IsHierarchical>0</IsHierarchical>
+      <ReferencingEntityName>es_space</ReferencingEntityName>
+      <ReferencedEntityName>es_market</ReferencedEntityName>
+      <CascadeConfiguration>
+        <Assign>NoCascade</Assign>
+        <Delete>RemoveLink</Delete>
+        <Merge>NoCascade</Merge>
+        <Reparent>NoCascade</Reparent>
+        <Share>NoCascade</Share>
+        <Unshare>NoCascade</Unshare>
+      </CascadeConfiguration>
+      <ReferencingAttributeName>es_marketid</ReferencingAttributeName>
+      <ReferencedAttributeName>es_marketid</ReferencedAttributeName>
+    </EntityRelationship>
+    <EntityRelationship Name="es_space_es_reservation">
+      <EntityRelationshipType>OneToManyRelationship</EntityRelationshipType>
+      <IsCustomizable>1</IsCustomizable>
+      <IntroducedVersion>1.0.0.0</IntroducedVersion>
+      <IsHierarchical>0</IsHierarchical>
+      <ReferencingEntityName>es_reservation</ReferencingEntityName>
+      <ReferencedEntityName>es_space</ReferencedEntityName>
+      <CascadeConfiguration>
+        <Assign>NoCascade</Assign>
+        <Delete>RemoveLink</Delete>
+        <Merge>NoCascade</Merge>
+        <Reparent>NoCascade</Reparent>
+        <Share>NoCascade</Share>
+        <Unshare>NoCascade</Unshare>
+      </CascadeConfiguration>
+      <ReferencingAttributeName>es_spaceid</ReferencingAttributeName>
+      <ReferencedAttributeName>es_spaceid</ReferencedAttributeName>
+    </EntityRelationship>
+  </EntityRelationships>
+  <OrganizationSettings />
+  <optionsets />
+  <CustomControls />
+  <EntityDataProviders />
 </ImportExportXml>

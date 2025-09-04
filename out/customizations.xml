@@ -1,26 +1,26 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <ImportExportXml xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <Entities>
     <!-- Market Entity -->
     <Entity>
-      <Name LocalizedName="Market" OriginalName="es_market">es_market</Name>
+      <Name LocalizedName="Market" OriginalName="Market">es_market</Name>
       <EntityInfo>
         <entity Name="es_market">
           <LocalizedNames>
-            <LocalizedName description="Market" languagecode="1033"/>
+            <LocalizedName description="Market" languagecode="1033" />
           </LocalizedNames>
           <LocalizedCollectionNames>
-            <LocalizedCollectionName description="Markets" languagecode="1033"/>
+            <LocalizedCollectionName description="Markets" languagecode="1033" />
           </LocalizedCollectionNames>
           <Descriptions>
-            <Description description="Represents a geographical market for Easy Spaces" languagecode="1033"/>
+            <Description description="Represents a geographical market for Easy Spaces" languagecode="1033" />
           </Descriptions>
           <PrimaryIdAttribute>es_marketid</PrimaryIdAttribute>
           <PrimaryNameAttribute>es_name</PrimaryNameAttribute>
           <OwnershipType>UserOwned</OwnershipType>
           <IsActivity>false</IsActivity>
           <IsAvailableOffline>true</IsAvailableOffline>
-          <IsBusinessProcessEnabled>false</IsBusinessProcessEnabled>
+          <IsBusinessProcessEnabled>true</IsBusinessProcessEnabled>
           <IsMailMergeEnabled>false</IsMailMergeEnabled>
           <IsValidForQueue>false</IsValidForQueue>
           <IsConnectionsEnabled>true</IsConnectionsEnabled>
@@ -39,7 +39,7 @@
             <Name>es_marketid</Name>
             <LogicalName>es_marketid</LogicalName>
             <RequiredLevel>SystemRequired</RequiredLevel>
-            <DisplayMask>ValidForAdvancedFind</DisplayMask>
+            <DisplayMask>ValidForAdvancedFind|RequiredForForm</DisplayMask>
             <IsPrimaryId>true</IsPrimaryId>
             <IsLogical>false</IsLogical>
             <IsSecured>false</IsSecured>
@@ -51,7 +51,7 @@
             <Name>es_name</Name>
             <LogicalName>es_name</LogicalName>
             <RequiredLevel>ApplicationRequired</RequiredLevel>
-            <DisplayMask>ValidForAdvancedFind|ValidForForm|ValidForGrid</DisplayMask>
+            <DisplayMask>ValidForAdvancedFind|RequiredForForm|ValidForGrid</DisplayMask>
             <IsPrimaryName>true</IsPrimaryName>
             <Length>100</Length>
             <IsLogical>false</IsLogical>
@@ -59,10 +59,10 @@
             <IsCustom>true</IsCustom>
             <SourceType>0</SourceType>
             <LocalizedNames>
-              <LocalizedName description="Market Name" languagecode="1033"/>
+              <LocalizedName description="Market Name" languagecode="1033" />
             </LocalizedNames>
             <Descriptions>
-              <Description description="The name of the market" languagecode="1033"/>
+              <Description description="The name of the market" languagecode="1033" />
             </Descriptions>
           </attribute>
           <attribute PhysicalName="es_city" Type="nvarchar">
@@ -70,17 +70,17 @@
             <Name>es_city</Name>
             <LogicalName>es_city</LogicalName>
             <RequiredLevel>ApplicationRequired</RequiredLevel>
-            <DisplayMask>ValidForAdvancedFind|ValidForForm|ValidForGrid</DisplayMask>
-            <Length>50</Length>
+            <DisplayMask>ValidForAdvancedFind|RequiredForForm|ValidForGrid</DisplayMask>
+            <Length>100</Length>
             <IsLogical>false</IsLogical>
             <IsSecured>false</IsSecured>
             <IsCustom>true</IsCustom>
             <SourceType>0</SourceType>
             <LocalizedNames>
-              <LocalizedName description="City" languagecode="1033"/>
+              <LocalizedName description="City" languagecode="1033" />
             </LocalizedNames>
             <Descriptions>
-              <Description description="City where the market is located" languagecode="1033"/>
+              <Description description="City where the market is located" languagecode="1033" />
             </Descriptions>
           </attribute>
           <attribute PhysicalName="es_state" Type="nvarchar">
@@ -95,29 +95,46 @@
             <IsCustom>true</IsCustom>
             <SourceType>0</SourceType>
             <LocalizedNames>
-              <LocalizedName description="State/Province" languagecode="1033"/>
+              <LocalizedName description="State/Province" languagecode="1033" />
             </LocalizedNames>
             <Descriptions>
-              <Description description="State or province of the market" languagecode="1033"/>
+              <Description description="State or Province" languagecode="1033" />
+            </Descriptions>
+          </attribute>
+          <attribute PhysicalName="es_country" Type="nvarchar">
+            <Type>nvarchar</Type>
+            <Name>es_country</Name>
+            <LogicalName>es_country</LogicalName>
+            <RequiredLevel>None</RequiredLevel>
+            <DisplayMask>ValidForAdvancedFind|ValidForForm|ValidForGrid</DisplayMask>
+            <Length>100</Length>
+            <IsLogical>false</IsLogical>
+            <IsSecured>false</IsSecured>
+            <IsCustom>true</IsCustom>
+            <SourceType>0</SourceType>
+            <LocalizedNames>
+              <LocalizedName description="Country" languagecode="1033" />
+            </LocalizedNames>
+            <Descriptions>
+              <Description description="Country where the market is located" languagecode="1033" />
             </Descriptions>
           </attribute>
         </attributes>
       </EntityInfo>
     </Entity>
-
     <!-- Space Entity -->
     <Entity>
-      <Name LocalizedName="Space" OriginalName="es_space">es_space</Name>
+      <Name LocalizedName="Space" OriginalName="Space">es_space</Name>
       <EntityInfo>
         <entity Name="es_space">
           <LocalizedNames>
-            <LocalizedName description="Space" languagecode="1033"/>
+            <LocalizedName description="Space" languagecode="1033" />
           </LocalizedNames>
           <LocalizedCollectionNames>
-            <LocalizedCollectionName description="Spaces" languagecode="1033"/>
+            <LocalizedCollectionName description="Spaces" languagecode="1033" />
           </LocalizedCollectionNames>
           <Descriptions>
-            <Description description="Represents a rentable space for events" languagecode="1033"/>
+            <Description description="Represents a rentable space for events" languagecode="1033" />
           </Descriptions>
           <PrimaryIdAttribute>es_spaceid</PrimaryIdAttribute>
           <PrimaryNameAttribute>es_name</PrimaryNameAttribute>
@@ -126,7 +143,7 @@
           <IsAvailableOffline>true</IsAvailableOffline>
           <IsBusinessProcessEnabled>true</IsBusinessProcessEnabled>
           <IsMailMergeEnabled>false</IsMailMergeEnabled>
-          <IsValidForQueue>true</IsValidForQueue>
+          <IsValidForQueue>false</IsValidForQueue>
           <IsConnectionsEnabled>true</IsConnectionsEnabled>
           <HasNotes>true</HasNotes>
           <HasActivities>true</HasActivities>
@@ -143,7 +160,7 @@
             <Name>es_spaceid</Name>
             <LogicalName>es_spaceid</LogicalName>
             <RequiredLevel>SystemRequired</RequiredLevel>
-            <DisplayMask>ValidForAdvancedFind</DisplayMask>
+            <DisplayMask>ValidForAdvancedFind|RequiredForForm</DisplayMask>
             <IsPrimaryId>true</IsPrimaryId>
             <IsLogical>false</IsLogical>
             <IsSecured>false</IsSecured>
@@ -155,7 +172,7 @@
             <Name>es_name</Name>
             <LogicalName>es_name</LogicalName>
             <RequiredLevel>ApplicationRequired</RequiredLevel>
-            <DisplayMask>ValidForAdvancedFind|ValidForForm|ValidForGrid</DisplayMask>
+            <DisplayMask>ValidForAdvancedFind|RequiredForForm|ValidForGrid</DisplayMask>
             <IsPrimaryName>true</IsPrimaryName>
             <Length>100</Length>
             <IsLogical>false</IsLogical>
@@ -163,18 +180,18 @@
             <IsCustom>true</IsCustom>
             <SourceType>0</SourceType>
             <LocalizedNames>
-              <LocalizedName description="Space Name" languagecode="1033"/>
+              <LocalizedName description="Space Name" languagecode="1033" />
             </LocalizedNames>
             <Descriptions>
-              <Description description="The name of the space" languagecode="1033"/>
+              <Description description="The name of the space" languagecode="1033" />
             </Descriptions>
           </attribute>
-          <attribute PhysicalName="es_maximumcapacity" Type="int">
+          <attribute PhysicalName="es_minimumcapacity" Type="int">
             <Type>int</Type>
-            <Name>es_maximumcapacity</Name>
-            <LogicalName>es_maximumcapacity</LogicalName>
+            <Name>es_minimumcapacity</Name>
+            <LogicalName>es_minimumcapacity</LogicalName>
             <RequiredLevel>ApplicationRequired</RequiredLevel>
-            <DisplayMask>ValidForAdvancedFind|ValidForForm|ValidForGrid</DisplayMask>
+            <DisplayMask>ValidForAdvancedFind|RequiredForForm|ValidForGrid</DisplayMask>
             <MinValue>1</MinValue>
             <MaxValue>10000</MaxValue>
             <IsLogical>false</IsLogical>
@@ -182,64 +199,67 @@
             <IsCustom>true</IsCustom>
             <SourceType>0</SourceType>
             <LocalizedNames>
-              <LocalizedName description="Maximum Capacity" languagecode="1033"/>
+              <LocalizedName description="Minimum Capacity" languagecode="1033" />
             </LocalizedNames>
             <Descriptions>
-              <Description description="Maximum number of people the space can accommodate" languagecode="1033"/>
+              <Description description="Minimum number of guests" languagecode="1033" />
             </Descriptions>
           </attribute>
-          <attribute PhysicalName="es_dailyrate" Type="money">
-            <Type>money</Type>
-            <Name>es_dailyrate</Name>
-            <LogicalName>es_dailyrate</LogicalName>
-            <RequiredLevel>None</RequiredLevel>
-            <DisplayMask>ValidForAdvancedFind|ValidForForm|ValidForGrid</DisplayMask>
-            <IsLogical>false</IsLogical>
-            <IsSecured>false</IsSecured>
-            <IsCustom>true</IsCustom>
-            <SourceType>0</SourceType>
-            <LocalizedNames>
-              <LocalizedName description="Daily Rate" languagecode="1033"/>
-            </LocalizedNames>
-            <Descriptions>
-              <Description description="Daily rental rate for the space" languagecode="1033"/>
-            </Descriptions>
-          </attribute>
-          <attribute PhysicalName="es_marketid" Type="lookup">
-            <Type>lookup</Type>
-            <Name>es_marketid</Name>
-            <LogicalName>es_marketid</LogicalName>
+          <attribute PhysicalName="es_maximumcapacity" Type="int">
+            <Type>int</Type>
+            <Name>es_maximumcapacity</Name>
+            <LogicalName>es_maximumcapacity</LogicalName>
             <RequiredLevel>ApplicationRequired</RequiredLevel>
-            <DisplayMask>ValidForAdvancedFind|ValidForForm|ValidForGrid</DisplayMask>
+            <DisplayMask>ValidForAdvancedFind|RequiredForForm|ValidForGrid</DisplayMask>
+            <MinValue>1</MinValue>
+            <MaxValue>10000</MaxValue>
             <IsLogical>false</IsLogical>
             <IsSecured>false</IsSecured>
             <IsCustom>true</IsCustom>
             <SourceType>0</SourceType>
-            <Targets>es_market</Targets>
             <LocalizedNames>
-              <LocalizedName description="Market" languagecode="1033"/>
+              <LocalizedName description="Maximum Capacity" languagecode="1033" />
             </LocalizedNames>
             <Descriptions>
-              <Description description="The market this space belongs to" languagecode="1033"/>
+              <Description description="Maximum number of guests" languagecode="1033" />
+            </Descriptions>
+          </attribute>
+          <attribute PhysicalName="es_dailybookingrate" Type="money">
+            <Type>money</Type>
+            <Name>es_dailybookingrate</Name>
+            <LogicalName>es_dailybookingrate</LogicalName>
+            <RequiredLevel>ApplicationRequired</RequiredLevel>
+            <DisplayMask>ValidForAdvancedFind|RequiredForForm|ValidForGrid</DisplayMask>
+            <MinValue>0</MinValue>
+            <MaxValue>1000000</MaxValue>
+            <Precision>2</Precision>
+            <IsLogical>false</IsLogical>
+            <IsSecured>false</IsSecured>
+            <IsCustom>true</IsCustom>
+            <SourceType>0</SourceType>
+            <LocalizedNames>
+              <LocalizedName description="Daily Booking Rate" languagecode="1033" />
+            </LocalizedNames>
+            <Descriptions>
+              <Description description="Daily rate for booking this space" languagecode="1033" />
             </Descriptions>
           </attribute>
         </attributes>
       </EntityInfo>
     </Entity>
-
     <!-- Reservation Entity -->
     <Entity>
-      <Name LocalizedName="Reservation" OriginalName="es_reservation">es_reservation</Name>
+      <Name LocalizedName="Reservation" OriginalName="Reservation">es_reservation</Name>
       <EntityInfo>
         <entity Name="es_reservation">
           <LocalizedNames>
-            <LocalizedName description="Reservation" languagecode="1033"/>
+            <LocalizedName description="Reservation" languagecode="1033" />
           </LocalizedNames>
           <LocalizedCollectionNames>
-            <LocalizedCollectionName description="Reservations" languagecode="1033"/>
+            <LocalizedCollectionName description="Reservations" languagecode="1033" />
           </LocalizedCollectionNames>
           <Descriptions>
-            <Description description="Represents a space reservation for an event" languagecode="1033"/>
+            <Description description="Represents a space reservation for an event" languagecode="1033" />
           </Descriptions>
           <PrimaryIdAttribute>es_reservationid</PrimaryIdAttribute>
           <PrimaryNameAttribute>es_name</PrimaryNameAttribute>
@@ -265,7 +285,7 @@
             <Name>es_reservationid</Name>
             <LogicalName>es_reservationid</LogicalName>
             <RequiredLevel>SystemRequired</RequiredLevel>
-            <DisplayMask>ValidForAdvancedFind</DisplayMask>
+            <DisplayMask>ValidForAdvancedFind|RequiredForForm</DisplayMask>
             <IsPrimaryId>true</IsPrimaryId>
             <IsLogical>false</IsLogical>
             <IsSecured>false</IsSecured>
@@ -277,7 +297,7 @@
             <Name>es_name</Name>
             <LogicalName>es_name</LogicalName>
             <RequiredLevel>ApplicationRequired</RequiredLevel>
-            <DisplayMask>ValidForAdvancedFind|ValidForForm|ValidForGrid</DisplayMask>
+            <DisplayMask>ValidForAdvancedFind|RequiredForForm|ValidForGrid</DisplayMask>
             <IsPrimaryName>true</IsPrimaryName>
             <Length>100</Length>
             <IsLogical>false</IsLogical>
@@ -285,10 +305,10 @@
             <IsCustom>true</IsCustom>
             <SourceType>0</SourceType>
             <LocalizedNames>
-              <LocalizedName description="Reservation Name" languagecode="1033"/>
+              <LocalizedName description="Reservation Name" languagecode="1033" />
             </LocalizedNames>
             <Descriptions>
-              <Description description="The name/title of the reservation" languagecode="1033"/>
+              <Description description="The name/title of the reservation" languagecode="1033" />
             </Descriptions>
           </attribute>
           <attribute PhysicalName="es_startdate" Type="datetime">
@@ -296,17 +316,17 @@
             <Name>es_startdate</Name>
             <LogicalName>es_startdate</LogicalName>
             <RequiredLevel>ApplicationRequired</RequiredLevel>
-            <DisplayMask>ValidForAdvancedFind|ValidForForm|ValidForGrid</DisplayMask>
+            <DisplayMask>ValidForAdvancedFind|RequiredForForm|ValidForGrid</DisplayMask>
             <Format>DateOnly</Format>
             <IsLogical>false</IsLogical>
             <IsSecured>false</IsSecured>
             <IsCustom>true</IsCustom>
             <SourceType>0</SourceType>
             <LocalizedNames>
-              <LocalizedName description="Start Date" languagecode="1033"/>
+              <LocalizedName description="Start Date" languagecode="1033" />
             </LocalizedNames>
             <Descriptions>
-              <Description description="Start date of the reservation" languagecode="1033"/>
+              <Description description="Start date of the reservation" languagecode="1033" />
             </Descriptions>
           </attribute>
           <attribute PhysicalName="es_enddate" Type="datetime">
@@ -314,35 +334,17 @@
             <Name>es_enddate</Name>
             <LogicalName>es_enddate</LogicalName>
             <RequiredLevel>ApplicationRequired</RequiredLevel>
-            <DisplayMask>ValidForAdvancedFind|ValidForForm|ValidForGrid</DisplayMask>
+            <DisplayMask>ValidForAdvancedFind|RequiredForForm|ValidForGrid</DisplayMask>
             <Format>DateOnly</Format>
             <IsLogical>false</IsLogical>
             <IsSecured>false</IsSecured>
             <IsCustom>true</IsCustom>
             <SourceType>0</SourceType>
             <LocalizedNames>
-              <LocalizedName description="End Date" languagecode="1033"/>
+              <LocalizedName description="End Date" languagecode="1033" />
             </LocalizedNames>
             <Descriptions>
-              <Description description="End date of the reservation" languagecode="1033"/>
-            </Descriptions>
-          </attribute>
-          <attribute PhysicalName="es_spaceid" Type="lookup">
-            <Type>lookup</Type>
-            <Name>es_spaceid</Name>
-            <LogicalName>es_spaceid</LogicalName>
-            <RequiredLevel>ApplicationRequired</RequiredLevel>
-            <DisplayMask>ValidForAdvancedFind|ValidForForm|ValidForGrid</DisplayMask>
-            <IsLogical>false</IsLogical>
-            <IsSecured>false</IsSecured>
-            <IsCustom>true</IsCustom>
-            <SourceType>0</SourceType>
-            <Targets>es_space</Targets>
-            <LocalizedNames>
-              <LocalizedName description="Space" languagecode="1033"/>
-            </LocalizedNames>
-            <Descriptions>
-              <Description description="The space being reserved" languagecode="1033"/>
+              <Description description="End date of the reservation" languagecode="1033" />
             </Descriptions>
           </attribute>
           <attribute PhysicalName="es_totalnumberofguests" Type="int">
@@ -350,7 +352,7 @@
             <Name>es_totalnumberofguests</Name>
             <LogicalName>es_totalnumberofguests</LogicalName>
             <RequiredLevel>ApplicationRequired</RequiredLevel>
-            <DisplayMask>ValidForAdvancedFind|ValidForForm|ValidForGrid</DisplayMask>
+            <DisplayMask>ValidForAdvancedFind|RequiredForForm|ValidForGrid</DisplayMask>
             <MinValue>1</MinValue>
             <MaxValue>10000</MaxValue>
             <IsLogical>false</IsLogical>
@@ -358,44 +360,28 @@
             <IsCustom>true</IsCustom>
             <SourceType>0</SourceType>
             <LocalizedNames>
-              <LocalizedName description="Total Number of Guests" languagecode="1033"/>
+              <LocalizedName description="Total Number of Guests" languagecode="1033" />
             </LocalizedNames>
             <Descriptions>
-              <Description description="Total number of guests for the reservation" languagecode="1033"/>
+              <Description description="Total number of guests for the reservation" languagecode="1033" />
             </Descriptions>
           </attribute>
         </attributes>
       </EntityInfo>
     </Entity>
   </Entities>
-
-  <!-- Security Roles -->
-  <Roles>
-    <Role name="es_Easy Spaces User" id="12345678-1234-1234-1234-123456789012">
-      <RolePrivileges>
-        <RolePrivilege name="prvReades_reservation" level="Basic" />
-        <RolePrivilege name="prvWritees_reservation" level="Basic" />
-        <RolePrivilege name="prvCreatees_reservation" level="Basic" />
-        <RolePrivilege name="prvReades_space" level="Global" />
-        <RolePrivilege name="prvReades_market" level="Global" />
-      </RolePrivileges>
-    </Role>
-    <Role name="es_Easy Spaces Manager" id="87654321-4321-4321-4321-210987654321">
-      <RolePrivileges>
-        <RolePrivilege name="prvReades_reservation" level="Global" />
-        <RolePrivilege name="prvWritees_reservation" level="Global" />
-        <RolePrivilege name="prvCreatees_reservation" level="Global" />
-        <RolePrivilege name="prvDeletees_reservation" level="Global" />
-        <RolePrivilege name="prvReades_space" level="Global" />
-        <RolePrivilege name="prvWritees_space" level="Global" />
-        <RolePrivilege name="prvCreatees_space" level="Global" />
-        <RolePrivilege name="prvDeletees_space" level="Global" />
-        <RolePrivilege name="prvReades_market" level="Global" />
-        <RolePrivilege name="prvWritees_market" level="Global" />
-        <RolePrivilege name="prvCreatees_market" level="Global" />
-        <RolePrivilege name="prvDeletees_market" level="Global" />
-      </RolePrivileges>
-    </Role>
-  </Roles>
-
+  <Roles />
+  <Workflows />
+  <FieldSecurityProfiles />
+  <Templates />
+  <EntityMaps />
+  <EntityRelationships />
+  <OrganizationSettings />
+  <optionsets />
+  <CustomControls />
+  <SolutionPluginAssemblies />
+  <EntityDataProviders />
+  <Languages>
+    <Language>1033</Language>
+  </Languages>
 </ImportExportXml>

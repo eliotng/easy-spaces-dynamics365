@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ImportExportXml version="9.2.24081.10375" SolutionPackageVersion="9.2" languagecode="1033">
+  <SolutionManifest>
+    <UniqueName>EasySpaces</UniqueName>
+    <LocalizedNames>
+      <LocalizedName description="Easy Spaces" languagecode="1033"/>
+    </LocalizedNames>
+    <Descriptions>
+      <Description description="Event management solution converted from Salesforce LWC" languagecode="1033"/>
+    </Descriptions>
+    <Version>1.0.0.2</Version>
+    <Managed>0</Managed>
+    <Publisher>
+      <UniqueName>EasySpacesPublisher</UniqueName>
+      <LocalizedNames>
+        <LocalizedName description="Easy Spaces Publisher" languagecode="1033"/>
+      </LocalizedNames>
+      <Descriptions>
+        <Description description="Publisher for Easy Spaces solution" languagecode="1033"/>
+      </Descriptions>
+      <CustomizationPrefix>es</CustomizationPrefix>
+      <CustomizationOptionValuePrefix>10000</CustomizationOptionValuePrefix>
+    </Publisher>
+    <RootComponents>
+      <RootComponent type="1" schemaName="es_market"/>
+      <RootComponent type="1" schemaName="es_space"/>
+      <RootComponent type="1" schemaName="es_reservation"/>
+    </RootComponents>
+  </SolutionManifest>
+</ImportExportXml>

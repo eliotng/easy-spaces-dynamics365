@@ -138,13 +138,16 @@ Remove-Item $tempDir -Recurse -Force
 Write-Host "`n✅ SUCCESS! Easy Spaces solution package created:" -ForegroundColor Green
 Write-Host "   📦 File: $OutputPath" -ForegroundColor Cyan
 Write-Host "   📁 Size: $((Get-Item $OutputPath).Length / 1KB) KB" -ForegroundColor Cyan
+Write-Host "`nSUCCESS! Easy Spaces solution package created:" -ForegroundColor Green
+Write-Host "   File: $OutputPath" -ForegroundColor Cyan
+Write-Host "   Size: $([math]::Round((Get-Item $OutputPath).Length / 1KB,2)) KB" -ForegroundColor Cyan
 
-Write-Host "`n🚀 NEXT STEPS:" -ForegroundColor Yellow
+Write-Host "`nNEXT STEPS:" -ForegroundColor Yellow
 Write-Host "1. Go to: https://admin.powerplatform.microsoft.com/" -ForegroundColor White
-Write-Host "2. Select your environment" -ForegroundColor White  
-Write-Host "3. Click Solutions → Import solution" -ForegroundColor White
+Write-Host "2. Select your environment" -ForegroundColor White
+Write-Host "3. Click Solutions -> Import solution" -ForegroundColor White
 Write-Host "4. Upload: $OutputPath" -ForegroundColor Cyan
 Write-Host "5. After entity import, import Canvas app and flows separately" -ForegroundColor White
 
-Write-Host "`n📋 This package contains the ACTUAL converted app entities!" -ForegroundColor Green
-Write-Host "   Not manual recreation - real deployment of our conversion work." -ForegroundColor Green
+Write-Host "`nThis package contains the converted app entities." -ForegroundColor Green
+Write-Host "Import completed artifacts then add canvas app, flows, and sample data." -ForegroundColor Green

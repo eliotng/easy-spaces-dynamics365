@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ImportExportXml version="9.1.0.643" SolutionPackageVersion="9.1" languagecode="1033" 
+                 generatedBy="CrmLiveSetup" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <SolutionManifest>
+    <UniqueName>EasySpaces</UniqueName>
+    <LocalizedNames>
+      <LocalizedName description="Easy Spaces" languagecode="1033" />
+    </LocalizedNames>
+    <Descriptions>
+      <Description description="Easy Spaces event management solution converted from Salesforce" languagecode="1033" />
+    </Descriptions>
+    <Version>1.0.0.0</Version>
+    <Managed>0</Managed>
+    <Publisher>
+      <UniqueName>easyspaces</UniqueName>
+      <LocalizedNames>
+        <LocalizedName description="Easy Spaces" languagecode="1033" />
+      </LocalizedNames>
+      <Descriptions>
+        <Description description="Easy Spaces Publisher" languagecode="1033" />
+      </Descriptions>
+      <EMailAddress>admin@easyspaces.com</EMailAddress>
+      <SupportingWebsiteUrl>https://easyspaces.com</SupportingWebsiteUrl>
+      <CustomizationPrefix>es</CustomizationPrefix>
+      <CustomizationOptionValuePrefix>10000</CustomizationOptionValuePrefix>
+      <Addresses>
+        <Address>
+          <AddressNumber>1</AddressNumber>
+          <AddressTypeCode>1</AddressTypeCode>
+          <City>Seattle</City>
+          <County>King</County>
+          <Country>United States</Country>
+          <PostalCode>98101</PostalCode>
+          <StateOrProvince>WA</StateOrProvince>
+          <StreetLine1>123 Easy Spaces Way</StreetLine1>
+        </Address>
+      </Addresses>
+    </Publisher>
+    <RootComponents>
+      <RootComponent type="1" schemaName="es_market" behavior="0" />
+      <RootComponent type="1" schemaName="es_space" behavior="0" />
+      <RootComponent type="1" schemaName="es_reservation" behavior="0" />
+      <RootComponent type="62" schemaName="EasySpaces" behavior="0" />
+    </RootComponents>
+    <MissingDependencies />
+  </SolutionManifest>
+</ImportExportXml>

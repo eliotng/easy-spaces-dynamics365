@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Entity xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Name LocalizedName="Space" OriginalName="Space">es_space</Name>
+  <EntityInfo>
+    <entity Name="es_space">
+      <LocalizedNames>
+        <LocalizedName description="Space" languagecode="1033"/>
+      </LocalizedNames>
+      <LocalizedCollectionNames>
+        <LocalizedCollectionName description="Spaces" languagecode="1033"/>
+      </LocalizedCollectionNames>
+      <Descriptions>
+        <Description description="Represents a rentable space for events" languagecode="1033"/>
+      </Descriptions>
+      <PrimaryIdAttribute>es_spaceid</PrimaryIdAttribute>
+      <PrimaryNameAttribute>es_name</PrimaryNameAttribute>
+      <OwnershipType>UserOwned</OwnershipType>
+      <IsActivity>false</IsActivity>
+      <IsAvailableOffline>true</IsAvailableOffline>
+      <IsBusinessProcessEnabled>true</IsBusinessProcessEnabled>
+      <IsMailMergeEnabled>false</IsMailMergeEnabled>
+      <IsValidForQueue>false</IsValidForQueue>
+      <IsConnectionsEnabled>true</IsConnectionsEnabled>
+      <HasNotes>true</HasNotes>
+      <HasActivities>true</HasActivities>
+      <IsQuickCreateEnabled>true</IsQuickCreateEnabled>
+      <IsDuplicateDetectionEnabled>true</IsDuplicateDetectionEnabled>
+      <IsAuditEnabled>true</IsAuditEnabled>
+      <IsRenameable>true</IsRenameable>
+      <IsMappable>true</IsMappable>
+      <ChangeTrackingEnabled>true</ChangeTrackingEnabled>
+    </entity>
+    <attributes>
+      <attribute PhysicalName="es_spaceid" Type="primarykey">
+        <Type>primarykey</Type>
+        <Name>es_spaceid</Name>
+        <LogicalName>es_spaceid</LogicalName>
+        <RequiredLevel>SystemRequired</RequiredLevel>
+        <DisplayMask>ValidForAdvancedFind|RequiredForForm</DisplayMask>
+        <IsPrimaryId>true</IsPrimaryId>
+        <IsLogical>false</IsLogical>
+        <IsSecured>false</IsSecured>
+        <IsCustom>false</IsCustom>
+        <SourceType>0</SourceType>
+      </attribute>
+      <attribute PhysicalName="es_name" Type="nvarchar">
+        <Type>nvarchar</Type>
+        <Name>es_name</Name>
+        <LogicalName>es_name</LogicalName>
+        <RequiredLevel>ApplicationRequired</RequiredLevel>
+        <DisplayMask>ValidForAdvancedFind|RequiredForForm|ValidForGrid</DisplayMask>
+        <IsPrimaryName>true</IsPrimaryName>
+        <Length>100</Length>
+        <IsLogical>false</IsLogical>
+        <IsSecured>false</IsSecured>
+        <IsCustom>true</IsCustom>
+        <SourceType>0</SourceType>
+        <LocalizedNames>
+          <LocalizedName description="Space Name" languagecode="1033"/>
+        </LocalizedNames>
+        <Descriptions>
+          <Description description="The name of the space" languagecode="1033"/>
+        </Descriptions>
+      </attribute>
+      <attribute PhysicalName="es_type" Type="picklist">
+        <Type>picklist</Type>
+        <Name>es_type</Name>
+        <LogicalName>es_type</LogicalName>
+        <RequiredLevel>ApplicationRequired</RequiredLevel>
+        <DisplayMask>ValidForAdvancedFind|RequiredForForm|ValidForGrid</DisplayMask>
+        <IsLogical>false</IsLogical>
+        <IsSecured>false</IsSecured>
+        <IsCustom>true</IsCustom>
+        <SourceType>0</SourceType>
+        <LocalizedNames>
+          <LocalizedName description="Type" languagecode="1033"/>
+        </LocalizedNames>
+        <Descriptions>
+          <Description description="Type of space" languagecode="1033"/>
+        </Descriptions>
+        <OptionSet>
+          <Options>
+            <Option Value="10000" Label="Warehouse"/>
+            <Option Value="10001" Label="Office"/>
+            <Option Value="10002" Label="Café"/>
+            <Option Value="10003" Label="Game Room"/>
+            <Option Value="10004" Label="Gallery"/>
+            <Option Value="10005" Label="Rooftop"/>
+            <Option Value="10006" Label="Theater"/>
+          </Options>
+        </OptionSet>
+      </attribute>
+      <attribute PhysicalName="es_category" Type="picklist">
+        <Type>picklist</Type>
+        <Name>es_category</Name>
+        <LogicalName>es_category</LogicalName>
+        <RequiredLevel>None</RequiredLevel>
+        <DisplayMask>ValidForAdvancedFind|ValidForForm|ValidForGrid</DisplayMask>
+        <IsLogical>false</IsLogical>
+        <IsSecured>false</IsSecured>
+        <IsCustom>true</IsCustom>
+        <SourceType>0</SourceType>
+        <LocalizedNames>
+          <LocalizedName description="Category" languagecode="1033"/>
+        </LocalizedNames>
+        <Descriptions>
+          <Description description="Category of the space" languagecode="1033"/>
+        </Descriptions>
+        <OptionSet>
+          <Options>
+            <Option Value="10007" Label="Indoor"/>
+            <Option Value="10008" Label="Outdoor"/>
+            <Option Value="10009" Label="Hybrid"/>
+          </Options>
+        </OptionSet>
+      </attribute>
+      <attribute PhysicalName="es_minimumcapacity" Type="int">
+        <Type>int</Type>
+        <Name>es_minimumcapacity</Name>
+        <LogicalName>es_minimumcapacity</LogicalName>
+        <RequiredLevel>ApplicationRequired</RequiredLevel>
+        <DisplayMask>ValidForAdvancedFind|RequiredForForm|ValidForGrid</DisplayMask>
+        <MinValue>1</MinValue>
+        <MaxValue>10000</MaxValue>
+        <IsLogical>false</IsLogical>
+        <IsSecured>false</IsSecured>
+        <IsCustom>true</IsCustom>
+        <SourceType>0</SourceType>
+        <LocalizedNames>
+          <LocalizedName description="Minimum Capacity" languagecode="1033"/>
+        </LocalizedNames>
+        <Descriptions>
+          <Description description="Minimum number of guests" languagecode="1033"/>
+        </Descriptions>
+      </attribute>
+      <attribute PhysicalName="es_maximumcapacity" Type="int">
+        <Type>int</Type>
+        <Name>es_maximumcapacity</Name>
+        <LogicalName>es_maximumcapacity</LogicalName>
+        <RequiredLevel>ApplicationRequired</RequiredLevel>
+        <DisplayMask>ValidForAdvancedFind|RequiredForForm|ValidForGrid</DisplayMask>
+        <MinValue>1</MinValue>
+        <MaxValue>10000</MaxValue>
+        <IsLogical>false</IsLogical>
+        <IsSecured>false</IsSecured>
+        <IsCustom>true</IsCustom>
+        <SourceType>0</SourceType>
+        <LocalizedNames>
+          <LocalizedName description="Maximum Capacity" languagecode="1033"/>
+        </LocalizedNames>
+        <Descriptions>
+          <Description description="Maximum number of guests" languagecode="1033"/>
+        </Descriptions>
+      </attribute>
+      <attribute PhysicalName="es_dailybookingrate" Type="money">
+        <Type>money</Type>
+        <Name>es_dailybookingrate</Name>
+        <LogicalName>es_dailybookingrate</LogicalName>
+        <RequiredLevel>ApplicationRequired</RequiredLevel>
+        <DisplayMask>ValidForAdvancedFind|RequiredForForm|ValidForGrid</DisplayMask>
+        <MinValue>0</MinValue>
+        <MaxValue>1000000</MaxValue>
+        <Precision>2</Precision>
+        <IsLogical>false</IsLogical>
+        <IsSecured>false</IsSecured>
+        <IsCustom>true</IsCustom>
+        <SourceType>0</SourceType>
+        <LocalizedNames>
+          <LocalizedName description="Daily Booking Rate" languagecode="1033"/>
+        </LocalizedNames>
+        <Descriptions>
+          <Description description="Daily rate for booking this space" languagecode="1033"/>
+        </Descriptions>
+      </attribute>
+      <attribute PhysicalName="es_pictureurl" Type="nvarchar">
+        <Type>nvarchar</Type>
+        <Name>es_pictureurl</Name>
+        <LogicalName>es_pictureurl</LogicalName>
+        <RequiredLevel>None</RequiredLevel>
+        <DisplayMask>ValidForAdvancedFind|ValidForForm</DisplayMask>
+        <Length>500</Length>
+        <IsLogical>false</IsLogical>
+        <IsSecured>false</IsSecured>
+        <IsCustom>true</IsCustom>
+        <SourceType>0</SourceType>
+        <LocalizedNames>
+          <LocalizedName description="Picture URL" languagecode="1033"/>
+        </LocalizedNames>
+        <Descriptions>
+          <Description description="URL of the space picture" languagecode="1033"/>
+        </Descriptions>
+      </attribute>
+      <attribute PhysicalName="es_marketid" Type="lookup">
+        <Type>lookup</Type>
+        <Name>es_marketid</Name>
+        <LogicalName>es_marketid</LogicalName>
+        <RequiredLevel>ApplicationRequired</RequiredLevel>
+        <DisplayMask>ValidForAdvancedFind|RequiredForForm|ValidForGrid</DisplayMask>
+        <IsLogical>false</IsLogical>
+        <IsSecured>false</IsSecured>
+        <IsCustom>true</IsCustom>
+        <SourceType>0</SourceType>
+        <Targets>es_market</Targets>
+        <LocalizedNames>
+          <LocalizedName description="Market" languagecode="1033"/>
+        </LocalizedNames>
+        <Descriptions>
+          <Description description="The market this space belongs to" languagecode="1033"/>
+        </Descriptions>
+      </attribute>
+      <attribute PhysicalName="es_predicteddemand" Type="picklist">
+        <Type>picklist</Type>
+        <Name>es_predicteddemand</Name>
+        <LogicalName>es_predicteddemand</LogicalName>
+        <RequiredLevel>None</RequiredLevel>
+        <DisplayMask>ValidForAdvancedFind|ValidForForm|ValidForGrid</DisplayMask>
+        <IsLogical>false</IsLogical>
+        <IsSecured>false</IsSecured>
+        <IsCustom>true</IsCustom>
+        <SourceType>0</SourceType>
+        <LocalizedNames>
+          <LocalizedName description="Predicted Demand" languagecode="1033"/>
+        </LocalizedNames>
+        <Descriptions>
+          <Description description="AI predicted demand level" languagecode="1033"/>
+        </Descriptions>
+        <OptionSet>
+          <Options>
+            <Option Value="10010" Label="Low"/>
+            <Option Value="10011" Label="Medium"/>
+            <Option Value="10012" Label="High"/>
+          </Options>
+        </OptionSet>
+      </attribute>
+      <attribute PhysicalName="es_predictedbookingrate" Type="decimal">
+        <Type>decimal</Type>
+        <Name>es_predictedbookingrate</Name>
+        <LogicalName>es_predictedbookingrate</LogicalName>
+        <RequiredLevel>None</RequiredLevel>
+        <DisplayMask>ValidForAdvancedFind|ValidForForm|ValidForGrid</DisplayMask>
+        <MinValue>0</MinValue>
+        <MaxValue>100</MaxValue>
+        <Precision>2</Precision>
+        <IsLogical>false</IsLogical>
+        <IsSecured>false</IsSecured>
+        <IsCustom>true</IsCustom>
+        <SourceType>0</SourceType>
+        <LocalizedNames>
+          <LocalizedName description="Predicted Booking Rate (%)" languagecode="1033"/>
+        </LocalizedNames>
+        <Descriptions>
+          <Description description="AI predicted booking rate percentage" languagecode="1033"/>
+        </Descriptions>
+      </attribute>
+    </attributes>
+    <EntityRelationships>
+      <EntityRelationship Name="es_market_es_space" Type="OneToManyRelationship">
+        <ReferencedEntity>es_market</ReferencedEntity>
+        <ReferencingEntity>es_space</ReferencingEntity>
+        <ReferencedAttribute>es_marketid</ReferencedAttribute>
+        <ReferencingAttribute>es_marketid</ReferencingAttribute>
+        <ReferencedEntityNavigationPropertyName>es_market_es_space</ReferencedEntityNavigationPropertyName>
+        <ReferencingEntityNavigationPropertyName>es_marketid</ReferencingEntityNavigationPropertyName>
+      </EntityRelationship>
+    </EntityRelationships>
+  </EntityInfo>
+</Entity>
