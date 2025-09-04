@@ -1,0 +1,25 @@
+{
+  "name": "reservationhelper",
+  "version": "1.0.0",
+  "description": "Easy Spaces Reservation Helper PCF Control",
+  "main": "index.ts",
+  "scripts": {
+    "build": "pcf-scripts build",
+    "clean": "pcf-scripts clean",
+    "rebuild": "pcf-scripts rebuild",
+    "start": "pcf-scripts start"
+  },
+  "dependencies": {
+    "@types/powerapps-component-framework": "^1.3.4"
+  },
+  "devDependencies": {
+    "@microsoft/eslint-config-spfx": "^1.15.2",
+    "@types/node": "^15.12.4",
+    "@typescript-eslint/eslint-plugin": "^4.33.0",
+    "@typescript-eslint/parser": "^4.33.0",
+    "eslint": "^8.7.0",
+    "pcf-scripts": "^1",
+    "pcf-start": "^1",
+    "typescript": "^4.5.5"
+  }
+}
