@@ -7,9 +7,6 @@ on:
   # Trigger on push to main branch
   push:
     branches: [ main ]
-    paths:
-      - 'solution/**'
-      - 'out/**'
 
 jobs:
   deploy:
