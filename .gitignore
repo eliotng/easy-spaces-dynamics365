@@ -35,8 +35,11 @@ $RECYCLE.BIN/
 ~$*
 
 # Power Platform
-*.zip
+# *.zip (commented out to allow solution files)
 exported/
+# Allow solution files
+!out/EasySpacesSolution.zip
+!out/InitialSolution.zip
 backup/
 *.bak
 
