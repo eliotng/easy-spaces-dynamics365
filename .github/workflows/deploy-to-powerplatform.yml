@@ -1,0 +1,68 @@
+name: Deploy Easy Spaces to Power Platform
+
+on:
+  # Trigger on manual dispatch
+  workflow_dispatch:
+  
+  # Trigger on push to main branch
+  push:
+    branches: [ main ]
+    paths:
+      - 'solution/**'
+      - 'out/**'
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      
+    - name: Install Power Platform Tools
+      uses: microsoft/powerplatform-actions/actions-install@v1
+      
+    - name: Authenticate to Power Platform
+      uses: microsoft/powerplatform-actions/authenticate@v1
+      with:
+        environment-url: 'https://org7cfbe420.crm.dynamics.com'
+        user-name: ${{ secrets.POWERPLATFORM_USERNAME }}
+        password-secret: ${{ secrets.POWERPLATFORM_PASSWORD }}
+        
+    - name: Import Solution from Repository
+      uses: microsoft/powerplatform-actions/import-solution@v1
+      with:
+        solution-file: 'out/EasySpaces_Working_Update.zip'
+        force-overwrite: true
+        publish-changes: true
+        
+    - name: Export Solution (for sync back to repo)
+      uses: microsoft/powerplatform-actions/export-solution@v1
+      with:
+        solution-name: 'EasySpacesSolution'
+        solution-output-file: 'exported/EasySpacesSolution.zip'
+        managed: false
+        
+    - name: Unpack Solution
+      uses: microsoft/powerplatform-actions/unpack-solution@v1
+      with:
+        solution-file: 'exported/EasySpacesSolution.zip'
+        solution-folder: 'solution/src'
+        solution-type: 'Unmanaged'
+        overwrite-files: true
+        
+    - name: Commit and push changes
+      if: github.ref == 'refs/heads/main'
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        git add solution/src/
+        if ! git diff --cached --quiet; then
+          git commit -m "Auto-sync from Power Platform deployment
+          
+          🤖 Generated with GitHub Actions
+          Co-Authored-By: Power Platform Action <noreply@microsoft.com>"
+          git push
+        else
+          echo "No changes to commit"
+        fi
