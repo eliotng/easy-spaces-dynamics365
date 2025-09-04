@@ -1,0 +1,369 @@
+name: Easy Spaces CI/CD Pipeline
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Target environment'
+        required: true
+        default: 'dev'
+        type: choice
+        options:
+        - dev
+        - test
+        - prod
+
+env:
+  SOLUTION_NAME: EasySpaces
+  SOLUTION_SHIPPING_FOLDER: out/ship/
+  SOLUTION_OUTBOUND_FOLDER: out/
+  SOLUTION_SOURCE_FOLDER: solution/
+  SOLUTION_RELEASE_FOLDER: out/release/
+
+jobs:
+  # Export solution from development environment
+  export-from-dev:
+    runs-on: windows-latest
+    if: github.event_name == 'workflow_dispatch' || (github.event_name == 'push' && github.ref == 'refs/heads/main')
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      with:
+        lfs: true
+        fetch-depth: 0
+
+    - name: Setup Power Platform CLI
+      uses: microsoft/powerplatform-actions/actions-install@v1.0.13
+
+    - name: Who Am I (Verify Connection)  
+      uses: microsoft/powerplatform-actions/who-am-i@v1.0.13
+      with:
+        environment-url: ${{ secrets.DEV_ENVIRONMENT_URL }}
+        app-id: ${{ secrets.POWERPLATFORM_APP_ID }}
+        client-secret: ${{ secrets.POWERPLATFORM_CLIENT_SECRET }}
+        tenant-id: ${{ secrets.POWERPLATFORM_TENANT_ID }}
+
+    - name: Export Easy Spaces solution
+      uses: microsoft/powerplatform-actions/export-solution@v1.0.13
+      with:
+        environment-url: ${{ secrets.DEV_ENVIRONMENT_URL }}
+        app-id: ${{ secrets.POWERPLATFORM_APP_ID }}
+        client-secret: ${{ secrets.POWERPLATFORM_CLIENT_SECRET }}
+        tenant-id: ${{ secrets.POWERPLATFORM_TENANT_ID }}
+        solution-name: ${{ env.SOLUTION_NAME }}
+        solution-output-file: ${{ env.SOLUTION_OUTBOUND_FOLDER }}${{ env.SOLUTION_NAME }}.zip
+
+    - name: Unpack solution
+      uses: microsoft/powerplatform-actions/unpack-solution@v1.0.13
+      with:
+        solution-file: ${{ env.SOLUTION_OUTBOUND_FOLDER }}${{ env.SOLUTION_NAME }}.zip
+        solution-folder: ${{ env.SOLUTION_SOURCE_FOLDER }}${{ env.SOLUTION_NAME }}
+        solution-type: 'Unmanaged'
+        overwrite-files: true
+
+    - name: Branch solution for managed version
+      uses: microsoft/powerplatform-actions/branch-solution@v1.0.13
+      with:
+        solution-folder: ${{ env.SOLUTION_SOURCE_FOLDER }}${{ env.SOLUTION_NAME }}
+        solution-target-folder: ${{ env.SOLUTION_SOURCE_FOLDER }}${{ env.SOLUTION_NAME }}_managed
+        repo-token: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Commit and push changes
+      run: |
+        git config user.name "GitHub Actions Bot"
+        git config user.email "actions@github.com"
+        git add --all
+        if git diff --staged --quiet; then
+          echo "No changes to commit"
+        else
+          git commit -m "Automated solution export from dev environment [skip ci]"
+          git push origin ${{ github.ref }}
+        fi
+
+  # Build and validate solution
+  build-solution:
+    runs-on: windows-latest
+    needs: [export-from-dev]
+    if: always() && (needs.export-from-dev.result == 'success' || needs.export-from-dev.result == 'skipped')
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+
+    - name: Setup Power Platform CLI
+      uses: microsoft/powerplatform-actions/actions-install@v1.0.13
+
+    - name: Setup MSBuild
+      uses: microsoft/setup-msbuild@v1.3
+
+    - name: Setup NuGet
+      uses: NuGet/setup-nuget@v1.2.0
+
+    - name: Restore NuGet packages
+      run: nuget restore
+
+    - name: Pack unmanaged solution
+      uses: microsoft/powerplatform-actions/pack-solution@v1.0.13
+      with:
+        solution-folder: ${{ env.SOLUTION_SOURCE_FOLDER }}${{ env.SOLUTION_NAME }}
+        solution-file: ${{ env.SOLUTION_OUTBOUND_FOLDER }}${{ env.SOLUTION_NAME }}.zip
+        solution-type: Unmanaged
+
+    - name: Pack managed solution
+      uses: microsoft/powerplatform-actions/pack-solution@v1.0.13
+      with:
+        solution-folder: ${{ env.SOLUTION_SOURCE_FOLDER }}${{ env.SOLUTION_NAME }}_managed
+        solution-file: ${{ env.SOLUTION_RELEASE_FOLDER }}${{ env.SOLUTION_NAME }}_managed.zip
+        solution-type: Managed
+
+    - name: Run Solution Checker
+      uses: microsoft/powerplatform-actions/check-solution@v1.0.13
+      with:
+        environment-url: ${{ secrets.DEV_ENVIRONMENT_URL }}
+        app-id: ${{ secrets.POWERPLATFORM_APP_ID }}
+        client-secret: ${{ secrets.POWERPLATFORM_CLIENT_SECRET }}
+        tenant-id: ${{ secrets.POWERPLATFORM_TENANT_ID }}
+        path: ${{ env.SOLUTION_OUTBOUND_FOLDER }}${{ env.SOLUTION_NAME }}.zip
+        result-file-name: solution-checker-result.json
+
+    - name: Upload solution checker results
+      uses: actions/upload-artifact@v3
+      if: always()
+      with:
+        name: solution-checker-results
+        path: solution-checker-result.json
+
+    - name: Upload solution artifacts
+      uses: actions/upload-artifact@v3
+      with:
+        name: solution-artifacts
+        path: |
+          ${{ env.SOLUTION_OUTBOUND_FOLDER }}${{ env.SOLUTION_NAME }}.zip
+          ${{ env.SOLUTION_RELEASE_FOLDER }}${{ env.SOLUTION_NAME }}_managed.zip
+
+  # Build PCF Controls
+  build-pcf-controls:
+    runs-on: windows-latest
+    needs: [build-solution]
+    
+    strategy:
+      matrix:
+        control: [ReservationHelper, CustomerDetails, SpaceGallery, ReservationForm]
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+        cache: 'npm'
+        cache-dependency-path: pcf-controls/${{ matrix.control }}/package.json
+
+    - name: Build PCF Control - ${{ matrix.control }}
+      run: |
+        cd pcf-controls/${{ matrix.control }}
+        if (Test-Path "package.json") {
+          npm ci
+          npm run build
+        } else {
+          Write-Host "No package.json found for ${{ matrix.control }}"
+        }
+      shell: pwsh
+
+    - name: Upload PCF Control artifacts
+      uses: actions/upload-artifact@v3
+      with:
+        name: pcf-${{ matrix.control }}
+        path: pcf-controls/${{ matrix.control }}/out/
+
+  # Deploy to Test Environment
+  deploy-to-test:
+    runs-on: windows-latest
+    needs: [build-solution, build-pcf-controls]
+    if: github.ref == 'refs/heads/main' || github.event.inputs.environment == 'test'
+    environment: test
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Download solution artifacts
+      uses: actions/download-artifact@v3
+      with:
+        name: solution-artifacts
+        path: artifacts/
+
+    - name: Setup Power Platform CLI
+      uses: microsoft/powerplatform-actions/actions-install@v1.0.13
+
+    - name: Import solution to test environment
+      uses: microsoft/powerplatform-actions/import-solution@v1.0.13
+      with:
+        environment-url: ${{ secrets.TEST_ENVIRONMENT_URL }}
+        app-id: ${{ secrets.POWERPLATFORM_APP_ID }}
+        client-secret: ${{ secrets.POWERPLATFORM_CLIENT_SECRET }}
+        tenant-id: ${{ secrets.POWERPLATFORM_TENANT_ID }}
+        solution-file: artifacts/${{ env.SOLUTION_NAME }}_managed.zip
+        force-overwrite: true
+        activate-plugins: true
+
+    - name: Deploy PCF Controls to Test
+      run: |
+        $controls = @("ReservationHelper", "CustomerDetails", "SpaceGallery", "ReservationForm")
+        foreach ($control in $controls) {
+          $controlPath = "pcf-controls/$control"
+          if (Test-Path $controlPath) {
+            Write-Host "Deploying PCF Control: $control"
+            Set-Location $controlPath
+            
+            if (Test-Path "package.json") {
+              npm ci --only=production
+              npm run build
+              pac auth create --url "${{ secrets.TEST_ENVIRONMENT_URL }}" --applicationId "${{ secrets.POWERPLATFORM_APP_ID }}" --clientSecret "${{ secrets.POWERPLATFORM_CLIENT_SECRET }}" --tenant "${{ secrets.POWERPLATFORM_TENANT_ID }}"
+              pac pcf push --publisher-prefix "es" --solution-unique-name "${{ env.SOLUTION_NAME }}"
+            }
+            
+            Set-Location "../.."
+          }
+        }
+      shell: pwsh
+
+  # Run integration tests
+  integration-tests:
+    runs-on: windows-latest
+    needs: [deploy-to-test]
+    if: github.ref == 'refs/heads/main' || github.event.inputs.environment == 'test'
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Setup Power Platform CLI
+      uses: microsoft/powerplatform-actions/actions-install@v1.0.13
+
+    - name: Run basic connectivity tests
+      run: |
+        Write-Host "Running integration tests..."
+        
+        # Test 1: Verify solution import
+        pac auth create --url "${{ secrets.TEST_ENVIRONMENT_URL }}" --applicationId "${{ secrets.POWERPLATFORM_APP_ID }}" --clientSecret "${{ secrets.POWERPLATFORM_CLIENT_SECRET }}" --tenant "${{ secrets.POWERPLATFORM_TENANT_ID }}"
+        
+        # Test 2: Check entities exist
+        $entities = @("es_reservation", "es_space", "es_market")
+        foreach ($entity in $entities) {
+          Write-Host "Checking entity: $entity"
+          try {
+            pac data list --entity-name $entity --max-results 1
+            Write-Host "✅ Entity $entity verified"
+          } catch {
+            Write-Host "❌ Entity $entity not found: $_"
+            exit 1
+          }
+        }
+        
+        Write-Host "✅ All integration tests passed"
+      shell: pwsh
+
+  # Deploy to Production
+  deploy-to-production:
+    runs-on: windows-latest
+    needs: [integration-tests]
+    if: github.ref == 'refs/heads/main' || github.event.inputs.environment == 'prod'
+    environment: production
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Download solution artifacts
+      uses: actions/download-artifact@v3
+      with:
+        name: solution-artifacts
+        path: artifacts/
+
+    - name: Setup Power Platform CLI
+      uses: microsoft/powerplatform-actions/actions-install@v1.0.13
+
+    - name: Import solution to production
+      uses: microsoft/powerplatform-actions/import-solution@v1.0.13
+      with:
+        environment-url: ${{ secrets.PROD_ENVIRONMENT_URL }}
+        app-id: ${{ secrets.POWERPLATFORM_APP_ID }}
+        client-secret: ${{ secrets.POWERPLATFORM_CLIENT_SECRET }}
+        tenant-id: ${{ secrets.POWERPLATFORM_TENANT_ID }}
+        solution-file: artifacts/${{ env.SOLUTION_NAME }}_managed.zip
+        force-overwrite: true
+        activate-plugins: true
+
+    - name: Deploy PCF Controls to Production
+      run: |
+        $controls = @("ReservationHelper", "CustomerDetails", "SpaceGallery", "ReservationForm")
+        foreach ($control in $controls) {
+          $controlPath = "pcf-controls/$control"
+          if (Test-Path $controlPath) {
+            Write-Host "Deploying PCF Control to Production: $control"
+            Set-Location $controlPath
+            
+            if (Test-Path "package.json") {
+              npm ci --only=production
+              npm run build
+              pac auth create --url "${{ secrets.PROD_ENVIRONMENT_URL }}" --applicationId "${{ secrets.POWERPLATFORM_APP_ID }}" --clientSecret "${{ secrets.POWERPLATFORM_CLIENT_SECRET }}" --tenant "${{ secrets.POWERPLATFORM_TENANT_ID }}"
+              pac pcf push --publisher-prefix "es" --solution-unique-name "${{ env.SOLUTION_NAME }}"
+            }
+            
+            Set-Location "../.."
+          }
+        }
+      shell: pwsh
+
+    - name: Create GitHub Release
+      if: success()
+      uses: actions/create-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        tag_name: v${{ github.run_number }}
+        release_name: Easy Spaces Release v${{ github.run_number }}
+        body: |
+          Automated release of Easy Spaces Dynamics 365 solution.
+          
+          ## Changes
+          - Solution version deployed to production
+          - PCF controls updated
+          - All integration tests passed
+          
+          ## Deployment Details
+          - Environment: ${{ secrets.PROD_ENVIRONMENT_URL }}
+          - Commit: ${{ github.sha }}
+          - Workflow: ${{ github.workflow }}
+        draft: false
+        prerelease: false
+
+  # Notification job
+  notify:
+    runs-on: ubuntu-latest
+    needs: [deploy-to-production]
+    if: always()
+
+    steps:
+    - name: Notify deployment status
+      run: |
+        if [ "${{ needs.deploy-to-production.result }}" == "success" ]; then
+          echo "✅ Easy Spaces deployment completed successfully!"
+          echo "Environment: Production"
+          echo "Commit: ${{ github.sha }}"
+          echo "Workflow run: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+        else
+          echo "❌ Easy Spaces deployment failed"
+          echo "Please check the workflow logs for details"
+          exit 1
+        fi

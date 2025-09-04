@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form>
+  <name>Customer Details</name>
+  <description>Customer details form for Easy Spaces application</description>
+  <formid>{00000000-0000-0000-0000-000000000001}</formid>
+  <type>main</type>
+  <tabs>
+    <tab name="GENERAL_TAB" id="{00000000-0000-0000-0001-000000000001}" locklevel="0" showlabel="true" labelid="General" expanded="true">
+      <columns>
+        <column width="50%">
+          <sections>
+            <section name="CUSTOMER_INFORMATION" showlabel="true" showbar="false" locklevel="0" id="{00000000-0000-0000-0001-000000000002}" labelwidth="115" columns="1" labelid="Customer Information">
+              <rows>
+                <row>
+                  <cell id="{00000000-0000-0000-0001-000000000003}" showlabel="true" locklevel="0" rowspan="1">
+                    <labels>
+                      <label languagecode="1033" description="Customer Name"/>
+                    </labels>
+                    <control id="es_customername" classid="{4273EDBD-AC1D-40D3-9FB2-095C621B552E}" datafieldname="es_customername" disabled="false" uniqueid="{00000000-0000-0000-0001-000000000004}"/>
+                  </cell>
+                </row>
+                <row>
+                  <cell id="{00000000-0000-0000-0001-000000000005}" showlabel="true" locklevel="0" rowspan="1">
+                    <labels>
+                      <label languagecode="1033" description="Email"/>
+                    </labels>
+                    <control id="es_email" classid="{4273EDBD-AC1D-40D3-9FB2-095C621B552E}" datafieldname="es_email" disabled="false" uniqueid="{00000000-0000-0000-0001-000000000006}"/>
+                  </cell>
+                </row>
+                <row>
+                  <cell id="{00000000-0000-0000-0001-000000000007}" showlabel="true" locklevel="0" rowspan="1">
+                    <labels>
+                      <label languagecode="1033" description="Phone"/>
+                    </labels>
+                    <control id="es_phone" classid="{4273EDBD-AC1D-40D3-9FB2-095C621B552E}" datafieldname="es_phone" disabled="false" uniqueid="{00000000-0000-0000-0001-000000000008}"/>
+                  </cell>
+                </row>
+                <row>
+                  <cell id="{00000000-0000-0000-0001-000000000009}" showlabel="true" locklevel="0" rowspan="1">
+                    <labels>
+                      <label languagecode="1033" description="Customer Type"/>
+                    </labels>
+                    <control id="es_customertype" classid="{5B773807-9FB2-42DB-97C3-7A91EFF8ADFF}" datafieldname="es_customertype" disabled="false" uniqueid="{00000000-0000-0000-0001-000000000010}"/>
+                  </cell>
+                </row>
+              </rows>
+            </section>
+            <section name="ADDRESS_SECTION" showlabel="true" showbar="false" locklevel="0" id="{00000000-0000-0000-0001-000000000011}" labelwidth="115" columns="1" labelid="Address Information">
+              <rows>
+                <row>
+                  <cell id="{00000000-0000-0000-0001-000000000012}" showlabel="true" locklevel="0" rowspan="1">
+                    <labels>
+                      <label languagecode="1033" description="Street"/>
+                    </labels>
+                    <control id="es_street" classid="{4273EDBD-AC1D-40D3-9FB2-095C621B552E}" datafieldname="es_street" disabled="false"/>
+                  </cell>
+                </row>
+                <row>
+                  <cell id="{00000000-0000-0000-0001-000000000013}" showlabel="true" locklevel="0" rowspan="1">
+                    <labels>
+                      <label languagecode="1033" description="City"/>
+                    </labels>
+                    <control id="es_city" classid="{4273EDBD-AC1D-40D3-9FB2-095C621B552E}" datafieldname="es_city" disabled="false"/>
+                  </cell>
+                </row>
+                <row>
+                  <cell id="{00000000-0000-0000-0001-000000000014}" showlabel="true" locklevel="0" rowspan="1">
+                    <labels>
+                      <label languagecode="1033" description="State/Province"/>
+                    </labels>
+                    <control id="es_stateprovince" classid="{4273EDBD-AC1D-40D3-9FB2-095C621B552E}" datafieldname="es_stateprovince" disabled="false"/>
+                  </cell>
+                </row>
+                <row>
+                  <cell id="{00000000-0000-0000-0001-000000000015}" showlabel="true" locklevel="0" rowspan="1">
+                    <labels>
+                      <label languagecode="1033" description="Postal Code"/>
+                    </labels>
+                    <control id="es_postalcode" classid="{4273EDBD-AC1D-40D3-9FB2-095C621B552E}" datafieldname="es_postalcode" disabled="false"/>
+                  </cell>
+                </row>
+              </rows>
+            </section>
+          </sections>
+        </column>
+        <column width="50%">
+          <sections>
+            <section name="RESERVATION_HISTORY" showlabel="true" showbar="false" locklevel="0" id="{00000000-0000-0000-0001-000000000016}" labelwidth="115" columns="1" labelid="Reservation History">
+              <rows>
+                <row>
+                  <cell id="{00000000-0000-0000-0001-000000000017}" showlabel="false" locklevel="0" rowspan="10">
+                    <control id="CustomerReservationsGrid" classid="{E7A81278-8635-4D9E-8D4D-59480B391C5B}" uniqueid="{00000000-0000-0000-0001-000000000018}">
+                      <parameters>
+                        <TargetEntityType>es_reservation</TargetEntityType>
+                        <RelationshipName>es_customer_reservation</RelationshipName>
+                        <ViewId>{00000000-0000-0000-0001-000000000019}</ViewId>
+                        <ViewIds>{00000000-0000-0000-0001-000000000019}</ViewIds>
+                        <AutoExpand>Fixed</AutoExpand>
+                        <RecordsPerPage>10</RecordsPerPage>
+                        <EnableQuickFind>true</EnableQuickFind>
+                        <EnableViewPicker>true</EnableViewPicker>
+                        <EnableJumpBar>false</EnableJumpBar>
+                      </parameters>
+                    </control>
+                  </cell>
+                </row>
+              </rows>
+            </section>
+            <section name="NOTES_SECTION" showlabel="true" showbar="false" locklevel="0" id="{00000000-0000-0000-0001-000000000020}" labelwidth="115" columns="1" labelid="Notes">
+              <rows>
+                <row>
+                  <cell id="{00000000-0000-0000-0001-000000000021}" showlabel="false" locklevel="0" rowspan="5">
+                    <control id="es_notes" classid="{5D68B988-0661-4DB2-BC3E-17598AD6A5D1}" datafieldname="es_notes" disabled="false" uniqueid="{00000000-0000-0000-0001-000000000022}"/>
+                  </cell>
+                </row>
+              </rows>
+            </section>
+          </sections>
+        </column>
+      </columns>
+    </tab>
+    <tab name="PREFERENCES_TAB" id="{00000000-0000-0000-0001-000000000023}" locklevel="0" showlabel="true" labelid="Preferences" expanded="true">
+      <columns>
+        <column width="100%">
+          <sections>
+            <section name="SPACE_PREFERENCES" showlabel="true" showbar="false" locklevel="0" id="{00000000-0000-0000-0001-000000000024}" labelwidth="115" columns="2" labelid="Space Preferences">
+              <rows>
+                <row>
+                  <cell id="{00000000-0000-0000-0001-000000000025}" showlabel="true" locklevel="0" rowspan="1">
+                    <labels>
+                      <label languagecode="1033" description="Preferred Location"/>
+                    </labels>
+                    <control id="es_preferredlocation" classid="{5B773807-9FB2-42DB-97C3-7A91EFF8ADFF}" datafieldname="es_preferredlocation" disabled="false"/>
+                  </cell>
+                  <cell id="{00000000-0000-0000-0001-000000000026}" showlabel="true" locklevel="0" rowspan="1">
+                    <labels>
+                      <label languagecode="1033" description="Space Type Preference"/>
+                    </labels>
+                    <control id="es_spacetypepreference" classid="{5B773807-9FB2-42DB-97C3-7A91EFF8ADFF}" datafieldname="es_spacetypepreference" disabled="false"/>
+                  </cell>
+                </row>
+                <row>
+                  <cell id="{00000000-0000-0000-0001-000000000027}" showlabel="true" locklevel="0" rowspan="1">
+                    <labels>
+                      <label languagecode="1033" description="Typical Guest Count"/>
+                    </labels>
+                    <control id="es_typicalguestcount" classid="{C3EFE0C3-0EC6-42BE-8349-CBD9B4C1C734}" datafieldname="es_typicalguestcount" disabled="false"/>
+                  </cell>
+                  <cell id="{00000000-0000-0000-0001-000000000028}" showlabel="true" locklevel="0" rowspan="1">
+                    <labels>
+                      <label languagecode="1033" description="Budget Range"/>
+                    </labels>
+                    <control id="es_budgetrange" classid="{533B9E00-756B-4312-95A4-FA6A5E8647AA}" datafieldname="es_budgetrange" disabled="false"/>
+                  </cell>
+                </row>
+              </rows>
+            </section>
+            <section name="COMMUNICATION_PREFERENCES" showlabel="true" showbar="false" locklevel="0" id="{00000000-0000-0000-0001-000000000029}" labelwidth="115" columns="2" labelid="Communication Preferences">
+              <rows>
+                <row>
+                  <cell id="{00000000-0000-0000-0001-000000000030}" showlabel="true" locklevel="0" rowspan="1">
+                    <labels>
+                      <label languagecode="1033" description="Preferred Contact Method"/>
+                    </labels>
+                    <control id="es_preferredcontactmethod" classid="{5B773807-9FB2-42DB-97C3-7A91EFF8ADFF}" datafieldname="es_preferredcontactmethod" disabled="false"/>
+                  </cell>
+                  <cell id="{00000000-0000-0000-0001-000000000031}" showlabel="true" locklevel="0" rowspan="1">
+                    <labels>
+                      <label languagecode="1033" description="Newsletter Subscription"/>
+                    </labels>
+                    <control id="es_newsletter" classid="{67FAC785-CD58-4F9F-ABB3-4B7DDC00B1CA}" datafieldname="es_newsletter" disabled="false"/>
+                  </cell>
+                </row>
+              </rows>
+            </section>
+          </sections>
+        </column>
+      </columns>
+    </tab>
+  </tabs>
+  <navigation>
+    <navitem id="navActivities" area="Sales">
+      <labels>
+        <label languagecode="1033" description="Activities"/>
+      </labels>
+    </navitem>
+    <navitem id="navReservations" area="Sales">
+      <labels>
+        <label languagecode="1033" description="Reservations"/>
+      </labels>
+    </navitem>
+    <navitem id="navNotes" area="Sales">
+      <labels>
+        <label languagecode="1033" description="Notes"/>
+      </labels>
+    </navitem>
+  </navigation>
+</form>

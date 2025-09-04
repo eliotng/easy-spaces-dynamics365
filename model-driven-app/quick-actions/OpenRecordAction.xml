@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RibbonDiffXml>
+  <CustomActions>
+    <CustomAction Id="EasySpaces.OpenRecord.Action"
+                  Location="Mscrm.Form.es_reservation.MainTab.Actions.Controls._children"
+                  Sequence="30">
+      <CommandUIDefinition>
+        <Button Id="EasySpaces.OpenRecord.Button"
+                LabelText="Open Record"
+                ToolTipTitle="Open Record"
+                ToolTipDescription="Opens the selected record in a new tab"
+                TemplateAlias="o1"
+                Command="EasySpaces.OpenRecord.Command" />
+      </CommandUIDefinition>
+    </CustomAction>
+  </CustomActions>
+  <RibbonTemplates Id="Mscrm.Templates">
+    <RibbonTemplates>
+      <GroupTemplate Id="EasySpaces.OpenRecord.GroupTemplate">
+        <Layout Title="EasySpaces Actions">
+          <Section Alignment="Top" Type="OneRow">
+            <Row>
+              <ControlRef DisplayMode="Large" TemplateAlias="o1" />
+            </Row>
+          </Section>
+        </Layout>
+      </GroupTemplate>
+    </RibbonTemplates>
+  </RibbonTemplates>
+  <CommandDefinitions>
+    <CommandDefinition Id="EasySpaces.OpenRecord.Command">
+      <EnableRules />
+      <DisplayRules />
+      <Actions>
+        <JavaScriptFunction Library="$webresource:es_openRecordAction.js" FunctionName="EasySpaces.openRecord">
+          <StringParameter Value="{PrimaryItemIds}" />
+        </JavaScriptFunction>
+      </Actions>
+    </CommandDefinition>
+  </CommandDefinitions>
+</RibbonDiffXml>
