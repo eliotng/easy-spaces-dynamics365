@@ -1,0 +1,218 @@
+{
+  "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "$connections": {
+      "defaultValue": {},
+      "type": "Object"
+    }
+  },
+  "triggers": {
+    "When_a_reservation_is_created": {
+      "type": "OpenApiConnection",
+      "inputs": {
+        "host": {
+          "connectionName": "shared_commondataserviceforapps",
+          "operationId": "SubscribeWebhookTrigger",
+          "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+        },
+        "parameters": {
+          "subscriptionRequest/message": 1,
+          "subscriptionRequest/entityname": "es_reservation",
+          "subscriptionRequest/scope": 0
+        }
+      }
+    }
+  },
+  "actions": {
+    "Get_reservation_details": {
+      "runAfter": {},
+      "type": "OpenApiConnection",
+      "inputs": {
+        "host": {
+          "connectionName": "shared_commondataserviceforapps",
+          "operationId": "GetItem",
+          "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+        },
+        "parameters": {
+          "entityName": "es_reservations",
+          "recordId": "@triggerOutputs()?['body/es_reservationid']",
+          "$expand": "es_spaceid($select=es_name,es_maximumcapacity,es_dailyrate),es_contactid($select=fullname,emailaddress1)"
+        }
+      }
+    },
+    "Check_space_availability": {
+      "runAfter": {
+        "Get_reservation_details": ["Succeeded"]
+      },
+      "type": "OpenApiConnection",
+      "inputs": {
+        "host": {
+          "connectionName": "shared_commondataserviceforapps",
+          "operationId": "ListRecords",
+          "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+        },
+        "parameters": {
+          "entityName": "es_reservations",
+          "$filter": "es_spaceid eq '@{body('Get_reservation_details')?['_es_spaceid_value']}' and es_reservationid ne '@{triggerOutputs()?['body/es_reservationid']}' and es_status ne 10016 and ((es_startdate le @{body('Get_reservation_details')?['es_enddate']} and es_enddate ge @{body('Get_reservation_details')?['es_startdate']}))",
+          "$select": "es_name,es_startdate,es_enddate"
+        }
+      }
+    },
+    "Condition_Check_Conflicts": {
+      "runAfter": {
+        "Check_space_availability": ["Succeeded"]
+      },
+      "type": "If",
+      "expression": {
+        "and": [
+          {
+            "equals": [
+              "@length(outputs('Check_space_availability')?['body/value'])",
+              0
+            ]
+          }
+        ]
+      },
+      "actions": {
+        "Calculate_pricing": {
+          "runAfter": {},
+          "type": "Compose",
+          "inputs": {
+            "dailyRate": "@body('Get_reservation_details')?['es_spaceid/es_dailyrate']",
+            "startDate": "@body('Get_reservation_details')?['es_startdate']",
+            "endDate": "@body('Get_reservation_details')?['es_enddate']",
+            "totalDays": "@div(sub(ticks(body('Get_reservation_details')?['es_enddate']), ticks(body('Get_reservation_details')?['es_startdate'])), 864000000000)",
+            "totalPrice": "@mul(div(sub(ticks(body('Get_reservation_details')?['es_enddate']), ticks(body('Get_reservation_details')?['es_startdate'])), 864000000000), body('Get_reservation_details')?['es_spaceid/es_dailyrate'])"
+          }
+        },
+        "Update_reservation_with_price": {
+          "runAfter": {
+            "Calculate_pricing": ["Succeeded"]
+          },
+          "type": "OpenApiConnection",
+          "inputs": {
+            "host": {
+              "connectionName": "shared_commondataserviceforapps",
+              "operationId": "UpdateRecord",
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+            },
+            "parameters": {
+              "entityName": "es_reservations",
+              "recordId": "@triggerOutputs()?['body/es_reservationid']",
+              "item": {
+                "es_totalprice": "@outputs('Calculate_pricing')?['totalPrice']",
+                "es_status": 10014
+              }
+            }
+          }
+        },
+        "Send_confirmation_email": {
+          "runAfter": {
+            "Update_reservation_with_price": ["Succeeded"]
+          },
+          "type": "OpenApiConnection",
+          "inputs": {
+            "host": {
+              "connectionName": "shared_office365",
+              "operationId": "SendEmailV2",
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_office365"
+            },
+            "parameters": {
+              "emailMessage/To": "@body('Get_reservation_details')?['es_contactid/emailaddress1']",
+              "emailMessage/Subject": "Reservation Confirmation - @{body('Get_reservation_details')?['es_name']}",
+              "emailMessage/Body": "<html><body><h2>Your Reservation Has Been Confirmed!</h2><p>Dear @{body('Get_reservation_details')?['es_contactid/fullname']},</p><p>Your reservation for <strong>@{body('Get_reservation_details')?['es_spaceid/es_name']}</strong> has been confirmed.</p><h3>Reservation Details:</h3><ul><li><strong>Start Date:</strong> @{formatDateTime(body('Get_reservation_details')?['es_startdate'], 'MM/dd/yyyy')}</li><li><strong>End Date:</strong> @{formatDateTime(body('Get_reservation_details')?['es_enddate'], 'MM/dd/yyyy')}</li><li><strong>Number of Guests:</strong> @{body('Get_reservation_details')?['es_totalnumberofguests']}</li><li><strong>Total Price:</strong> $@{outputs('Calculate_pricing')?['totalPrice']}</li></ul><p>Thank you for choosing Easy Spaces!</p></body></html>",
+              "emailMessage/Importance": "Normal"
+            }
+          }
+        },
+        "Create_calendar_event": {
+          "runAfter": {
+            "Send_confirmation_email": ["Succeeded"]
+          },
+          "type": "OpenApiConnection",
+          "inputs": {
+            "host": {
+              "connectionName": "shared_office365",
+              "operationId": "V2CalendarPostItem",
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_office365"
+            },
+            "parameters": {
+              "calendar": "Calendar",
+              "item/subject": "Reservation: @{body('Get_reservation_details')?['es_spaceid/es_name']}",
+              "item/start": "@body('Get_reservation_details')?['es_startdate']",
+              "item/end": "@body('Get_reservation_details')?['es_enddate']",
+              "item/body": "Reservation for @{body('Get_reservation_details')?['es_contactid/fullname']} - @{body('Get_reservation_details')?['es_totalnumberofguests']} guests",
+              "item/location": "@{body('Get_reservation_details')?['es_spaceid/es_name']}",
+              "item/isAllDay": false
+            }
+          }
+        },
+        "Post_to_Teams": {
+          "runAfter": {
+            "Create_calendar_event": ["Succeeded"]
+          },
+          "type": "OpenApiConnection",
+          "inputs": {
+            "host": {
+              "connectionName": "shared_teams",
+              "operationId": "PostMessageToConversation",
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_teams"
+            },
+            "parameters": {
+              "poster": "Flow bot",
+              "location": "Channel",
+              "team": "Easy Spaces Team",
+              "channel": "Reservations",
+              "messageBody": "**New Reservation Created**\n\n**Space:** @{body('Get_reservation_details')?['es_spaceid/es_name']}\n**Customer:** @{body('Get_reservation_details')?['es_contactid/fullname']}\n**Dates:** @{formatDateTime(body('Get_reservation_details')?['es_startdate'], 'MM/dd/yyyy')} - @{formatDateTime(body('Get_reservation_details')?['es_enddate'], 'MM/dd/yyyy')}\n**Guests:** @{body('Get_reservation_details')?['es_totalnumberofguests']}\n**Total:** $@{outputs('Calculate_pricing')?['totalPrice']}"
+            }
+          }
+        }
+      },
+      "else": {
+        "actions": {
+          "Update_status_to_conflict": {
+            "runAfter": {},
+            "type": "OpenApiConnection",
+            "inputs": {
+              "host": {
+                "connectionName": "shared_commondataserviceforapps",
+                "operationId": "UpdateRecord",
+                "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+              },
+              "parameters": {
+                "entityName": "es_reservations",
+                "recordId": "@triggerOutputs()?['body/es_reservationid']",
+                "item": {
+                  "es_status": 10016,
+                  "es_conflictreason": "Space already reserved for these dates"
+                }
+              }
+            }
+          },
+          "Send_conflict_notification": {
+            "runAfter": {
+              "Update_status_to_conflict": ["Succeeded"]
+            },
+            "type": "OpenApiConnection",
+            "inputs": {
+              "host": {
+                "connectionName": "shared_office365",
+                "operationId": "SendEmailV2",
+                "apiId": "/providers/Microsoft.PowerApps/apis/shared_office365"
+              },
+              "parameters": {
+                "emailMessage/To": "@body('Get_reservation_details')?['es_contactid/emailaddress1']",
+                "emailMessage/Subject": "Reservation Conflict - @{body('Get_reservation_details')?['es_name']}",
+                "emailMessage/Body": "<html><body><h2>Reservation Conflict Detected</h2><p>Dear @{body('Get_reservation_details')?['es_contactid/fullname']},</p><p>Unfortunately, the space <strong>@{body('Get_reservation_details')?['es_spaceid/es_name']}</strong> is already reserved for the dates you selected.</p><p>Please choose different dates or select another space.</p><p>We apologize for any inconvenience.</p></body></html>",
+                "emailMessage/Importance": "High"
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "outputs": {},
+  "description": "Handles new reservation creation, checks for conflicts, calculates pricing, and sends notifications"
+}

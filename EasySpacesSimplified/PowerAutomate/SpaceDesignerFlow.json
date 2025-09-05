@@ -1,0 +1,361 @@
+{
+  "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "$connections": {
+      "defaultValue": {},
+      "type": "Object"
+    }
+  },
+  "triggers": {
+    "manual": {
+      "type": "Request",
+      "kind": "Button",
+      "inputs": {
+        "schema": {
+          "type": "object",
+          "properties": {
+            "spaceId": {
+              "type": "string",
+              "description": "ID of the space to design"
+            },
+            "designType": {
+              "type": "string",
+              "description": "Type of design (layout, furniture, lighting, etc.)"
+            },
+            "requirements": {
+              "type": "object",
+              "properties": {
+                "capacity": {
+                  "type": "integer"
+                },
+                "style": {
+                  "type": "string"
+                },
+                "budget": {
+                  "type": "number"
+                },
+                "accessibility": {
+                  "type": "boolean"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "actions": {
+    "Get_space_details": {
+      "runAfter": {},
+      "type": "OpenApiConnection",
+      "inputs": {
+        "host": {
+          "connectionName": "shared_commondataserviceforapps",
+          "operationId": "GetItem",
+          "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+        },
+        "parameters": {
+          "entityName": "es_spaces",
+          "recordId": "@triggerBody()?['spaceId']",
+          "$select": "es_name,es_type,es_maximumcapacity,es_dailyrate,es_status"
+        }
+      }
+    },
+    "Initialize_design_recommendations": {
+      "runAfter": {
+        "Get_space_details": ["Succeeded"]
+      },
+      "type": "InitializeVariable",
+      "inputs": {
+        "variables": [
+          {
+            "name": "designRecommendations",
+            "type": "array",
+            "value": []
+          }
+        ]
+      }
+    },
+    "Switch_design_type": {
+      "runAfter": {
+        "Initialize_design_recommendations": ["Succeeded"]
+      },
+      "type": "Switch",
+      "expression": "@triggerBody()?['designType']",
+      "cases": {
+        "Layout": {
+          "case": "layout",
+          "actions": {
+            "Generate_layout_options": {
+              "runAfter": {},
+              "type": "Compose",
+              "inputs": {
+                "layouts": [
+                  {
+                    "name": "Theater Style",
+                    "capacity": "@mul(body('Get_space_details')?['es_maximumcapacity'], 1)",
+                    "description": "Rows of chairs facing the front",
+                    "suitable_for": ["presentations", "conferences", "performances"]
+                  },
+                  {
+                    "name": "Classroom Style",
+                    "capacity": "@mul(body('Get_space_details')?['es_maximumcapacity'], 0.6)",
+                    "description": "Rows of tables with chairs",
+                    "suitable_for": ["training", "workshops", "meetings"]
+                  },
+                  {
+                    "name": "U-Shape",
+                    "capacity": "@mul(body('Get_space_details')?['es_maximumcapacity'], 0.4)",
+                    "description": "Tables arranged in U formation",
+                    "suitable_for": ["meetings", "presentations", "discussions"]
+                  },
+                  {
+                    "name": "Banquet Style",
+                    "capacity": "@mul(body('Get_space_details')?['es_maximumcapacity'], 0.7)",
+                    "description": "Round tables with chairs",
+                    "suitable_for": ["dinners", "galas", "networking"]
+                  },
+                  {
+                    "name": "Cocktail Style",
+                    "capacity": "@mul(body('Get_space_details')?['es_maximumcapacity'], 1.2)",
+                    "description": "Standing room with high tables",
+                    "suitable_for": ["receptions", "networking", "social events"]
+                  }
+                ]
+              }
+            },
+            "Append_layout_recommendations": {
+              "runAfter": {
+                "Generate_layout_options": ["Succeeded"]
+              },
+              "type": "AppendToArrayVariable",
+              "inputs": {
+                "name": "designRecommendations",
+                "value": "@outputs('Generate_layout_options')"
+              }
+            }
+          }
+        },
+        "Furniture": {
+          "case": "furniture",
+          "actions": {
+            "Query_furniture_catalog": {
+              "runAfter": {},
+              "type": "OpenApiConnection",
+              "inputs": {
+                "host": {
+                  "connectionName": "shared_commondataserviceforapps",
+                  "operationId": "ListRecords",
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                },
+                "parameters": {
+                  "entityName": "es_furnitures",
+                  "$filter": "es_suitablefor eq '@{body('Get_space_details')?['es_type']}' and es_price le @{triggerBody()?['requirements']?['budget']}",
+                  "$select": "es_name,es_type,es_price,es_dimensions,es_material",
+                  "$orderby": "es_price asc"
+                }
+              }
+            },
+            "Append_furniture_recommendations": {
+              "runAfter": {
+                "Query_furniture_catalog": ["Succeeded"]
+              },
+              "type": "AppendToArrayVariable",
+              "inputs": {
+                "name": "designRecommendations",
+                "value": "@body('Query_furniture_catalog')?['value']"
+              }
+            }
+          }
+        },
+        "Lighting": {
+          "case": "lighting",
+          "actions": {
+            "Calculate_lighting_requirements": {
+              "runAfter": {},
+              "type": "Compose",
+              "inputs": {
+                "lumens_needed": "@mul(mul(body('Get_space_details')?['es_maximumcapacity'], 10), 500)",
+                "recommended_fixtures": "@div(mul(mul(body('Get_space_details')?['es_maximumcapacity'], 10), 500), 3000)",
+                "lighting_zones": [
+                  {
+                    "zone": "Main Area",
+                    "type": "General Lighting",
+                    "fixtures": "@div(mul(mul(body('Get_space_details')?['es_maximumcapacity'], 10), 500), 4000)"
+                  },
+                  {
+                    "zone": "Stage/Presentation Area",
+                    "type": "Accent Lighting",
+                    "fixtures": 4
+                  },
+                  {
+                    "zone": "Entry",
+                    "type": "Ambient Lighting",
+                    "fixtures": 2
+                  }
+                ]
+              }
+            },
+            "Append_lighting_recommendations": {
+              "runAfter": {
+                "Calculate_lighting_requirements": ["Succeeded"]
+              },
+              "type": "AppendToArrayVariable",
+              "inputs": {
+                "name": "designRecommendations",
+                "value": "@outputs('Calculate_lighting_requirements')"
+              }
+            }
+          }
+        }
+      },
+      "default": {
+        "actions": {
+          "Set_default_recommendations": {
+            "runAfter": {},
+            "type": "AppendToArrayVariable",
+            "inputs": {
+              "name": "designRecommendations",
+              "value": {
+                "message": "No specific design type selected",
+                "recommendation": "Please select layout, furniture, or lighting design"
+              }
+            }
+          }
+        }
+      }
+    },
+    "Check_accessibility_requirements": {
+      "runAfter": {
+        "Switch_design_type": ["Succeeded"]
+      },
+      "type": "Condition",
+      "expression": {
+        "and": [
+          {
+            "equals": [
+              "@triggerBody()?['requirements']?['accessibility']",
+              true
+            ]
+          }
+        ]
+      },
+      "actions": {
+        "Add_accessibility_features": {
+          "runAfter": {},
+          "type": "Compose",
+          "inputs": {
+            "accessibility_features": [
+              "Wheelchair accessible pathways (minimum 36 inches)",
+              "Accessible seating areas (5% of total capacity)",
+              "Hearing loop system installation",
+              "Visual alarm systems",
+              "Accessible restroom proximity",
+              "Ramped stage access",
+              "Braille signage",
+              "Adjustable lighting controls"
+            ]
+          }
+        },
+        "Append_accessibility_to_recommendations": {
+          "runAfter": {
+            "Add_accessibility_features": ["Succeeded"]
+          },
+          "type": "AppendToArrayVariable",
+          "inputs": {
+            "name": "designRecommendations",
+            "value": "@outputs('Add_accessibility_features')"
+          }
+        }
+      }
+    },
+    "Create_design_document": {
+      "runAfter": {
+        "Check_accessibility_requirements": ["Succeeded"]
+      },
+      "type": "OpenApiConnection",
+      "inputs": {
+        "host": {
+          "connectionName": "shared_commondataserviceforapps",
+          "operationId": "CreateRecord",
+          "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+        },
+        "parameters": {
+          "entityName": "es_spacedesigns",
+          "item": {
+            "es_name": "Design for @{body('Get_space_details')?['es_name']} - @{triggerBody()?['designType']}",
+            "es_spaceid@odata.bind": "/es_spaces(@{triggerBody()?['spaceId']})",
+            "es_designtype": "@triggerBody()?['designType']",
+            "es_capacity": "@triggerBody()?['requirements']?['capacity']",
+            "es_style": "@triggerBody()?['requirements']?['style']",
+            "es_budget": "@triggerBody()?['requirements']?['budget']",
+            "es_recommendations": "@{json(variables('designRecommendations'))}",
+            "es_status": 10001,
+            "es_createdon": "@utcNow()"
+          }
+        }
+      }
+    },
+    "Generate_3D_visualization_request": {
+      "runAfter": {
+        "Create_design_document": ["Succeeded"]
+      },
+      "type": "Http",
+      "inputs": {
+        "method": "POST",
+        "uri": "https://api.easyspaces.com/visualization/generate",
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "spaceId": "@triggerBody()?['spaceId']",
+          "designId": "@body('Create_design_document')?['es_spacedesignid']",
+          "designType": "@triggerBody()?['designType']",
+          "specifications": "@variables('designRecommendations')"
+        }
+      }
+    },
+    "Send_design_completion_notification": {
+      "runAfter": {
+        "Generate_3D_visualization_request": ["Succeeded"]
+      },
+      "type": "OpenApiConnection",
+      "inputs": {
+        "host": {
+          "connectionName": "shared_teams",
+          "operationId": "PostMessageToConversation",
+          "apiId": "/providers/Microsoft.PowerApps/apis/shared_teams"
+        },
+        "parameters": {
+          "poster": "Flow bot",
+          "location": "Channel",
+          "team": "Easy Spaces Team",
+          "channel": "Space Design",
+          "messageBody": "**Space Design Completed**\n\n**Space:** @{body('Get_space_details')?['es_name']}\n**Design Type:** @{triggerBody()?['designType']}\n**Capacity:** @{triggerBody()?['requirements']?['capacity']} guests\n**Style:** @{triggerBody()?['requirements']?['style']}\n**Budget:** $@{triggerBody()?['requirements']?['budget']}\n\n**Design Document ID:** @{body('Create_design_document')?['es_spacedesignid']}\n\n3D visualization request has been submitted."
+        }
+      }
+    },
+    "Response": {
+      "runAfter": {
+        "Send_design_completion_notification": ["Succeeded"]
+      },
+      "type": "Response",
+      "kind": "Http",
+      "inputs": {
+        "statusCode": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "success": true,
+          "designId": "@body('Create_design_document')?['es_spacedesignid']",
+          "recommendations": "@variables('designRecommendations')",
+          "message": "Space design completed successfully"
+        }
+      }
+    }
+  },
+  "outputs": {},
+  "description": "Automated space design workflow that generates layout, furniture, and lighting recommendations based on requirements"
+}

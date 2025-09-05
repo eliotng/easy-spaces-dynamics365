@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ImportExportXml version="9.2.24081.10375" SolutionPackageVersion="9.2" languagecode="1033">
+  <SolutionManifest>
+    <UniqueName>EasySpacesMinimalSolution</UniqueName>
+    <LocalizedNames>
+      <LocalizedName description="Easy Spaces Minimal Solution" languagecode="1033"/>
+    </LocalizedNames>
+    <Descriptions>
+      <Description description="Minimal Easy Spaces event management solution with entities and model-driven app" languagecode="1033"/>
+    </Descriptions>
+    <Version>1.0.0.1</Version>
+    <Managed>0</Managed>
+    <Publisher>
+      <UniqueName>EasySpacesPublisher</UniqueName>
+      <LocalizedNames>
+        <LocalizedName description="Easy Spaces Publisher" languagecode="1033"/>
+      </LocalizedNames>
+      <Descriptions>
+        <Description description="Publisher for Easy Spaces solution" languagecode="1033"/>
+      </Descriptions>
+      <CustomizationPrefix>es</CustomizationPrefix>
+      <CustomizationOptionValuePrefix>10000</CustomizationOptionValuePrefix>
+    </Publisher>
+    <RootComponents>
+      <RootComponent type="1" schemaName="es_market" behavior="0"/>
+      <RootComponent type="1" schemaName="es_space" behavior="0"/>
+      <RootComponent type="1" schemaName="es_reservation" behavior="0"/>
+      <RootComponent type="80" schemaName="es_easyspacesmanagement" behavior="0"/>
+    </RootComponents>
+    <MissingDependencies />
+  </SolutionManifest>
+</ImportExportXml>

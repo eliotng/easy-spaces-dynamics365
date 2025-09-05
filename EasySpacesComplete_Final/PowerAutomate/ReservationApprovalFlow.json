@@ -1,0 +1,141 @@
+{
+  "name": "Easy Spaces - Reservation Approval Flow",
+  "description": "Automates the reservation approval process",
+  "trigger": {
+    "type": "When a record is created, updated or deleted",
+    "inputs": {
+      "dataset": "current_environment",
+      "table": "es_reservation",
+      "scope": "Organization",
+      "triggerType": "CreateOrUpdate"
+    }
+  },
+  "actions": [
+    {
+      "name": "Check_Reservation_Status",
+      "type": "Condition",
+      "inputs": {
+        "expression": "@equals(triggerOutputs()?['body/es_status'], 10014)",
+        "comment": "Check if status is 'Submitted'"
+      },
+      "runAfter": {},
+      "actions": {
+        "yes": [
+          {
+            "name": "Get_Space_Details",
+            "type": "Get_a_record",
+            "inputs": {
+              "dataset": "current_environment",
+              "table": "es_space",
+              "id": "@triggerOutputs()?['body/_es_spaceid_value']"
+            }
+          },
+          {
+            "name": "Check_Availability",
+            "type": "List_records",
+            "inputs": {
+              "dataset": "current_environment",
+              "table": "es_reservation",
+              "filter": "es_spaceid eq '@{triggerOutputs()?['body/_es_spaceid_value']}' and es_status eq 10015 and ((es_startdate le @{triggerOutputs()?['body/es_enddate']} and es_enddate ge @{triggerOutputs()?['body/es_startdate']}))",
+              "comment": "Check for conflicting confirmed reservations"
+            }
+          },
+          {
+            "name": "Availability_Decision",
+            "type": "Condition",
+            "inputs": {
+              "expression": "@equals(length(outputs('Check_Availability')?['body/value']), 0)",
+              "comment": "If no conflicts found"
+            },
+            "actions": {
+              "yes": [
+                {
+                  "name": "Check_Capacity",
+                  "type": "Condition",
+                  "inputs": {
+                    "expression": "@and(greaterOrEquals(triggerOutputs()?['body/es_totalnumberofguests'], outputs('Get_Space_Details')?['body/es_minimumcapacity']), lessOrEquals(triggerOutputs()?['body/es_totalnumberofguests'], outputs('Get_Space_Details')?['body/es_maximumcapacity']))",
+                    "comment": "Check if guest count is within capacity"
+                  },
+                  "actions": {
+                    "yes": [
+                      {
+                        "name": "Approve_Reservation",
+                        "type": "Update_a_record",
+                        "inputs": {
+                          "dataset": "current_environment",
+                          "table": "es_reservation",
+                          "id": "@triggerOutputs()?['body/es_reservationid']",
+                          "item": {
+                            "es_status": 10015,
+                            "comment": "Set status to Confirmed"
+                          }
+                        }
+                      },
+                      {
+                        "name": "Send_Approval_Email",
+                        "type": "Send_an_email",
+                        "inputs": {
+                          "to": "@triggerOutputs()?['body/_es_contactid_value@OData.Community.Display.V1.FormattedValue']",
+                          "subject": "Reservation Confirmed - @{triggerOutputs()?['body/es_name']}",
+                          "body": "Your reservation for @{outputs('Get_Space_Details')?['body/es_name']} from @{triggerOutputs()?['body/es_startdate']} to @{triggerOutputs()?['body/es_enddate']} has been confirmed."
+                        }
+                      }
+                    ],
+                    "no": [
+                      {
+                        "name": "Reject_Capacity",
+                        "type": "Update_a_record",
+                        "inputs": {
+                          "dataset": "current_environment",
+                          "table": "es_reservation",
+                          "id": "@triggerOutputs()?['body/es_reservationid']",
+                          "item": {
+                            "es_status": 10016,
+                            "comment": "Set status to Cancelled"
+                          }
+                        }
+                      },
+                      {
+                        "name": "Send_Capacity_Rejection_Email",
+                        "type": "Send_an_email",
+                        "inputs": {
+                          "to": "@triggerOutputs()?['body/_es_contactid_value@OData.Community.Display.V1.FormattedValue']",
+                          "subject": "Reservation Rejected - Capacity Issue",
+                          "body": "Your reservation request exceeds the capacity limits for @{outputs('Get_Space_Details')?['body/es_name']}. The space supports @{outputs('Get_Space_Details')?['body/es_minimumcapacity']} to @{outputs('Get_Space_Details')?['body/es_maximumcapacity']} guests."
+                        }
+                      }
+                    ]
+                  }
+                }
+              ],
+              "no": [
+                {
+                  "name": "Reject_Availability",
+                  "type": "Update_a_record",
+                  "inputs": {
+                    "dataset": "current_environment",
+                    "table": "es_reservation",
+                    "id": "@triggerOutputs()?['body/es_reservationid']",
+                    "item": {
+                      "es_status": 10016,
+                      "comment": "Set status to Cancelled"
+                    }
+                  }
+                },
+                {
+                  "name": "Send_Rejection_Email",
+                  "type": "Send_an_email",
+                  "inputs": {
+                    "to": "@triggerOutputs()?['body/_es_contactid_value@OData.Community.Display.V1.FormattedValue']",
+                    "subject": "Reservation Not Available",
+                    "body": "Unfortunately, @{outputs('Get_Space_Details')?['body/es_name']} is not available for your requested dates."
+                  }
+                }
+              ]
+            }
+          }
+        ]
+      }
+    }
+  ]
+}
