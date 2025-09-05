@@ -1,12 +1,12 @@
-# Easy Spaces for Microsoft Dynamics 365
+# Easy Spaces - Claude for Microsoft Dynamics 365
 
-A complete conversion of the Salesforce Easy Spaces LWC sample application to Microsoft Dynamics 365 and Power Platform.
+A complete conversion of the Salesforce Easy Spaces LWC sample application to Microsoft Dynamics 365 and Power Platform, created by Claude AI.
 
 ## Overview
 
 Easy Spaces is a fictional event management company that creates and manages custom pop-up spaces for companies and individuals. This application helps customers create temporary spaces like cafés, game rooms, or themed rooms for special occasions in their offices and homes.
 
-This repository contains the Microsoft Dynamics 365 version of the application, maintaining the same functionality and user experience as the original Salesforce LWC app.
+This repository contains the Microsoft Dynamics 365 version of the application, maintaining the same functionality and user experience as the original Salesforce LWC app. Created using Claude AI to demonstrate complete Salesforce to Dynamics 365 migration capabilities.
 
 ## Features
 

@@ -3,20 +3,20 @@
   <SolutionManifest>
     <UniqueName>EasySpaces</UniqueName>
     <LocalizedNames>
-      <LocalizedName description="Easy Spaces" languagecode="1033"/>
+      <LocalizedName description="Easy Spaces - Claude" languagecode="1033"/>
     </LocalizedNames>
     <Descriptions>
-      <Description description="Event management solution for creating and managing custom pop-up spaces" languagecode="1033"/>
+      <Description description="Event management solution for creating and managing custom pop-up spaces - Created by Claude AI" languagecode="1033"/>
     </Descriptions>
     <Version>1.0.0.0</Version>
     <Managed>0</Managed>
     <Publisher>
       <UniqueName>easyspaces</UniqueName>
       <LocalizedNames>
-        <LocalizedName description="Easy Spaces" languagecode="1033"/>
+        <LocalizedName description="Easy Spaces - Claude" languagecode="1033"/>
       </LocalizedNames>
       <Descriptions>
-        <Description description="Easy Spaces Publisher" languagecode="1033"/>
+        <Description description="Easy Spaces - Claude Publisher" languagecode="1033"/>
       </Descriptions>
       <EMailAddress>admin@easyspaces.com</EMailAddress>
       <SupportingWebsiteUrl>https://www.easyspaces.com</SupportingWebsiteUrl>

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Easy Spaces Dynamics 365 CLI Deployment Script
+# Easy Spaces - Claude Dynamics 365 CLI Deployment Script
 # Usage: ./deploy-cli.sh --environment-url https://yourorg.crm.dynamics.com [options]
 
 set -e  # Exit on any error
@@ -15,7 +15,7 @@ MAGENTA='\033[0;35m'
 NC='\033[0m' # No Color
 
 # Default values
-SOLUTION_NAME="EasySpaces"
+SOLUTION_NAME="EasySpacesClaude"
 PUBLISHER_PREFIX="es"
 SKIP_BACKUP=false
 SKIP_PCF=false

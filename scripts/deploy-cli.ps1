@@ -3,7 +3,7 @@ param(
     [string]$EnvironmentUrl,
     
     [Parameter(Mandatory=$false)]
-    [string]$SolutionName = "EasySpaces",
+    [string]$SolutionName = "EasySpacesClaude",
     
     [Parameter(Mandatory=$false)]
     [string]$PublisherPrefix = "es",
@@ -24,7 +24,7 @@ param(
     [switch]$Help
 )
 
-# Enhanced CLI Deployment Script for Easy Spaces (PowerShell)
+# Enhanced CLI Deployment Script for Easy Spaces - Claude (PowerShell)
 $ErrorActionPreference = "Stop"
 
 # Color functions

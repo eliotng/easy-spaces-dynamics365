@@ -1,4 +1,4 @@
-# 🎯 Easy Spaces Deployment Summary
+# 🎯 Easy Spaces - Claude Deployment Summary
 
 ## Target Environment: org7cfbe420.crm.dynamics.com
 

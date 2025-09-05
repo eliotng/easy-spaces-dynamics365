@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <SiteMap IntroducedVersion="1.0.0.0">
-  <Area Id="EasySpacesArea" Title="Easy Spaces" ShowGroups="true" Icon="/_imgs/svg_144.svg">
+  <Area Id="EasySpacesArea" Title="Easy Spaces - Claude" ShowGroups="true" Icon="/_imgs/svg_144.svg">
     
     <!-- Dashboard Group -->
     <Group Id="DashboardGroup" Title="Dashboard" IsProfile="false">
       <SubArea Id="MainDashboard" 
-               Title="Easy Spaces Dashboard" 
+               Title="Easy Spaces - Claude Dashboard" 
                Icon="/_imgs/area/18_home.svg"
                Url="/main.aspx?pagetype=dashboard&amp;id=es_easyspaces_dashboard">
         <Titles>
