@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest>
+  <control namespace="EasySpaces" constructor="ReservationHelper" version="1.0.0" display-name-key="ReservationHelper" description-key="ReservationHelper_Description" control-type="standard">
+    <!-- property node -->
+    <property name="reservationId" display-name-key="Reservation_ID" description-key="Reservation_ID_Desc" of-type="SingleLine.Text" usage="input" required="false" />
+    <property name="customerId" display-name-key="Customer_ID" description-key="Customer_ID_Desc" of-type="SingleLine.Text" usage="input" required="false" />
+    <property name="spaceId" display-name-key="Space_ID" description-key="Space_ID_Desc" of-type="SingleLine.Text" usage="input" required="false" />
+    <property name="flowStatus" display-name-key="Flow_Status" description-key="Flow_Status_Desc" of-type="SingleLine.Text" usage="output" required="false" />
+    
+    <!-- Resources -->
+    <resources>
+      <code path="index.ts" order="1"/>
+      <css path="css/ReservationHelper.css" order="1" />
+      <resx path="strings/ReservationHelper.1033.resx" version="1.0.0" />
+    </resources>
+    
+    <!-- Dependencies -->
+    <feature-usage>
+      <uses-feature name="WebAPI" required="true" />
+      <uses-feature name="Utility" required="true" />
+    </feature-usage>
+  </control>
+</manifest>

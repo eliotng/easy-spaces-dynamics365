@@ -1,0 +1,37 @@
+{
+  "definition": {
+    "triggers": [
+      {
+        "type": "PowerApps", 
+        "inputs": {
+          "schema": {
+            "type": "object",
+            "properties": {
+              "spaceId": {"type": "string"},
+              "marketId": {"type": "string"}
+            }
+          }
+        }
+      }
+    ],
+    "actions": [
+      {
+        "type": "Get_a_row_by_ID",
+        "inputs": {
+          "dataset": "default",
+          "table": "es_spaces",
+          "id": "@triggerBody()['spaceId']"
+        }
+      },
+      {
+        "type": "Update_a_row",
+        "inputs": {
+          "dataset": "default", 
+          "table": "es_spaces",
+          "item/es_lastmodified": "@utcNow()",
+          "item/es_designer": "@triggerBody()['designer']"
+        }
+      }
+    ]
+  }
+}

@@ -1,0 +1,40 @@
+{
+  "name": "Easy Spaces Mobile",
+  "description": "Mobile app for Easy Spaces reservations",
+  "screens": [
+    {
+      "name": "HomeScreen",
+      "controls": [
+        {
+          "type": "Label",
+          "text": "Easy Spaces",
+          "properties": {
+            "Size": 24,
+            "FontWeight": "Bold"
+          }
+        },
+        {
+          "type": "Gallery",
+          "dataSource": "es_space",
+          "template": {
+            "controls": [
+              {"type": "Label", "binding": "es_name"},
+              {"type": "Label", "binding": "es_capacity"},
+              {"type": "Button", "text": "Reserve", "action": "Navigate(ReservationScreen)"}
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "ReservationScreen",
+      "controls": [
+        {
+          "type": "Form",
+          "dataSource": "es_reservation",
+          "fields": ["es_name", "es_starttime", "es_endtime", "es_spaceid", "es_contactemail"]
+        }
+      ]
+    }
+  ]
+}

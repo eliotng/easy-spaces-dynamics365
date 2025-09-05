@@ -1,0 +1,29 @@
+{
+  "definition": {
+    "triggers": [
+      {
+        "type": "PowerApps",
+        "inputs": {
+          "schema": {
+            "type": "object",
+            "properties": {
+              "reservationId": {"type": "string"},
+              "action": {"type": "string"}
+            }
+          }
+        }
+      }
+    ],
+    "actions": [
+      {
+        "type": "Update_a_row",
+        "inputs": {
+          "dataset": "default",
+          "table": "es_reservations",
+          "item/es_status": "@triggerBody()['action']",
+          "item/es_approveddate": "@utcNow()"
+        }
+      }
+    ]
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "definition": {
+    "triggers": [
+      {
+        "type": "Recurrence",
+        "inputs": {
+          "frequency": "Day",
+          "interval": 1
+        }
+      }
+    ],
+    "actions": [
+      {
+        "type": "List_rows",
+        "inputs": {
+          "dataset": "default",
+          "table": "es_reservations",
+          "$filter": "es_startdate ge '@{formatDateTime(addDays(utcNow(), -30), 'yyyy-MM-dd')}'"
+        }
+      },
+      {
+        "type": "Select",
+        "inputs": {
+          "from": "@outputs('List_rows')?['body/value']",
+          "select": {
+            "spaceId": "@item()?['_es_space_value']",
+            "date": "@formatDateTime(item()?['es_startdate'], 'yyyy-MM-dd')"
+          }
+        }
+      }
+    ]
+  }
+}

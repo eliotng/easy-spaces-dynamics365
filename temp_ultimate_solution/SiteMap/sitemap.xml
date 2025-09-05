@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<SiteMap IntroducedVersion="1.0.0.0">
+  <Area Id="EasySpacesArea" Title="Easy Spaces" ShowGroups="true" Icon="/_imgs/svg_144.svg">
+    
+    <!-- Dashboard Group -->
+    <Group Id="DashboardGroup" Title="Dashboard" IsProfile="false">
+      <SubArea Id="MainDashboard" 
+               Title="Easy Spaces Dashboard" 
+               Icon="/_imgs/area/18_home.svg"
+               Url="/main.aspx?pagetype=dashboard&amp;id=es_easyspaces_dashboard">
+        <Titles>
+          <Title LCID="1033" Title="Dashboard"/>
+        </Titles>
+      </SubArea>
+    </Group>
+    
+    <!-- Spaces Management Group -->
+    <Group Id="SpacesGroup" Title="Space Management" IsProfile="false">
+      <SubArea Id="Markets" 
+               Entity="es_market" 
+               Title="Markets" 
+               Icon="/_imgs/svg/Globe.svg">
+        <Titles>
+          <Title LCID="1033" Title="Markets"/>
+        </Titles>
+      </SubArea>
+      
+      <SubArea Id="Spaces" 
+               Entity="es_space" 
+               Title="Spaces" 
+               Icon="/_imgs/svg/Building.svg">
+        <Titles>
+          <Title LCID="1033" Title="Spaces"/>
+        </Titles>
+      </SubArea>
+      
+      <SubArea Id="SpaceDesigner" 
+               Title="Space Designer" 
+               Icon="/_imgs/svg/Designer.svg"
+               Url="/main.aspx?pagetype=custom&amp;name=es_spacedesigner">
+        <Titles>
+          <Title LCID="1033" Title="Space Designer"/>
+        </Titles>
+      </SubArea>
+    </Group>
+    
+    <!-- Reservations Group -->
+    <Group Id="ReservationsGroup" Title="Reservations" IsProfile="false">
+      <SubArea Id="Reservations" 
+               Entity="es_reservation" 
+               Title="All Reservations" 
+               Icon="/_imgs/svg/Calendar.svg">
+        <Titles>
+          <Title LCID="1033" Title="All Reservations"/>
+        </Titles>
+      </SubArea>
+      
+      <SubArea Id="MyReservations" 
+               Entity="es_reservation" 
+               Title="My Reservations" 
+               Icon="/_imgs/svg/MyCalendar.svg"
+               ViewId="00000000-0000-0000-00AA-000010001001">
+        <Titles>
+          <Title LCID="1033" Title="My Reservations"/>
+        </Titles>
+      </SubArea>
+      
+      <SubArea Id="ReservationHelper" 
+               Title="New Reservation" 
+               Icon="/_imgs/svg/NewRecord.svg"
+               Url="/main.aspx?pagetype=custom&amp;name=es_reservationhelper">
+        <Titles>
+          <Title LCID="1033" Title="New Reservation"/>
+        </Titles>
+      </SubArea>
+    </Group>
+    
+    <!-- Customers Group -->
+    <Group Id="CustomersGroup" Title="Customers" IsProfile="false">
+      <SubArea Id="Accounts" 
+               Entity="account" 
+               Title="Accounts" 
+               Icon="/_imgs/svg/Company.svg">
+        <Titles>
+          <Title LCID="1033" Title="Accounts"/>
+        </Titles>
+      </SubArea>
+      
+      <SubArea Id="Contacts" 
+               Entity="contact" 
+               Title="Contacts" 
+               Icon="/_imgs/svg/Contact.svg">
+        <Titles>
+          <Title LCID="1033" Title="Contacts"/>
+        </Titles>
+      </SubArea>
+      
+      <SubArea Id="Leads" 
+               Entity="lead" 
+               Title="Leads" 
+               Icon="/_imgs/svg/Lead.svg">
+        <Titles>
+          <Title LCID="1033" Title="Leads"/>
+        </Titles>
+      </SubArea>
+    </Group>
+    
+    <!-- Reports & Analytics Group -->
+    <Group Id="ReportsGroup" Title="Reports & Analytics" IsProfile="false">
+      <SubArea Id="Reports" 
+               Title="Reports" 
+               Icon="/_imgs/svg/Reports.svg"
+               Url="/main.aspx?pagetype=entitylist&amp;etn=report">
+        <Titles>
+          <Title LCID="1033" Title="Reports"/>
+        </Titles>
+      </SubArea>
+      
+      <SubArea Id="Analytics" 
+               Title="Analytics" 
+               Icon="/_imgs/svg/Analytics.svg"
+               Url="/main.aspx?pagetype=dashboard&amp;id=es_analytics_dashboard">
+        <Titles>
+          <Title LCID="1033" Title="Analytics"/>
+        </Titles>
+      </SubArea>
+    </Group>
+    
+    <!-- Settings Group -->
+    <Group Id="SettingsGroup" Title="Settings" IsProfile="false">
+      <SubArea Id="AppSettings" 
+               Title="App Settings" 
+               Icon="/_imgs/svg/Settings.svg"
+               Url="/main.aspx?pagetype=custom&amp;name=es_settings">
+        <Titles>
+          <Title LCID="1033" Title="App Settings"/>
+        </Titles>
+      </SubArea>
+    </Group>
+    
+  </Area>
+</SiteMap>

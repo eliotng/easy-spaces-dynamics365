@@ -1,0 +1,157 @@
+<ImportExportXml version="9.2.25074.250" SolutionPackageVersion="9.2" languagecode="1033">
+  <Entities>
+    <Entity Name="es_market">
+      <LocalizedNames>
+        <LocalizedName description="Market" languagecode="1033" />
+      </LocalizedNames>
+      <LocalizedCollectionNames>
+        <LocalizedCollectionName description="Markets" languagecode="1033" />
+      </LocalizedCollectionNames>
+      <Descriptions>
+        <Description description="Event marketplace or venue location" languagecode="1033" />
+      </Descriptions>
+      <attributes>
+        <attribute PhysicalName="es_marketid">
+          <Type>uniqueidentifier</Type>
+          <Name>es_marketid</Name>
+          <LogicalName>es_marketid</LogicalName>
+          <RequiredLevel>SystemRequired</RequiredLevel>
+          <DisplayMask>ValidForAdvancedFind</DisplayMask>
+          <IsPrimaryId>1</IsPrimaryId>
+        </attribute>
+        <attribute PhysicalName="es_name">
+          <Type>nvarchar</Type>
+          <Name>es_name</Name>
+          <LogicalName>es_name</LogicalName>
+          <RequiredLevel>ApplicationRequired</RequiredLevel>
+          <DisplayMask>ValidForAdvancedFind</DisplayMask>
+          <MaxLength>100</MaxLength>
+          <IsPrimaryName>1</IsPrimaryName>
+        </attribute>
+        <attribute PhysicalName="es_location">
+          <Type>nvarchar</Type>
+          <Name>es_location</Name>
+          <LogicalName>es_location</LogicalName>
+          <RequiredLevel>None</RequiredLevel>
+          <DisplayMask>ValidForAdvancedFind</DisplayMask>
+          <MaxLength>200</MaxLength>
+        </attribute>
+      </attributes>
+    </Entity>
+    
+    <Entity Name="es_space">
+      <LocalizedNames>
+        <LocalizedName description="Space" languagecode="1033" />
+      </LocalizedNames>
+      <LocalizedCollectionNames>
+        <LocalizedCollectionName description="Spaces" languagecode="1033" />
+      </LocalizedCollectionNames>
+      <Descriptions>
+        <Description description="Reservable space within a market" languagecode="1033" />
+      </Descriptions>
+      <attributes>
+        <attribute PhysicalName="es_spaceid">
+          <Type>uniqueidentifier</Type>
+          <Name>es_spaceid</Name>
+          <LogicalName>es_spaceid</LogicalName>
+          <RequiredLevel>SystemRequired</RequiredLevel>
+          <DisplayMask>ValidForAdvancedFind</DisplayMask>
+          <IsPrimaryId>1</IsPrimaryId>
+        </attribute>
+        <attribute PhysicalName="es_name">
+          <Type>nvarchar</Type>
+          <Name>es_name</Name>
+          <LogicalName>es_name</LogicalName>
+          <RequiredLevel>ApplicationRequired</RequiredLevel>
+          <DisplayMask>ValidForAdvancedFind</DisplayMask>
+          <MaxLength>100</MaxLength>
+          <IsPrimaryName>1</IsPrimaryName>
+        </attribute>
+        <attribute PhysicalName="es_capacity">
+          <Type>int</Type>
+          <Name>es_capacity</Name>
+          <LogicalName>es_capacity</LogicalName>
+          <RequiredLevel>None</RequiredLevel>
+          <DisplayMask>ValidForAdvancedFind</DisplayMask>
+        </attribute>
+      </attributes>
+    </Entity>
+    
+    <Entity Name="es_reservation">
+      <LocalizedNames>
+        <LocalizedName description="Reservation" languagecode="1033" />
+      </LocalizedNames>
+      <LocalizedCollectionNames>
+        <LocalizedCollectionName description="Reservations" languagecode="1033" />
+      </LocalizedCollectionNames>
+      <Descriptions>
+        <Description description="Space reservation record" languagecode="1033" />
+      </Descriptions>
+      <attributes>
+        <attribute PhysicalName="es_reservationid">
+          <Type>uniqueidentifier</Type>
+          <Name>es_reservationid</Name>
+          <LogicalName>es_reservationid</LogicalName>
+          <RequiredLevel>SystemRequired</RequiredLevel>
+          <DisplayMask>ValidForAdvancedFind</DisplayMask>
+          <IsPrimaryId>1</IsPrimaryId>
+        </attribute>
+        <attribute PhysicalName="es_name">
+          <Type>nvarchar</Type>
+          <Name>es_name</Name>
+          <LogicalName>es_name</LogicalName>
+          <RequiredLevel>ApplicationRequired</RequiredLevel>
+          <DisplayMask>ValidForAdvancedFind</DisplayMask>
+          <MaxLength>100</MaxLength>
+          <IsPrimaryName>1</IsPrimaryName>
+        </attribute>
+        <attribute PhysicalName="es_startdate">
+          <Type>datetime</Type>
+          <Name>es_startdate</Name>
+          <LogicalName>es_startdate</LogicalName>
+          <RequiredLevel>ApplicationRequired</RequiredLevel>
+          <DisplayMask>ValidForAdvancedFind</DisplayMask>
+        </attribute>
+        <attribute PhysicalName="es_enddate">
+          <Type>datetime</Type>
+          <Name>es_enddate</Name>
+          <LogicalName>es_enddate</LogicalName>
+          <RequiredLevel>ApplicationRequired</RequiredLevel>
+          <DisplayMask>ValidForAdvancedFind</DisplayMask>
+        </attribute>
+      </attributes>
+    </Entity>
+  </Entities>
+  
+  <Apps>
+    <App UniqueName="es_easyspacesmanagement" Name="Easy Spaces Management" IntroducedVersion="1.0.0.0">
+      <LocalizedNames>
+        <LocalizedName description="Easy Spaces Management" languagecode="1033" />
+      </LocalizedNames>
+      <Descriptions>
+        <Description description="Model-driven app for managing spaces, reservations, and markets" languagecode="1033" />
+      </Descriptions>
+      <AppComponents>
+        <AppComponent type="Entity" schemaName="es_market" />
+        <AppComponent type="Entity" schemaName="es_space" />
+        <AppComponent type="Entity" schemaName="es_reservation" />
+      </AppComponents>
+      <SiteMap>
+        <Area Id="EasySpacesArea" Title="Easy Spaces" ShowGroups="true">
+          <Group Id="SpacesGroup" Title="Space Management">
+            <SubArea Id="Markets" Entity="es_market" Title="Markets" />
+            <SubArea Id="Spaces" Entity="es_space" Title="Spaces" />
+            <SubArea Id="Reservations" Entity="es_reservation" Title="Reservations" />
+          </Group>
+        </Area>
+      </SiteMap>
+    </App>
+  </Apps>
+  
+  <Roles></Roles>
+  <Workflows></Workflows>
+  <FieldSecurityProfiles></FieldSecurityProfiles>
+  <Languages>
+    <Language>1033</Language>
+  </Languages>
+</ImportExportXml>

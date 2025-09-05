@@ -1,0 +1,30 @@
+{
+  "definition": {
+    "triggers": [
+      {
+        "type": "When_a_row_is_added_modified_or_deleted",
+        "inputs": {
+          "dataset": "default",
+          "table": "es_reservations",
+          "scope": "Organization"
+        }
+      }
+    ],
+    "actions": [
+      {
+        "type": "Condition",
+        "expression": "@triggerOutputs()?['body/es_status'] == 'pending'",
+        "actions": [
+          {
+            "type": "Send_an_email_notification",
+            "inputs": {
+              "to": "@triggerOutputs()?['body/_ownerid_value@OData.Community.Display.V1.FormattedValue']",
+              "subject": "New Reservation Pending Approval",
+              "body": "A new reservation requires your approval."
+            }
+          }
+        ]
+      }
+    ]
+  }
+}
