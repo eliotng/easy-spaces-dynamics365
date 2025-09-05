@@ -26,6 +26,14 @@ jobs:
         cd plugins
         chmod +x build-plugins.sh
         ./build-plugins.sh
+        
+    - name: Create Proper Solution Package
+      run: |
+        mkdir temp_solution
+        cp solution/src/* temp_solution/
+        cd temp_solution
+        zip ../out/EasySpacesFixed_$(date +"%Y%m%d_%H%M%S").zip *
+        ls -la ../out/EasySpacesFixed_*.zip
       
     - name: Install Power Platform Tools
       uses: microsoft/powerplatform-actions/actions-install@v1.9.1
@@ -43,7 +51,7 @@ jobs:
         app-id: ${{ secrets.POWERPLATFORM_APP_ID }}
         client-secret: ${{ secrets.POWERPLATFORM_CLIENT_SECRET }}
         tenant-id: ${{ secrets.POWERPLATFORM_TENANT_ID }}
-        solution-file: 'out/EasySpaces_Complete_20250904_215518.zip'
+        solution-file: 'out/EasySpacesComplete_20250904_221105.zip'
         force-overwrite: true
         publish-changes: true
         activate-plugins: true
@@ -60,7 +68,7 @@ jobs:
           --tenant ${{ secrets.POWERPLATFORM_TENANT_ID }} \
           --environment https://org7cfbe420.crm.dynamics.com
         pac solution import \
-          --path out/EasySpaces_Complete_20250904_215518.zip \
+          --path out/EasySpacesComplete_20250904_221105.zip \
           --force-overwrite \
           --publish-changes \
           --activate-plugins \
