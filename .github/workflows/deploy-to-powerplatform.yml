@@ -27,13 +27,11 @@ jobs:
         chmod +x build-plugins.sh
         ./build-plugins.sh
         
-    - name: Create Proper Solution Package
+    - name: Verify Solution Package
       run: |
-        mkdir temp_solution
-        cp solution/src/* temp_solution/
-        cd temp_solution
-        zip ../out/EasySpacesFixed_$(date +"%Y%m%d_%H%M%S").zip *
-        ls -la ../out/EasySpacesFixed_*.zip
+        echo "Using pre-built solution: EasySpacesComplete_20250904_221105.zip"
+        ls -la out/EasySpacesComplete_20250904_221105.zip
+        unzip -l out/EasySpacesComplete_20250904_221105.zip
       
     - name: Install Power Platform Tools
       uses: microsoft/powerplatform-actions/actions-install@v1.9.1
