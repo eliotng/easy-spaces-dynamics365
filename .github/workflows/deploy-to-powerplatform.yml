@@ -16,6 +16,17 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v4
       
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: '9.0.x'
+        
+    - name: Build C# Plugins
+      run: |
+        cd plugins
+        chmod +x build-plugins.sh
+        ./build-plugins.sh
+      
     - name: Install Power Platform Tools
       uses: microsoft/powerplatform-actions/actions-install@v1.9.1
         
@@ -32,7 +43,7 @@ jobs:
         app-id: ${{ secrets.POWERPLATFORM_APP_ID }}
         client-secret: ${{ secrets.POWERPLATFORM_CLIENT_SECRET }}
         tenant-id: ${{ secrets.POWERPLATFORM_TENANT_ID }}
-        solution-file: 'out/EasySpaces_Complete_20250904_213746.zip'
+        solution-file: 'out/EasySpaces_Complete_20250904_215518.zip'
         force-overwrite: true
         publish-changes: true
         activate-plugins: true
@@ -49,7 +60,7 @@ jobs:
           --tenant ${{ secrets.POWERPLATFORM_TENANT_ID }} \
           --environment https://org7cfbe420.crm.dynamics.com
         pac solution import \
-          --path out/EasySpaces_Complete_20250904_213746.zip \
+          --path out/EasySpaces_Complete_20250904_215518.zip \
           --force-overwrite \
           --publish-changes \
           --activate-plugins \
