@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ImportExportXml xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" OrganizationVersion="9.2.25074.250" OrganizationSchemaType="Full" CRMServerServiceabilityVersion="9.2.25081.00234">  <Roles></Roles>
+  <Workflows></Workflows>
+  <FieldSecurityProfiles></FieldSecurityProfiles>
+  <Templates />
+  <EntityMaps />
+  <EntityRelationships />
+  <OrganizationSettings />
+  <optionsets />
+  <CustomControls>
+    <CustomControl>
+      <Name>EasySpaces.ReservationHelper</Name>
+      <Version>1.0.0</Version>
+      <CompatibleDataTypes>
+        <CompatibleDataType>SingleLine.Text</CompatibleDataType>
+      </CompatibleDataTypes>
+      <Description>Custom control for managing space reservations</Description>
+    </CustomControl>
+    <CustomControl>
+      <Name>EasySpaces.ImageGallery</Name>
+      <Version>1.0.0</Version>
+      <CompatibleDataTypes>
+        <CompatibleDataType>Multiple</CompatibleDataType>
+      </CompatibleDataTypes>
+      <Description>Custom control for displaying space images</Description>
+    </CustomControl>
+  </CustomControls>
+  <WebResources>
+    <WebResource>
+      <Name>es_openRecordAction</Name>
+      <Type>3</Type>
+      <Description>JavaScript web resource for opening record actions</Description>
+      <DisplayName>Open Record Action</DisplayName>
+      <FileName>es_openRecordAction.js</FileName>
+    </WebResource>
+  </WebResources>
+  <PluginAssemblies>
+    <PluginAssembly>
+      <Name>EasySpaces.ReservationManager</Name>
+      <Version>1.0.0.0</Version>
+      <Culture>neutral</Culture>
+      <Description>Plugin assembly for reservation management</Description>
+      <Plugins>
+        <Plugin>
+          <Name>ReservationManagerPlugin</Name>
+          <TypeName>EasySpaces.Plugins.ReservationManagerPlugin</TypeName>
+          <Description>Plugin to manage space reservations</Description>
+        </Plugin>
+      </Plugins>
+    </PluginAssembly>
+    <PluginAssembly>
+      <Name>EasySpaces.CustomerServices</Name>
+      <Version>1.0.0.0</Version>
+      <Culture>neutral</Culture>
+      <Description>Plugin assembly for customer services</Description>
+      <Plugins>
+        <Plugin>
+          <Name>CustomerServicesPlugin</Name>
+          <TypeName>EasySpaces.Plugins.CustomerServicesPlugin</TypeName>
+          <Description>Plugin to manage customer services</Description>
+        </Plugin>
+      </Plugins>
+    </PluginAssembly>
+    <PluginAssembly>
+      <Name>EasySpaces.MarketServices</Name>
+      <Version>1.0.0.0</Version>
+      <Culture>neutral</Culture>
+      <Description>Plugin assembly for market services</Description>
+      <Plugins>
+        <Plugin>
+          <Name>MarketServicesPlugin</Name>
+          <TypeName>EasySpaces.Plugins.MarketServicesPlugin</TypeName>
+          <Description>Plugin to manage market services</Description>
+        </Plugin>
+      </Plugins>
+    </PluginAssembly>
+  </PluginAssemblies>
+  <EntityDataProviders />
+  <Languages>
+    <Language>1033</Language>
+  </Languages>ionVersion="9.2.25074.250" OrganizationSchemaType="Full" CRMServerServiceabilityVersion="9.2.25081.00234">
+  <Entities>
+    <Entity>
+      <Name LocalizedName="Market" OriginalName="Market">es_market</Name>
+      <ObjectTypeCode>10001</ObjectTypeCode>
+      <Attributes>
+        <Attribute PhysicalName="es_name">
+          <Name>es_name</Name>
+          <Type>nvarchar</Type>
+          <Length>100</Length>
+          <LogicalName>es_name</LogicalName>
+          <SchemaName>es_name</SchemaName>
+          <RequiredLevel>ApplicationRequired</RequiredLevel>
+          <DisplayMask>ValidForAdvancedFind|ValidForForm|ValidForGrid</DisplayMask>
+          <ImeMode>Auto</ImeMode>
+          <ValidForCreateApi>true</ValidForCreateApi>
+          <ValidForReadApi>true</ValidForReadApi>
+          <ValidForUpdateApi>true</ValidForUpdateApi>
+        </Attribute>
+        <Attribute PhysicalName="es_location">
+          <Name>es_location</Name>
+          <Type>nvarchar</Type>
+          <Length>200</Length>
+          <LogicalName>es_location</LogicalName>
+          <SchemaName>es_location</SchemaName>
+          <RequiredLevel>None</RequiredLevel>
+          <DisplayMask>ValidForAdvancedFind|ValidForForm|ValidForGrid</DisplayMask>
+          <ImeMode>Auto</ImeMode>
+          <ValidForCreateApi>true</ValidForCreateApi>
+          <ValidForReadApi>true</ValidForReadApi>
+          <ValidForUpdateApi>true</ValidForUpdateApi>
+        </Attribute>
+      </Attributes>
+    </Entity>
+    <Entity>
+      <Name LocalizedName="Space" OriginalName="Space">es_space</Name>
+      <ObjectTypeCode>10002</ObjectTypeCode>
+      <Attributes>
+        <Attribute PhysicalName="es_name">
+          <Name>es_name</Name>
+          <Type>nvarchar</Type>
+          <Length>100</Length>
+          <LogicalName>es_name</LogicalName>
+          <SchemaName>es_name</SchemaName>
+          <RequiredLevel>ApplicationRequired</RequiredLevel>
+          <DisplayMask>ValidForAdvancedFind|ValidForForm|ValidForGrid</DisplayMask>
+          <ImeMode>Auto</ImeMode>
+          <ValidForCreateApi>true</ValidForCreateApi>
+          <ValidForReadApi>true</ValidForReadApi>
+          <ValidForUpdateApi>true</ValidForUpdateApi>
+        </Attribute>
+        <Attribute PhysicalName="es_capacity">
+          <Name>es_capacity</Name>
+          <Type>int</Type>
+          <LogicalName>es_capacity</LogicalName>
+          <SchemaName>es_capacity</SchemaName>
+          <RequiredLevel>None</RequiredLevel>
+          <DisplayMask>ValidForAdvancedFind|ValidForForm|ValidForGrid</DisplayMask>
+          <ValidForCreateApi>true</ValidForCreateApi>
+          <ValidForReadApi>true</ValidForReadApi>
+          <ValidForUpdateApi>true</ValidForUpdateApi>
+        </Attribute>
+      </Attributes>
+    </Entity>
+    <Entity>
+      <Name LocalizedName="Reservation" OriginalName="Reservation">es_reservation</Name>
+      <ObjectTypeCode>10003</ObjectTypeCode>
+      <Attributes>
+        <Attribute PhysicalName="es_name">
+          <Name>es_name</Name>
+          <Type>nvarchar</Type>
+          <Length>100</Length>
+          <LogicalName>es_name</LogicalName>
+          <SchemaName>es_name</SchemaName>
+          <RequiredLevel>ApplicationRequired</RequiredLevel>
+          <DisplayMask>ValidForAdvancedFind|ValidForForm|ValidForGrid</DisplayMask>
+          <ImeMode>Auto</ImeMode>
+          <ValidForCreateApi>true</ValidForCreateApi>
+          <ValidForReadApi>true</ValidForReadApi>
+          <ValidForUpdateApi>true</ValidForUpdateApi>
+        </Attribute>
+        <Attribute PhysicalName="es_startdate">
+          <Name>es_startdate</Name>
+          <Type>datetime</Type>
+          <LogicalName>es_startdate</LogicalName>
+          <SchemaName>es_startdate</SchemaName>
+          <RequiredLevel>ApplicationRequired</RequiredLevel>
+          <DisplayMask>ValidForAdvancedFind|ValidForForm|ValidForGrid</DisplayMask>
+          <ValidForCreateApi>true</ValidForCreateApi>
+          <ValidForReadApi>true</ValidForReadApi>
+          <ValidForUpdateApi>true</ValidForUpdateApi>
+        </Attribute>
+        <Attribute PhysicalName="es_enddate">
+          <Name>es_enddate</Name>
+          <Type>datetime</Type>
+          <LogicalName>es_enddate</LogicalName>
+          <SchemaName>es_enddate</SchemaName>
+          <RequiredLevel>ApplicationRequired</RequiredLevel>
+          <DisplayMask>ValidForAdvancedFind|ValidForForm|ValidForGrid</DisplayMask>
+          <ValidForCreateApi>true</ValidForCreateApi>
+          <ValidForReadApi>true</ValidForReadApi>
+          <ValidForUpdateApi>true</ValidForUpdateApi>
+        </Attribute>
+      </Attributes>
+    </Entity>
+  </Entities>
+  <Roles></Roles>
+  <Workflows></Workflows>
+  <FieldSecurityProfiles></FieldSecurityProfiles>
+  <Templates />
+  <EntityMaps />
+  <EntityRelationships />
+  <OrganizationSettings />
+  <optionsets />
+  <CustomControls />
+  <EntityDataProviders />
+  <Languages>
+    <Language>1033</Language>
+  </Languages>
+</ImportExportXml>
