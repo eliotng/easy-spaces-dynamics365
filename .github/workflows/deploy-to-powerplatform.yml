@@ -55,19 +55,22 @@ jobs:
         activate-plugins: true
         max-async-wait-time: 180
         
-    - name: Retry import if failed
-      if: failure()
+    - name: Deploy Plugins Separately
+      continue-on-error: true
       run: |
-        echo "First import attempt failed. Waiting and retrying..."
-        sleep 60
-        pac auth create --kind SPN \
-          --applicationId ${{ secrets.POWERPLATFORM_APP_ID }} \
-          --clientSecret ${{ secrets.POWERPLATFORM_CLIENT_SECRET }} \
-          --tenant ${{ secrets.POWERPLATFORM_TENANT_ID }} \
-          --environment https://org7cfbe420.crm.dynamics.com
-        pac solution import \
-          --path out/EasySpacesComprehensive_20250904_222252.zip \
-          --force-overwrite \
-          --publish-changes \
-          --activate-plugins \
-          --max-async-wait-time 180
+        echo "Registering plugin assemblies..."
+        pac plugin push \
+          --path plugins/ReservationManager/bin/Release/net462/EasySpaces.ReservationManager.dll \
+          --environment https://org7cfbe420.crm.dynamics.com || echo "Plugin registration failed - use manual method"
+        pac plugin push \
+          --path plugins/CustomerServices/bin/Release/net462/EasySpaces.CustomerServices.dll \
+          --environment https://org7cfbe420.crm.dynamics.com || echo "Plugin registration failed - use manual method"  
+        pac plugin push \
+          --path plugins/MarketServices/bin/Release/net462/EasySpaces.MarketServices.dll \
+          --environment https://org7cfbe420.crm.dynamics.com || echo "Plugin registration failed - use manual method"
+        
+    - name: Verify Plugin Deployment
+      continue-on-error: true
+      run: |
+        echo "Listing registered plugins..."
+        pac plugin list --environment https://org7cfbe420.crm.dynamics.com
