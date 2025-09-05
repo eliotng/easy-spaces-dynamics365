@@ -40,6 +40,10 @@ exported/
 # Allow solution files
 !out/EasySpacesSolution.zip
 !out/InitialSolution.zip
+# Ignore other generated zips
+out/EasySpaces.zip
+out/EasySpaces_managed.zip
+out/target-env/
 backup/
 *.bak
 
