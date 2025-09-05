@@ -25,6 +25,10 @@
       <RootComponent type="1" schemaName="es_market" behavior="0"/>
       <RootComponent type="1" schemaName="es_space" behavior="0"/>
       <RootComponent type="1" schemaName="es_reservation" behavior="0"/>
+      <RootComponent type="80" schemaName="es_easyspacesmanagement" behavior="0"/>
+      <RootComponent type="66" schemaName="EasySpaces.ReservationHelper" behavior="0"/>
+      <RootComponent type="61" schemaName="es_openRecordAction.js" behavior="0"/>
+      <RootComponent type="300" schemaName="EasySpacesCanvas" behavior="0"/>
     </RootComponents>
     <MissingDependencies />
   </SolutionManifest>
@@ -431,19 +435,95 @@
   </EntityRelationships>
 
   <!-- Web Resources -->
-  <WebResources />
+  <WebResources>
+    <WebResource>
+      <Name>es_openRecordAction.js</Name>
+      <WebResourceType>3</WebResourceType>
+      <IntroducedVersion>1.0.0.0</IntroducedVersion>
+      <IsEnabledForMobileClient>0</IsEnabledForMobileClient>
+      <IsAvailableForMobileOffline>0</IsAvailableForMobileOffline>
+      <DependencyXml>&lt;Dependencies&gt;&lt;Dependency componentType="WebResource" /&gt;&lt;/Dependencies&gt;</DependencyXml>
+      <LocalizedNames>
+        <LocalizedName description="Easy Spaces - Open Record Action" languagecode="1033"/>
+      </LocalizedNames>
+      <Descriptions>
+        <Description description="JavaScript web resource for Easy Spaces open record functionality" languagecode="1033"/>
+      </Descriptions>
+    </WebResource>
+  </WebResources>
 
   <!-- Plugin Assemblies -->
-  <PluginAssemblies />
+  <PluginAssemblies>
+    <PluginAssembly>
+      <Name>EasySpaces.ReservationManager</Name>
+      <Culture>neutral</Culture>
+      <PublicKeyToken></PublicKeyToken>
+      <Version>1.0.0.0</Version>
+      <IsolationMode>2</IsolationMode>
+      <SourceType>0</SourceType>
+      <IntroducedVersion>1.0.0.0</IntroducedVersion>
+    </PluginAssembly>
+    <PluginAssembly>
+      <Name>EasySpaces.CustomerServices</Name>
+      <Culture>neutral</Culture>
+      <PublicKeyToken></PublicKeyToken>
+      <Version>1.0.0.0</Version>
+      <IsolationMode>2</IsolationMode>
+      <SourceType>0</SourceType>
+      <IntroducedVersion>1.0.0.0</IntroducedVersion>
+    </PluginAssembly>
+    <PluginAssembly>
+      <Name>EasySpaces.MarketServices</Name>
+      <Culture>neutral</Culture>
+      <PublicKeyToken></PublicKeyToken>
+      <Version>1.0.0.0</Version>
+      <IsolationMode>2</IsolationMode>
+      <SourceType>0</SourceType>
+      <IntroducedVersion>1.0.0.0</IntroducedVersion>
+    </PluginAssembly>
+  </PluginAssemblies>
 
   <Roles />
   <Workflows />
+  <CanvasApps>
+    <CanvasApp>
+      <Name>EasySpacesCanvas</Name>
+      <DisplayName>Easy Spaces</DisplayName>
+      <Description>Easy Spaces Canvas App for mobile user experience</Description>
+      <IntroducedVersion>1.0.0.0</IntroducedVersion>
+      <IsCustomizable>1</IsCustomizable>
+      <CanEdit>1</CanEdit>
+      <CanDelete>1</CanDelete>
+    </CanvasApp>
+  </CanvasApps>
+  <AppModules>
+    <AppModule>
+      <Name>es_easyspacesmanagement</Name>
+      <IntroducedVersion>1.0.0.0</IntroducedVersion>
+      <WebResourceId>new_/SiteMap/sitemap.xml</WebResourceId>
+      <LocalizedNames>
+        <LocalizedName description="Easy Spaces Management" languagecode="1033"/>
+      </LocalizedNames>
+      <Descriptions>
+        <Description description="Model-driven app for Easy Spaces event management" languagecode="1033"/>
+      </Descriptions>
+    </AppModule>
+  </AppModules>
   <FieldSecurityProfiles />
   <Templates />
   <EntityMaps />
   <OrganizationSettings />
   <optionsets />
-  <CustomControls />
+  <CustomControls>
+    <CustomControl>
+      <Name>EasySpaces.ReservationHelper</Name>
+      <Version>1.0.0</Version>
+      <CompatibleDataTypes>
+        <CompatibleDataType>SingleLine.Text</CompatibleDataType>
+      </CompatibleDataTypes>
+      <IntroducedVersion>1.0.0</IntroducedVersion>
+    </CustomControl>
+  </CustomControls>
   <EntityDataProviders />
   <Languages>
     <Language>1033</Language>
