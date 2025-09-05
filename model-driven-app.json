@@ -1,0 +1,50 @@
+{
+  "name": "Easy Spaces Management",
+  "uniqueName": "es_easyspacesmanagement",
+  "description": "Model-driven app for managing spaces, reservations, and units",
+  "appComponents": [
+    {
+      "type": "Entity",
+      "schemaName": "es_market",
+      "includeInMenu": true
+    },
+    {
+      "type": "Entity", 
+      "schemaName": "es_unit",
+      "includeInMenu": true
+    },
+    {
+      "type": "Entity",
+      "schemaName": "es_space",
+      "includeInMenu": true
+    },
+    {
+      "type": "Entity",
+      "schemaName": "es_reservation",
+      "includeInMenu": true
+    }
+  ],
+  "siteMap": {
+    "areas": [
+      {
+        "title": "Property Management",
+        "groups": [
+          {
+            "title": "Properties",
+            "subAreas": [
+              {"entity": "es_market", "title": "Markets"},
+              {"entity": "es_unit", "title": "Units"},
+              {"entity": "es_space", "title": "Spaces"}
+            ]
+          },
+          {
+            "title": "Bookings",
+            "subAreas": [
+              {"entity": "es_reservation", "title": "Reservations"}
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

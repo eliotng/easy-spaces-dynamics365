@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AppModule Name="EasySpacesMDA" UniqueName="EasySpacesMDA">
+  <AppModuleComponents>
+    <AppModuleComponent type="1" schemaName="es_market" />
+    <AppModuleComponent type="1" schemaName="es_unit" />
+    <AppModuleComponent type="1" schemaName="es_space" />
+    <AppModuleComponent type="1" schemaName="es_reservation" />
+  </AppModuleComponents>
+</AppModule>

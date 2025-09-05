@@ -1,0 +1,65 @@
+{
+  "flows": [
+    {
+      "name": "Send Reservation Confirmation",
+      "description": "Sends email confirmation when a reservation is created",
+      "trigger": {
+        "type": "DataverseCreate",
+        "entity": "es_reservation"
+      },
+      "actions": [
+        {
+          "type": "SendEmail",
+          "to": "@{triggerOutputs()?['body/es_contactemail']}",
+          "subject": "Reservation Confirmed - @{triggerOutputs()?['body/es_name']}",
+          "body": "Your reservation has been confirmed for @{triggerOutputs()?['body/es_starttime']}"
+        }
+      ]
+    },
+    {
+      "name": "Update Space Availability",
+      "description": "Updates space availability when reservation is made",
+      "trigger": {
+        "type": "DataverseCreate",
+        "entity": "es_reservation"
+      },
+      "actions": [
+        {
+          "type": "UpdateRecord",
+          "entity": "es_space",
+          "recordId": "@{triggerOutputs()?['body/_es_spaceid_value']}",
+          "updates": {
+            "es_isavailable": false
+          }
+        }
+      ]
+    },
+    {
+      "name": "Daily Reservation Report",
+      "description": "Sends daily report of all reservations",
+      "trigger": {
+        "type": "Recurrence",
+        "frequency": "Day",
+        "interval": 1,
+        "time": "09:00"
+      },
+      "actions": [
+        {
+          "type": "ListRecords",
+          "entity": "es_reservation",
+          "filter": "createdon ge @{addDays(utcNow(), -1)}"
+        },
+        {
+          "type": "CreateHTMLTable",
+          "from": "@{body('ListRecords')?['value']}"
+        },
+        {
+          "type": "SendEmail",
+          "to": "admin@easyspaces.com",
+          "subject": "Daily Reservation Report",
+          "body": "@{body('CreateHTMLTable')}"
+        }
+      ]
+    }
+  ]
+}

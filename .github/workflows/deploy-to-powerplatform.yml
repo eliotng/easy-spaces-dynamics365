@@ -32,7 +32,7 @@ jobs:
         app-id: ${{ secrets.POWERPLATFORM_APP_ID }}
         client-secret: ${{ secrets.POWERPLATFORM_CLIENT_SECRET }}
         tenant-id: ${{ secrets.POWERPLATFORM_TENANT_ID }}
-        solution-file: 'out/EasySpacesSolution.zip'
+        solution-file: 'out/EasySpaces_Complete_20250904_213746.zip'
         force-overwrite: true
         publish-changes: true
         activate-plugins: true
@@ -49,7 +49,7 @@ jobs:
           --tenant ${{ secrets.POWERPLATFORM_TENANT_ID }} \
           --environment https://org7cfbe420.crm.dynamics.com
         pac solution import \
-          --path out/EasySpacesSolution.zip \
+          --path out/EasySpaces_Complete_20250904_213746.zip \
           --force-overwrite \
           --publish-changes \
           --activate-plugins \
